@@ -1,5 +1,21 @@
 # System Monitor Changelog
 
+## [Update] - 2025-03-03
+
+- Update the action to open the corresponding tab in the System Monitor
+
+## [Fix] - 2025-01-02
+
+- Fix issue when showing battery level on Intel-based Macs
+
+## [Chore] - 2024-11-24
+
+- Fixed wording in description
+
+## [Fix] - 2024-08-12
+
+- Fix issue when showing processes that consume more than 9Gb of RAM
+
 ## [Update & New Additions] - 2024-04-26
 
 - Update dependencies and `package.json` file structure to follow the latest version from Raycast

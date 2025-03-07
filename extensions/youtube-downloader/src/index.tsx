@@ -1,50 +1,147 @@
-import { Action, ActionPanel, Clipboard, Detail, Form, Icon, showToast, Toast } from "@raycast/api";
-import ytdl, { videoFormat } from "@distube/ytdl-core";
-import { useEffect, useMemo, useState } from "react";
-import { FormValidation, useForm } from "@raycast/utils";
-import prettyBytes from "pretty-bytes";
+import { spawn } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
 import {
-  downloadAudio,
-  downloadVideo,
-  parseHHMM,
-  FormatOptions,
+  Action,
+  ActionPanel,
+  BrowserExtension,
+  Clipboard,
+  Form,
+  Icon,
+  getPreferenceValues,
+  getSelectedText,
+  open,
+  showHUD,
+  showToast,
+  Toast,
+} from "@raycast/api";
+import { useEffect, useMemo, useState } from "react";
+import { useForm, usePromise } from "@raycast/utils";
+import { execa } from "execa";
+import {
   DownloadOptions,
-  preferences,
-  formatHHMM,
+  getFormats,
+  getFormatTitle,
+  getFormatValue,
   isValidHHMM,
-} from "./utils";
-import { execSync } from "child_process";
-import fs from "fs";
+  isValidUrl,
+  parseHHMM,
+} from "./utils.js";
+import { Video } from "./types.js";
+import Installer from "./views/installer.js";
+import Updater from "./views/updater.js";
+
+const {
+  downloadPath,
+  ytdlPath,
+  ffmpegPath,
+  ffprobePath,
+  autoLoadUrlFromClipboard,
+  autoLoadUrlFromSelectedText,
+  enableBrowserExtensionSupport,
+  forceIpv4,
+} = getPreferenceValues<ExtensionPreferences>();
 
 export default function DownloadVideo() {
-  const [loading, setLoading] = useState(false);
-  const [title, setTitle] = useState("");
-  const [formats, setFormats] = useState<videoFormat[]>([]);
   const [error, setError] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [warning, setWarning] = useState("");
 
   const { handleSubmit, values, itemProps, setValue, setValidationError } = useForm<DownloadOptions>({
+    initialValues: {
+      url: "",
+    },
     onSubmit: async (values) => {
-      setLoading(true);
+      const options = ["-P", downloadPath];
+      const [downloadFormat, recodeFormat] = values.format.split("#");
 
-      if (isSelectedAudio) {
-        await downloadAudio(values.url, values);
-      } else {
-        await downloadVideo(values.url, values);
-      }
+      options.push("--ffmpeg-location", ffmpegPath);
+      options.push("--format", downloadFormat);
+      options.push("--recode-video", recodeFormat);
 
-      setLoading(false);
+      const toast = await showToast({
+        title: "Downloading Video",
+        style: Toast.Style.Animated,
+        message: "0%",
+      });
+
+      options.push("--progress");
+      options.push("--print", "after_move:filepath");
+
+      const process = spawn(ytdlPath, [...options, values.url]);
+
+      let filePath = "";
+
+      process.stdout.on("data", (data) => {
+        const line = data.toString();
+        console.log(line);
+
+        const progress = Number(/\[download\]\s+(\d+(\.\d+)?)%.*/.exec(line)?.[1]);
+        if (progress) {
+          const currentProgress = Number(toast.message?.replace("%", ""));
+
+          if (progress < currentProgress) {
+            toast.title = "Formatting Video";
+          }
+          toast.message = `${Math.floor(progress)}%`;
+        }
+
+        if (line.startsWith("/")) {
+          filePath = line;
+        }
+      });
+
+      process.stderr.on("data", (data) => {
+        const line = data.toString();
+        console.error(line);
+
+        if (line.startsWith("WARNING:")) {
+          setWarning(line);
+        }
+
+        if (line.startsWith("ERROR:")) {
+          toast.title = "Download Failed";
+          toast.style = Toast.Style.Failure;
+        }
+        toast.message = line;
+      });
+
+      process.on("close", () => {
+        if (toast.style === Toast.Style.Failure) {
+          return;
+        }
+
+        toast.title = "Video Downloaded";
+        toast.style = Toast.Style.Success;
+        toast.message = video?.title;
+
+        if (filePath) {
+          toast.primaryAction = {
+            title: "Open in Finder",
+            shortcut: { modifiers: ["cmd", "shift"], key: "o" },
+            onAction: () => {
+              open(path.dirname(filePath));
+            },
+          };
+          toast.secondaryAction = {
+            title: "Copy to Clipboard",
+            shortcut: { modifiers: ["cmd", "shift"], key: "c" },
+            onAction: () => {
+              Clipboard.copy({ file: filePath });
+              showHUD("Copied to Clipboard");
+            },
+          };
+        }
+      });
     },
     validation: {
       url: (value) => {
         if (!value) {
           return "URL is required";
         }
-        if (!ytdl.validateURL(value)) {
-          return "Invalid YouTube URL";
+        if (!isValidUrl(value)) {
+          return "Invalid URL";
         }
       },
-      format: FormValidation.Required,
       startTime: (value) => {
         if (value) {
           if (!isValidHHMM(value)) {
@@ -57,7 +154,7 @@ export default function DownloadVideo() {
           if (!isValidHHMM(value)) {
             return "Invalid time format";
           }
-          if (parseHHMM(value) > duration) {
+          if (video && parseHHMM(value) > video?.duration) {
             return "End time is greater than video duration";
           }
         }
@@ -65,191 +162,147 @@ export default function DownloadVideo() {
     },
   });
 
-  useEffect(() => {
-    if (values.url && ytdl.validateURL(values.url)) {
-      setLoading(true);
-      ytdl
-        .getInfo(values.url)
-        .then((info) => {
-          const videoDuration = parseInt(info.videoDetails.lengthSeconds);
-          const isLiveStream = info.videoDetails.isLiveContent && videoDuration === 0;
-          const isLivePremiere = info.videoDetails.liveBroadcastDetails?.isLiveNow;
-          if (isLiveStream || isLivePremiere) {
-            showToast({
-              style: Toast.Style.Failure,
-              title: isLiveStream
-                ? "Live streams are not supported"
-                : "Live premieres are not supported. Please download the video after the live premiere.",
-            });
-            return;
-          }
-          setLoading(false);
-          setDuration(videoDuration);
-          setTitle(info.videoDetails.title);
-          setFormats(info.formats);
-        })
-        .catch(() => {
-          setValidationError("url", "Video not found");
+  const { data: video, isLoading } = usePromise(
+    async (url: string) => {
+      if (!url) return;
+      if (!isValidUrl(url)) return;
+
+      const result = await execa(
+        ytdlPath,
+        [forceIpv4 ? "--force-ipv4" : "", "--dump-json", "--format-sort=resolution,ext,tbr", url].filter((x) =>
+          Boolean(x),
+        ),
+      );
+      return JSON.parse(result.stdout) as Video;
+    },
+    [values.url],
+    {
+      onError(error) {
+        showToast({
+          style: Toast.Style.Failure,
+          title: "Video not found with the provided URL",
+          message: error.message,
+          primaryAction: {
+            title: "Copy to Clipboard",
+            onAction: () => {
+              Clipboard.copy(error.message);
+            },
+          },
         });
-    }
-  }, [values.url]);
+      },
+    },
+  );
 
   useEffect(() => {
-    Clipboard.readText().then((text) => {
-      if (text && ytdl.validateURL(text)) {
-        setValue("url", text);
+    if (video) {
+      if (video.live_status !== "not_live" && video.live_status !== undefined) {
+        setValidationError("url", "Live streams are not supported");
       }
-    });
+    }
+  }, [video]);
+
+  useEffect(() => {
+    (async () => {
+      if (autoLoadUrlFromClipboard) {
+        const clipboardText = await Clipboard.readText();
+        if (clipboardText && isValidUrl(clipboardText)) {
+          setValue("url", clipboardText);
+          return;
+        }
+      }
+
+      if (autoLoadUrlFromSelectedText) {
+        try {
+          const selectedText = await getSelectedText();
+          if (selectedText && isValidUrl(selectedText)) {
+            setValue("url", selectedText);
+            return;
+          }
+        } catch {
+          // Suppress the error if Raycast didn't find any selected text
+        }
+      }
+
+      if (enableBrowserExtensionSupport) {
+        try {
+          const tabUrl = (await BrowserExtension.getTabs()).find((tab) => tab.active)?.url;
+          if (tabUrl && isValidUrl(tabUrl)) setValue("url", tabUrl);
+        } catch {
+          // Suppress the error if Raycast didn't find browser extension
+        }
+      }
+    })();
   }, []);
 
   const missingExecutable = useMemo(() => {
-    if (!fs.existsSync(preferences.ffmpegPath)) {
+    if (!fs.existsSync(ytdlPath)) {
+      return "yt-dlp";
+    }
+    if (!fs.existsSync(ffmpegPath)) {
       return "ffmpeg";
     }
-    if (!fs.existsSync(preferences.ffprobePath)) {
+    if (!fs.existsSync(ffprobePath)) {
       return "ffprobe";
     }
     return null;
   }, [error]);
 
-  if (missingExecutable) {
-    return <NotInstalled executable={missingExecutable} onRefresh={() => setError(error + 1)} />;
-  }
+  const formats = useMemo(() => getFormats(video), [video]);
 
-  const currentFormat = JSON.parse(values.format || "{}");
-  const audioFormats = ytdl.filterFormats(formats, "audioonly").filter((format) => format.container === "mp4");
-  const isSelectedAudio = currentFormat.itag === audioFormats[0]?.itag.toString();
-  const audioContentLength = audioFormats[0]?.contentLength ?? "0";
-  const videoFormats = ytdl
-    .filterFormats(formats, "videoonly")
-    .filter((format) => (format.container === "mp4" && !format.colorInfo) || format.container === "webm");
+  if (missingExecutable) {
+    return <Installer executable={missingExecutable} onRefresh={() => setError(error + 1)} />;
+  }
 
   return (
     <Form
-      isLoading={loading}
+      isLoading={isLoading}
       actions={
         <ActionPanel>
-          <Action.SubmitForm
-            icon={Icon.Download}
-            title={isSelectedAudio ? "Download Audio" : "Download Video"}
-            onSubmit={(values) => {
-              handleSubmit({ ...values, copyToClipboard: false } as DownloadOptions);
-            }}
-          />
-          <Action.SubmitForm
-            icon={Icon.CopyClipboard}
-            title={isSelectedAudio ? "Copy Audio" : "Copy Video"}
-            onSubmit={(values) => {
-              handleSubmit({ ...values, copyToClipboard: true } as DownloadOptions);
-            }}
-          />
+          <ActionPanel.Section>
+            <Action.SubmitForm
+              icon={Icon.Download}
+              title="Download Video"
+              onSubmit={(values) => {
+                setWarning("");
+                handleSubmit({ ...values, copyToClipboard: false } as DownloadOptions);
+              }}
+            />
+          </ActionPanel.Section>
+          <ActionPanel.Section>
+            <Action.Push icon={Icon.Hammer} title="Update Libraries" target={<Updater />} />
+          </ActionPanel.Section>
         </ActionPanel>
       }
+      searchBarAccessory={
+        <Form.LinkAccessory
+          text="Supported Sites"
+          target="https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md"
+        />
+      }
     >
-      <Form.Description title="Title" text={title || "No video selected"} />
+      <Form.Description title="Title" text={video?.title ?? "Video not found"} />
       <Form.TextField
+        {...itemProps.url}
         autoFocus
         title="URL"
-        placeholder="https://www.youtube.com/watch?v=xRMPKQweySE"
-        {...itemProps.url}
+        placeholder="https://www.youtube.com/watch?v=ykaj0pS4A1A"
       />
-      <Form.Dropdown title="Format" {...itemProps.format}>
-        {["mp4", "webm"].map((container) => (
-          <Form.Dropdown.Section key={container} title={`Video (${container})`}>
-            {videoFormats
-              .filter((format) => format.container == container)
-              .map((format, index) => (
+      {warning && <Form.Description text={warning} />}
+      {video && (
+        <Form.Dropdown {...itemProps.format} title="Format">
+          {Object.entries(formats).map(([category, formats]) => (
+            <Form.Dropdown.Section title={category} key={category}>
+              {formats.map((format) => (
                 <Form.Dropdown.Item
-                  key={`${format.itag}-${format.quality}-${container}-${index}`}
-                  value={JSON.stringify({ itag: format.itag.toString(), container: container } as FormatOptions)}
-                  title={`${format.qualityLabel} (${
-                    format.contentLength
-                      ? prettyBytes(parseInt(format.contentLength) + parseInt(audioContentLength))
-                      : ""
-                  }) [${container}]`}
-                  icon={Icon.Video}
+                  key={format.format_id}
+                  value={getFormatValue(format)}
+                  title={getFormatTitle(format)}
                 />
               ))}
-          </Form.Dropdown.Section>
-        ))}
-        <Form.Dropdown.Section title="Audio">
-          {audioFormats.map((format, index) => (
-            <Form.Dropdown.Item
-              key={`${format.itag}-${format.audioBitrate}-${index}`}
-              value={JSON.stringify({ itag: format.itag.toString() } as FormatOptions)}
-              title={`${format.audioBitrate}kps (${prettyBytes(parseInt(format.contentLength))})`}
-              icon={Icon.Music}
-            />
+            </Form.Dropdown.Section>
           ))}
-        </Form.Dropdown.Section>
-      </Form.Dropdown>
-      <Form.Separator />
-      <Form.TextField
-        info="Optional. Specify when the output video should start. Follow the format HH:MM:SS or MM:SS."
-        title="Start Time"
-        placeholder="00:00"
-        {...itemProps.startTime}
-      />
-      <Form.TextField
-        info="Optional. Specify when the output video should end. Follow the format HH:MM:SS or MM:SS."
-        title="End Time"
-        placeholder={duration ? formatHHMM(duration) : "00:00"}
-        {...itemProps.endTime}
-      />
-    </Form>
-  );
-}
-
-function NotInstalled({ executable, onRefresh }: { executable: string; onRefresh: () => void }) {
-  return (
-    <Detail
-      actions={<AutoInstall onRefresh={onRefresh} />}
-      markdown={`
-# 🚨 Error: \`${executable}\` is not installed
-This extension depends on a command-line utilty that is not detected on your system. You must install it continue.
-
-If you have homebrew installed, simply press **⏎** to have this extension install it for you. Since \`${executable}\` is a heavy library, 
-**it can take up 2 minutes to install**.
-
-To install homebrew, visit [this link](https://brew.sh)
-  `}
-    />
-  );
-}
-
-function AutoInstall({ onRefresh }: { onRefresh: () => void }) {
-  const [isLoading, setIsLoading] = useState(false);
-  return (
-    <ActionPanel>
-      {!isLoading && (
-        <Action
-          title="Install with Homebrew"
-          icon={Icon.Download}
-          onAction={async () => {
-            if (isLoading) return;
-
-            setIsLoading(true);
-
-            const toast = await showToast({ style: Toast.Style.Animated, title: "Installing ffmpeg..." });
-            await toast.show();
-
-            try {
-              execSync(`zsh -l -c 'brew install ffmpeg'`);
-              await toast.hide();
-              onRefresh();
-            } catch (e) {
-              await toast.hide();
-              console.error(e);
-              await showToast({
-                style: Toast.Style.Failure,
-                title: "Error installing",
-                message: "An unknown error occured while trying to install",
-              });
-            }
-            setIsLoading(false);
-          }}
-        />
+        </Form.Dropdown>
       )}
-    </ActionPanel>
+    </Form>
   );
 }

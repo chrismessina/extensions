@@ -4,14 +4,16 @@ import {
   Detail,
   Form,
   Icon,
+  Keyboard,
+  LaunchProps,
   List,
   Toast,
   getPreferenceValues,
   showToast,
   useNavigation,
 } from "@raycast/api";
-import { FormValidation, useFetch, useForm, useLocalStorage } from "@raycast/utils";
-import { useState } from "react";
+import { FormValidation, showFailureToast, useFetch, useForm, useLocalStorage } from "@raycast/utils";
+import { useEffect, useState } from "react";
 
 type Color = {
   hex: string;
@@ -69,8 +71,12 @@ type BrandInStorage = Brand & {
 };
 const { api_key } = getPreferenceValues<Preferences>();
 
-export default function RetrieveBrand() {
+export default function RetrieveBrand(props: LaunchProps<{ arguments: Arguments.RetrieveBrands }>) {
   const { push } = useNavigation();
+  const { action } = getPreferenceValues<Preferences.RetrieveBrands>();
+  const { search } = props.arguments;
+  const [searched, setSearched] = useState(!search);
+
   const { isLoading, value: brands = [], setValue: setBrands } = useLocalStorage<BrandInStorage[]>("brands", []);
 
   async function updateBrands(newBrand: BrandInStorage) {
@@ -86,6 +92,27 @@ export default function RetrieveBrand() {
     if (index !== -1) newBrands.splice(index, 1);
     await setBrands(newBrands);
   }
+
+  useEffect(() => {
+    async function searchAndShow() {
+      setSearched(true);
+      const brand = brands.find((b) => b.domain === search);
+      if (brand) {
+        push(<ViewBrand brand={brand} />);
+      } else {
+        await showFailureToast("No matching brand found", {
+          title: search,
+          primaryAction: {
+            title: "Search Brand",
+            onAction() {
+              push(<SearchBrand search={search} onSearched={updateBrands} />);
+            },
+          },
+        });
+      }
+    }
+    if (brands.length && !searched) searchAndShow();
+  }, [brands]);
 
   return (
     <List isLoading={isLoading} searchBarPlaceholder="Search brand">
@@ -116,19 +143,37 @@ export default function RetrieveBrand() {
               actions={
                 <ActionPanel>
                   <Action.Push title="View Brand" icon={Icon.Eye} target={<ViewBrand brand={brand} />} />
-                  <Action
-                    icon={Icon.DeleteDocument}
-                    style={Action.Style.Destructive}
-                    title="Remove Brand"
-                    onAction={() => removeBrand(brand)}
-                  />
-                  <ActionPanel.Section>
+                  {action === "del" ? (
+                    <Action
+                      icon={Icon.DeleteDocument}
+                      style={Action.Style.Destructive}
+                      title="Remove Brand"
+                      onAction={() => removeBrand(brand)}
+                    />
+                  ) : (
                     <Action.Push
-                      shortcut={{ modifiers: ["cmd"], key: "n" }}
                       icon={Icon.MagnifyingGlass}
                       title="Search Brand"
                       target={<SearchBrand onSearched={updateBrands} />}
                     />
+                  )}
+                  <ActionPanel.Section>
+                    {action === "del" ? (
+                      <Action.Push
+                        shortcut={Keyboard.Shortcut.Common.New}
+                        icon={Icon.MagnifyingGlass}
+                        title="Search Brand"
+                        target={<SearchBrand onSearched={updateBrands} />}
+                      />
+                    ) : (
+                      <Action
+                        icon={Icon.DeleteDocument}
+                        style={Action.Style.Destructive}
+                        title="Remove Brand"
+                        onAction={() => removeBrand(brand)}
+                        shortcut={Keyboard.Shortcut.Common.Remove}
+                      />
+                    )}
                   </ActionPanel.Section>
                 </ActionPanel>
               }
@@ -141,14 +186,23 @@ export default function RetrieveBrand() {
 }
 
 type SearchBrandProps = {
+  search?: string;
   onSearched: (brand: BrandInStorage) => void;
 };
-function SearchBrand({ onSearched }: SearchBrandProps) {
+function SearchBrand({ search, onSearched }: SearchBrandProps) {
   const { pop } = useNavigation();
   const [execute, setExecute] = useState(false);
+
+  useEffect(() => {
+    if (search) handleSubmit({ domain: search });
+  }, []);
+
   const { itemProps, handleSubmit, values } = useForm<{ domain: string }>({
     onSubmit() {
       setExecute(true);
+    },
+    initialValues: {
+      domain: search,
     },
     validation: {
       domain: FormValidation.Required,
@@ -181,7 +235,7 @@ function SearchBrand({ onSearched }: SearchBrandProps) {
       isLoading={isLoading}
       actions={
         <ActionPanel>
-          <Action.SubmitForm icon={Icon.Check} title="Retrieve Brand" onSubmit={handleSubmit} />
+          {!isLoading && <Action.SubmitForm icon={Icon.Check} title="Retrieve Brand" onSubmit={handleSubmit} />}
         </ActionPanel>
       }
     >
@@ -237,9 +291,22 @@ ${brand.backdrops.map(({ url }) => `![${url}](${url})`).join(`\n\n`)}`;
             <Detail.Metadata.Label title="Address" text="N/A" />
           ) : (
             <>
-              {Object.entries(brand.address).map(([key, val]) => (
-                <Detail.Metadata.Label key={key} title={key} text={val} />
-              ))}
+              {brand.address.street && <Detail.Metadata.Label title="Street" text={brand.address.street} />}
+              {brand.address.city && <Detail.Metadata.Label title="City" text={brand.address.city} />}
+              {brand.address.country && <Detail.Metadata.Label title="Country" text={brand.address.country} />}
+              {brand.address.country_code && (
+                <Detail.Metadata.Label title="Country Code" text={brand.address.country_code} />
+              )}
+              {brand.address.state_province && (
+                <Detail.Metadata.Label title="State / Province" text={brand.address.state_province} />
+              )}
+              {brand.address.state_code && <Detail.Metadata.Label title="State Code" text={brand.address.state_code} />}
+              {brand.address.postal_code && (
+                <Detail.Metadata.Label title="Postal Code" text={brand.address.postal_code} />
+              )}
+              {brand.address.additional_info && (
+                <Detail.Metadata.Label title="Additional Info" text={brand.address.additional_info} />
+              )}
             </>
           )}
         </Detail.Metadata>
@@ -252,14 +319,24 @@ ${brand.backdrops.map(({ url }) => `![${url}](${url})`).join(`\n\n`)}`;
               title="View on brand.dev"
               url={`https://world.brand.dev/brand/${brand.domain}`}
             />
-            {brand.logos.length > 0 && (
-              <Action.OpenInBrowser title="Open Logo in Browser" icon={brand.logos[0].url} url={brand.logos[0].url} />
-            )}
+            {brand.logos.map((logo, index) => (
+              <Action.OpenInBrowser
+                key={index}
+                shortcut={{ modifiers: ["cmd"], key: (index + 1).toString() as Keyboard.KeyEquivalent }}
+                title={`Open Logo # ${index + 1} in Browser`}
+                icon={logo.url}
+                url={logo.url}
+              />
+            ))}
           </ActionPanel.Section>
         </ActionPanel>
       }
     />
   );
+}
+
+function capitalize(txt: string) {
+  return txt.charAt(0).toUpperCase() + txt.slice(1);
 }
 
 function formatSocialType(type: string) {
@@ -268,7 +345,9 @@ function formatSocialType(type: string) {
       return "X (formerly Twitter)";
     case "linkedin":
       return "LinkedIn";
+    case "youtube":
+      return "YouTube";
     default:
-      return type.charAt(0).toUpperCase() + type.slice(1);
+      return capitalize(type);
   }
 }
