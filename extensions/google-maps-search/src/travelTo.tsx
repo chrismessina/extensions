@@ -105,7 +105,12 @@ export default function Command() {
         />
       )}
       {/* Transport mode selection dropdown */}
-      <Form.Dropdown id="transportType" title="Transport Preference" value={mode} onChange={(newValue: string) => setMode(newValue as TransportType)}>
+      <Form.Dropdown
+        id="transportType"
+        title="Transport Preference"
+        value={mode}
+        onChange={(newValue: string) => setMode(newValue as TransportType)}
+      >
         <Form.Dropdown.Item value={TransportType.Driving} title="Driving" icon={Icon.Car} />
         <Form.Dropdown.Item value={TransportType.Transit} title="Transit" icon={Icon.Train} />
         <Form.Dropdown.Item value={TransportType.Walking} title="Walking" icon={Icon.Footprints} />
