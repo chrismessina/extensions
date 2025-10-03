@@ -114,7 +114,7 @@ Depending on the `type` of the Argument, some additional properties can be requi
 | -------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | data<mark style="color:red;">\*</mark> | An array of objects with `title` and `value` properties, e.g.: `[{"title": "Item 1", "value": "1"}]` |
 
-#### Tool Properties
+## Tool Properties
 
 All properties for a tool.
 
@@ -125,11 +125,11 @@ All properties for a tool.
 | description<mark style="color:red;">\*</mark> | It helps users and the AI understand what the tool does. It will be displayed in the Store and in Preferences.                                                                                                                                                                                                                                |
 | icon                                          | <p>An optional reference to an icon file in the assets folder. Use png format with a size of at least 512 x 512 pixels. To support light and dark theme, add two icons, one with <code>@dark</code> as suffix, e.g. <code>icon.png</code> and <code>icon@dark.png</code>.</p><p>If no icon is specified, the extension icon will be used.</p> |
 
-#### AI Properties
+## AI Properties
 
 All properties for the AI capabilities of the extension. Alternatively, this object can be written in a `ai.json` (or `ai.yaml`) file at the root of the extension.
 
 | Property     | Description                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | instructions | A string containing additional instructions for the AI. It will be added as a system message whenever the extension is mentioned. It can for example be used to help the AI respond with a format that makes more sense for the extension: `Always format pull requests and issues as markdown links: [pull-request-title](https://github.com/:org/:repo/pull/:number) and [issue-title](https://github.com/:org/:repo/issues/:number)` |
-| evals        | Evals for AI Extension. [More details](https://raycastapp.notion.site/AI-Extensions-Evals-15fd6e4a8215800598cad77d8afb5dc8?pvs=73)                                                                                                                                                                                                                                                                                                      |
+| evals        | Evals for AI Extension.                                                                                                                                                                                                                                                                                                     |
