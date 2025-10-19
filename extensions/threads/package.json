@@ -252,7 +252,6 @@
     }
   ],
   "dependencies": {
-    "@chrismessina/raycast-logger": "^1.0.0",
     "@raycast/api": "^1.103.2",
     "axios": "^1.8.4",
     "cheerio": "^1.0.0",
