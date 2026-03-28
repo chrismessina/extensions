@@ -1,5 +1,27 @@
 # Changelog
 
+## [Fix `fnm` macOS Path Resolution] - 2026-03-28
+
+- Detect additional macOS `fnm` install locations, including `~/Library/Application Support/fnm`
+- Match the official `fnm` directory resolution preference order when resolving `fnm` paths.
+
+## [Agent-Specific Skill Removal] - 2026-03-27
+
+- Support removing skills from specific agents instead of all agents at once
+- Show an agent picker form with checkboxes when a skill is installed in multiple agents
+
+## [Lock File Metadata] - 2026-03-23
+
+- Show skill source, install date, and update date from the global lock file in the detail panel
+- Add "Open on GitHub" action for installed skills
+- Add "Copy Source URL" action for installed skills
+
+## [Improve macOS `npx` Path Resolution] - 2026-03-20
+
+- Run the Skills CLI without spawning a login shell by building an explicit PATH for Homebrew and common Node.js version-manager installs
+- Add a custom `npx` path preference for non-standard setups
+- Show clearer recovery guidance for `npx` and Skills CLI failures, including a shortcut to open Extension Preference
+
 ## [Fix Incomplete Agent List] - 2026-03-17
 
 - Use `skills list --json` for structured output instead of parsing ANSI text

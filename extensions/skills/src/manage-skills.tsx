@@ -1,23 +1,56 @@
-import { List, Icon, Detail, ActionPanel, Action, Color } from "@raycast/api";
+import { List, Icon, Detail, ActionPanel, Action, Color, openExtensionPreferences } from "@raycast/api";
 import { useState } from "react";
 import { useInstalledSkills } from "./hooks/useInstalledSkills";
+import { isNpxResolutionError } from "./utils/skills-cli";
 import { InstalledSkillListItem } from "./components/InstalledSkillListItem";
 import { UpdateSkillAction } from "./components/actions/UpdateSkillAction";
 
 export default function Command() {
-  const { skills, isLoading, error, revalidate } = useInstalledSkills();
+  const { skills, isLoading, error, revalidate, mutate } = useInstalledSkills();
   const [selectedAgent, setSelectedAgent] = useState<string>("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isShowingDetail, setIsShowingDetail] = useState(true);
   const toggleDetail = () => setIsShowingDetail((prev) => !prev);
+  const hasNpxResolutionError = error ? isNpxResolutionError(error) : false;
 
   if (error && skills.length === 0) {
+    let errorMarkdown = `# Error Loading Installed Skills
+
+**Error:** ${error?.message}
+
+---
+
+This is a local skills CLI execution failure.
+
+If this persists:
+
+1. Retry the command.
+2. Open Extension Preferences and verify **Custom npx Path** if you use a non-standard Node.js setup.
+3. Run \`npx -y skills@latest list -g\` in Terminal to inspect the underlying CLI error.
+`;
+
+    if (hasNpxResolutionError) {
+      errorMarkdown = `# Error Loading Installed Skills
+
+**Error:** ${error?.message}
+
+---
+
+This is an npx resolution issue in the local CLI runtime.
+
+1. Run \`which npx\` in Terminal.
+2. Open Extension Preferences (\`Cmd+Shift+,\`).
+3. Set **Custom npx Path** to the path from step 1, then retry.
+`;
+    }
+
     return (
       <Detail
-        markdown={`# Error Loading Installed Skills\n\n**Error:** ${error.message}\n\n---\n\nMake sure you have the skills CLI available: \`npx skills list -g\``}
+        markdown={errorMarkdown}
         actions={
           <ActionPanel>
             <Action title="Retry" onAction={revalidate} icon={Icon.RotateClockwise} />
+            <Action title="Open Preferences" onAction={openExtensionPreferences} icon={Icon.Gear} />
           </ActionPanel>
         }
       />
@@ -91,6 +124,7 @@ export default function Command() {
                 skill={skill}
                 isSelected={selectedId === skill.name}
                 isShowingDetail={isShowingDetail}
+                mutate={mutate}
                 onToggleDetail={toggleDetail}
                 onUpdate={revalidate}
               />
