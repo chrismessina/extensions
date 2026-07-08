@@ -1,5 +1,30 @@
 # Skills Changelog
 
+## [Document Custom Registry Configuration] - 2026-07-03
+
+- Add README guidance for pointing `bunx`/`npx` at a custom package registry (corporate proxy) via `~/.npmrc` and `~/.bunfig.toml`, since Raycast does not inherit shell environment variables
+
+## [Use Security Audit API] - 2026-06-26
+
+- Use the Skills security audit API instead of parsing audit data from the skills.sh HTML page
+
+## [Sync Skills Agent IDs] - 2026-06-26
+
+- Sync the local Skills CLI agent ID fallback map with the upstream supported agents list
+
+## [Add Update All Skills Command] - 2026-06-16
+
+- Add a standalone "Update All Skills" command to update all installed skills directly from Raycast
+
+## [Fix Skill Contents for Nested Skills] - 2026-06-09
+
+- Fix skill details and the "Copy Skill Contents" action falling back to the repository README for skills nested under category folders (e.g. `skills/productivity/grill-me/SKILL.md`) by locating the real SKILL.md anywhere in the repository tree
+
+## [Copy Skill Contents] - 2026-06-06
+
+- Add a "Copy Skill Contents" action to copy a skill's full SKILL.md to the clipboard from search results, skill details, and installed skills, so it can be pasted into tools like ChatGPT or Claude without installing the skill
+- Move the "Copy Install Command" action to `⌘ ⇧ I` so the canonical copy shortcut (`⌘ ⇧ C`) copies the skill contents
+
 ## [Fix Confirmation Dialog Icon] - 2026-06-05
 
 - Show a relevant icon in the Update, Install, and Remove confirmation dialogs instead of falling back to the oversized extension icon on Windows

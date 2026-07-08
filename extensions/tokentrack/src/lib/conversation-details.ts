@@ -13,14 +13,9 @@ export function truncateTitle(text: string, max = TITLE_MAX): string {
 }
 
 export function supportsConversationDetails(
-  provider: SourceProviderKey,
+  _provider: SourceProviderKey,
   events: UsageEvent[],
 ): boolean {
-  if (provider === "cursor") {
-    return events.some(
-      (e) => e.conversationKey && e.id.startsWith("cursor:local:"),
-    );
-  }
   return events.some((e) => e.conversationKey);
 }
 
@@ -38,6 +33,7 @@ export function groupEventsByConversation(
         key: event.conversationKey,
         title:
           truncateTitle(event.conversationTitle ?? "") || fallbackTitle(event),
+        sourcePath: event.sourcePath ?? event.conversationKey,
         totalTokens: event.totalTokens,
         estimatedCost: event.estimatedCost,
         eventCount: 1,
@@ -66,7 +62,10 @@ export function groupEventsByConversation(
 }
 
 function fallbackTitle(event: UsageEvent): string {
-  if (event.sourcePath && event.sourcePath !== "cursor-api") {
+  if (event.conversationKey?.startsWith("claude:")) {
+    return "Untitled chat";
+  }
+  if (event.sourcePath?.endsWith(".jsonl")) {
     const base = event.sourcePath.split("/").pop() ?? event.sourcePath;
     const withoutExt = base.replace(/\.jsonl$/i, "");
     if (withoutExt.startsWith("rollout-")) {

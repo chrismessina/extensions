@@ -1,4 +1,5 @@
-import { Action, ActionPanel, Color, Icon, List } from "@raycast/api";
+import { Action, ActionPanel, Icon, List } from "@raycast/api";
+import { useCachedPromise } from "@raycast/utils";
 import { useMemo, useState } from "react";
 import {
   formatCurrencyMoney,
@@ -8,20 +9,23 @@ import {
   periodLabels,
   type PeriodKey,
 } from "./lib/format";
-import type { ConversationUsageSummary } from "./lib/types";
+import {
+  openConversationTitle,
+  openConversationTooltip,
+  runOpenConversation,
+} from "./lib/open-conversation";
+import { COST_COLOR, DATE_COLOR } from "./lib/ui-colors";
+import { loadConversationDetails } from "./lib/usage";
+import type { ConversationUsageSummary, SourceProviderKey } from "./lib/types";
 
 type UsageDetailsProps = {
   period: PeriodKey;
+  provider: SourceProviderKey;
   providerTitle: string;
   currency: string;
-  conversations: ConversationUsageSummary[];
-  unavailableReason?: string;
 };
 
 type SortKey = "date" | "tokens" | "cost";
-
-const COST_COLOR = Color.Green;
-const DATE_COLOR = Color.Orange;
 
 function sortConversations(
   conversations: ConversationUsageSummary[],
@@ -52,29 +56,37 @@ function sortConversations(
 
 export function UsageDetailsView({
   period,
+  provider,
   providerTitle,
   currency,
-  conversations,
-  unavailableReason,
 }: UsageDetailsProps) {
   const [sort, setSort] = useState<SortKey>("date");
   const periodLabel = periodLabels[period];
 
+  const { isLoading, data: conversations } = useCachedPromise(
+    (p: PeriodKey, prov: SourceProviderKey) => loadConversationDetails(p, prov),
+    [period, provider],
+    { keepPreviousData: true },
+  );
+
   const sorted = useMemo(
-    () => sortConversations(conversations, sort),
+    () => sortConversations(conversations ?? [], sort),
     [conversations, sort],
   );
 
-  if (unavailableReason || sorted.length === 0) {
+  if (isLoading && sorted.length === 0) {
+    return (
+      <List isLoading navigationTitle={`${providerTitle} · ${periodLabel}`} />
+    );
+  }
+
+  if (sorted.length === 0) {
     return (
       <List navigationTitle={`${providerTitle} · ${periodLabel}`}>
         <List.EmptyView
-          icon={Icon.ExclamationMark}
-          title="Details unavailable"
-          description={
-            unavailableReason ??
-            "No per-chat breakdown is available for this provider and period."
-          }
+          icon={Icon.Message}
+          title="No chats"
+          description="Nothing in this period."
         />
       </List>
     );
@@ -107,6 +119,7 @@ export function UsageDetailsView({
             key={chat.key}
             chat={chat}
             currency={currency}
+            provider={provider}
           />
         ))}
       </List.Section>
@@ -117,9 +130,11 @@ export function UsageDetailsView({
 function ConversationListItem({
   chat,
   currency,
+  provider,
 }: {
   chat: ConversationUsageSummary;
   currency: string;
+  provider: SourceProviderKey;
 }) {
   const tokensStr = formatTokens(chat.totalTokens);
   const costStr =
@@ -127,12 +142,15 @@ function ConversationListItem({
       ? formatCurrencyMoney(chat.estimatedCost, currency)
       : undefined;
   const dateStr = formatShortDate(chat.lastActive);
+  const openTooltip = openConversationTooltip(provider);
 
   return (
     <List.Item
-      title={chat.title}
+      title={{
+        value: chat.title,
+        tooltip: openTooltip,
+      }}
       accessories={[
-        { text: tokensStr, tooltip: `${tokensStr} tokens` },
         ...(costStr
           ? [
               {
@@ -141,6 +159,7 @@ function ConversationListItem({
               },
             ]
           : []),
+        { text: tokensStr, tooltip: `${tokensStr} tokens` },
         {
           text: { value: dateStr, color: DATE_COLOR },
           tooltip: `Last active · ${formatDateTime(chat.lastActive)}`,
@@ -148,6 +167,12 @@ function ConversationListItem({
       ]}
       actions={
         <ActionPanel>
+          <Action
+            title={openConversationTitle(provider)}
+            icon={Icon.ArrowNe}
+            shortcut={{ modifiers: ["cmd"], key: "o" }}
+            onAction={() => runOpenConversation(provider, chat)}
+          />
           <Action.CopyToClipboard
             title="Copy Token Count"
             content={String(chat.totalTokens)}
