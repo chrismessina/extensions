@@ -1,5 +1,17 @@
 # Agent Usage Changelog
 
+## [Antigravity badge] - 2026-07-15
+
+### Fixed
+
+- The Antigravity list badge now derives from the first-party (Gemini) quota groups only, ignoring third-party (Claude/GPT) pools, so an account with a healthy Gemini quota reads green instead of collapsing to 0% when its separately-allocated third-party pool is exhausted. Third-party usage remains visible in the tooltip and detail panel
+
+## [Codex quota badge] - 2026-07-15
+
+### Fixed
+
+- The Codex list badge now reflects the binding rate-limit constraint — the worst of the 5-hour, weekly, and code-review windows — instead of only the 5-hour window, so an account with an exhausted weekly limit reads red instead of a falsely-healthy green
+
 ## [Fix MiniMax no data display] - 2026-07-14
 
 ### Bug Fixes
@@ -30,6 +42,15 @@
 ### Improvements
 
 - Auto-generate dark variants for monochrome provider SVG icons
+
+## [Global TTL Cache] - 2026-07-15
+
+### Improvements
+
+- Implement a global disk cache with a configurable TTL (defaults to 3 minutes) to eliminate redundant API fetches and protect against rate limit errors when the menu bar runs in the background
+- Only cache successful fetches — errors are retried on the next launch — and refetch immediately when the configured auth token changes
+- Reduce boilerplate state-management code by consolidating every provider hook into two shared cached-hook factories
+- Show when usage data was last fetched in the refresh actions of both commands
 
 ## [Antigravity CLI support] - 2026-07-02
 

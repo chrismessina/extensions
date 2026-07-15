@@ -30,6 +30,7 @@ export interface UsageState<TUsage, TError> {
   usage: TUsage | null;
   error: TError | null;
   revalidate: () => Promise<void>;
+  lastFetchedAt?: number;
 }
 
 export interface Accessory {
