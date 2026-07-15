@@ -1,5 +1,36 @@
 # Agent Usage Changelog
 
+## [Fix MiniMax no data display] - 2026-07-14
+
+### Bug Fixes
+
+- Fix MiniMax showing "—" (no data) for coding plan users: the upstream API now returns remaining percentages and per-window status instead of usage counts, so read `current_interval_remaining_percent` / `current_weekly_remaining_percent` when counts are 0, treat `status === 1` as an active plan window, and pick the active model first instead of matching by `MiniMax-M*` model name (new API uses `general` / `video`)
+
+## [Fix Codex Plus plan parse error] - 2026-07-13
+
+### Bug Fixes
+
+- Fix Codex `parse_error` on Plus plan: tolerate `rate_limit.secondary_window: null` by detecting 5h vs weekly windows via `limit_window_seconds`, make `fiveHourLimit` / `weeklyLimit` optional, and skip the missing section in the detail view
+
+## [Amp Free percent usage] - 2026-07-12
+
+### Improvements
+
+- Parse Amp Free as a percentage remaining (with optional reset note such as "resets daily") to match the current `amp` CLI output
+- Show Amp Free as percent remaining in the list, detail, and menu bar; remove the amount/percentage display-mode preference
+
+## [Add Grok Usage Provider] - 2026-07-12
+
+### New Features
+
+- Add Grok (xAI) provider to monitor SuperGrok / Grok Build credit usage in the main list and menu bar
+- Auto-detect credentials from `~/.grok/auth.json` (or `$GROK_HOME/auth.json`) after `grok login`
+- Refresh OIDC access tokens when expired, and retry billing requests after session refresh
+
+### Improvements
+
+- Auto-generate dark variants for monochrome provider SVG icons
+
 ## [Antigravity CLI support] - 2026-07-02
 
 ### Improvements
