@@ -131,6 +131,7 @@
 /extensions/archiver                                                @404J @3llomi @ridemountainpig
 /extensions/are-na                                                  @alvinashiatey @xmok @0xdhrv
 /extensions/area-code-lookup                                        @camerondare
+/extensions/area-code-search                                        @mjking
 /extensions/array-this                                              @matheus-depaula
 /extensions/ars-technica                                            @edwin-dd-ong
 /extensions/arxiv                                                   @koayon @pernielsentikaer @osteele
@@ -424,6 +425,7 @@
 /extensions/codegrepper                                             @emircanerkul @pernielsentikaer
 /extensions/codemagic                                               @Imgkl
 /extensions/codesnap                                                @Mokkapps @pernielsentikaer
+/extensions/codex-claude-cli                                        @WerrySs
 /extensions/codex-manager                                           @josedefreitas91 @pernielsentikaer
 /extensions/coffee                                                  @mooxl @bibixx @GastroGeek @pernielsentikaer @pernielsentikaer @xilopaint @ridemountainpig @zakj @Visual-Studio-Coder @IKatsuba @alexibuild @mbuvarp @frederikobermaier-lab @bsradcliffe
 /extensions/cognimemo                                               @Sami-Ullah-Tufail
@@ -782,6 +784,7 @@
 /extensions/fake-swedish-personal-number                            @Corey-Maler
 /extensions/fake-typing-effect                                      @Cyberistic
 /extensions/fakecrime-upload                                        @berkay-digital
+/extensions/fal-ai                                                  @0xfreddy
 /extensions/fancy-text                                              @peduarte @pernielsentikaer @ridemountainpig @nexxai
 /extensions/fantastical                                             @devahschaefers @xilopaint @ramsaysewell @pernielsentikaer
 /extensions/fantasy-premier-league-rankings                         @hwb15 @niall-maloney
@@ -839,7 +842,7 @@
 /extensions/fitdesk                                                 @rasheed-code @pernielsentikaer
 /extensions/fix-helper                                              @tianwg
 /extensions/fix-language                                            @hiiamtin
-/extensions/fix-link-embeds                                         @eggsy
+/extensions/fix-link-embeds                                         @eggsy @o-az
 /extensions/fizzy                                                   @xmok
 /extensions/flashspace                                              @krmbzds
 /extensions/flaticon                                                @kudrykv
@@ -1911,6 +1914,7 @@
 /extensions/picgo                                                   @RUBisco0211
 /extensions/pick-random                                             @MatteoGauthier @hongqn
 /extensions/pick-your-wallpaper                                     @hugomarfani @hetommy
+/extensions/picmal                                                  @albertogalca
 /extensions/pie-for-pihole                                          @GLaDO8
 /extensions/pieces-raycast                                          @caleb-at-pieces
 /extensions/pika                                                    @rishimohan
@@ -2639,6 +2643,7 @@
 /extensions/the-noble-quran                                         @BalliAsghar @yusifaliyevpro
 /extensions/the-verge                                               @klkvsky @pernielsentikaer
 /extensions/thermo-convert                                          @kud
+/extensions/thermostats                                             @humanfriend22
 /extensions/thesaurus                                               @ABukSwienty @YourMCGeek @mbuvarp
 /extensions/thesvg                                                  @thegdsks
 /extensions/thingiverse                                             @mSarheed
