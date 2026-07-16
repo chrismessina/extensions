@@ -1043,6 +1043,7 @@
 /extensions/habitica-todos                                          @Sacrachan
 /extensions/habitify-raycast                                        @miguelrzazo
 /extensions/habr-media                                              @khlebobul
+/extensions/hack-club-cdn                                           @garyhtou
 /extensions/hacker-news                                             @thomaspaulmann @GastroGeek @sxn @itsnwa @andreaselia @russellyeo
 /extensions/hacker-news-top-stories                                 @KevinBatdorf @pernielsentikaer
 /extensions/hackmd                                                  @Yukaii @ridemountainpig @alexibuild
@@ -1220,7 +1221,7 @@
 /extensions/jetpack-commands                                        @sejas
 /extensions/jira                                                    @thomaslombart @FezVrasta @teziovsky @gavinroderick @gavinroderick @michael-par @literallyjustroy @mheidinger @luarmr @horumyy @rsperezn @Silv-1 @EyLuismi @pernielsentikaer @BehnH @JokeyChen @Murreey @erayack @0xdhrv @dytsou
 /extensions/jira-search                                             @svenwiegand
-/extensions/jira-search-self-hosted                                 @emanguy @svenwiegand @koseduhemak @LunaticMuch @marinsokol @limonkufu
+/extensions/jira-search-self-hosted                                 @emanguy @svenwiegand @koseduhemak @LunaticMuch @marinsokol @limonkufu @thezaff
 /extensions/jira-self-hosted                                        @Ernest0-Production
 /extensions/jira-time-tracking                                      @niallpaterson @0w0miki @haydencbarnes
 /extensions/jira2git                                                @ipiranhaa
@@ -2752,7 +2753,7 @@
 /extensions/twitter-trendscast                                      @pradeepb28
 /extensions/twitter-video-downloader                                @kaanrkaraman
 /extensions/two-factor-authentication-code-generator                @cjdenio @97albertus @LitoMore @cristiangrojas @xmok
-/extensions/twos                                                    @ekafyi @ridemountainpig
+/extensions/twos                                                    @ekafyi @ekafyi @ridemountainpig
 /extensions/txtodo                                                  @nx-alejandrolacasa
 /extensions/tyme-3-time-tracker                                     @melkstam @medienbaecker
 /extensions/tynyfy                                                  @kusthi
