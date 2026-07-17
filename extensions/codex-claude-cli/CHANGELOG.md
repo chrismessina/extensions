@@ -1,5 +1,9 @@
 # PromptCast Changelog
 
+## [Fix] - {PR_MERGE_DATE}
+
+- Add Raycast-verified node-pty native binaries so live sessions start.
+
 ## [Initial Release] - 2026-07-16
 
 - Browse favorite chats, favorite projects, live sessions, and complete Claude Code and Codex CLI history.

@@ -369,6 +369,7 @@
 /extensions/claude-code-cheatsheet                                  @harumeri
 /extensions/claude-code-config-switcher                             @WangCheng0116
 /extensions/claude-code-launcher                                    @stephendolan @ridemountainpig @artisticmedic
+/extensions/claude-session-bookmarks                                @eaescob
 /extensions/claude-sessions                                         @kud
 /extensions/claudecast                                              @qazi0 @RoderickJDunn @diskun00
 /extensions/clean-agent-text                                        @rhukster
@@ -425,7 +426,7 @@
 /extensions/codegrepper                                             @emircanerkul @pernielsentikaer
 /extensions/codemagic                                               @Imgkl
 /extensions/codesnap                                                @Mokkapps @pernielsentikaer
-/extensions/codex-claude-cli                                        @WerrySs
+/extensions/codex-claude-cli                                        @WerrySs @0xdhrv
 /extensions/codex-manager                                           @josedefreitas91 @pernielsentikaer
 /extensions/coffee                                                  @mooxl @bibixx @GastroGeek @pernielsentikaer @pernielsentikaer @xilopaint @ridemountainpig @zakj @Visual-Studio-Coder @IKatsuba @alexibuild @mbuvarp @frederikobermaier-lab @bsradcliffe
 /extensions/cognimemo                                               @Sami-Ullah-Tufail
@@ -1973,7 +1974,7 @@
 /extensions/port-from-project-name                                  @Vethya
 /extensions/port-manager                                            @lucaschultz @Sheraff @ridemountainpig @pernielsentikaer
 /extensions/portal-wholesale                                        @nickdichev
-/extensions/portfolio-tracker                                       @FilipSwiatczak
+/extensions/portfolio-tracker                                       @FilipSwiatczak @ridemountainpig
 /extensions/portless                                                @nbaglivo
 /extensions/ports                                                   @diegoleteliers10
 /extensions/portuguese-primeira-liga                                @danielsequeira
@@ -2909,6 +2910,7 @@
 /extensions/webbites                                                @elrumo
 /extensions/webdav-uploader                                         @i207M
 /extensions/webflow-sites                                           @vurhd @pernielsentikaer @xmok
+/extensions/webglossary-search                                      @apatki1996
 /extensions/webhook-sender                                          @binaryblitz10
 /extensions/webkit-developer-docs                                   @KevinBatdorf
 /extensions/webpage-to-markdown                                     @treyg @marcmagn1 @ridemountainpig
