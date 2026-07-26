@@ -16,6 +16,12 @@ compiled_raycast_rust
 # repo is exactly that. See docs/research.md §1.
 /assets/central-icons.*
 
+# Build-time scratch: per-style lock files and staging directories. Normally
+# removed on exit, but a killed build can leave one behind and it must never
+# reach a commit.
+/assets/.lock-*
+/assets/.staging-*
+
 # misc
 .DS_Store
 .github/docs

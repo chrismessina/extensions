@@ -1,6 +1,6 @@
 import { Action, ActionPanel, Color, Grid, Icon, Toast, getPreferenceValues, showToast } from "@raycast/api";
 import { useCachedState, useLocalStorage } from "@raycast/utils";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { IconActions } from "./actions";
 import {
   cachedDataUri,
@@ -96,26 +96,41 @@ export default function Command() {
   // data (it's proprietary and gitignored) and no build script, so this is the
   // only route to a working grid for anyone who didn't clone the repo.
   const [installing, setInstalling] = useState(false);
+  // Synchronous re-entrancy guard. `installing` is React state, so it does not
+  // change until the next render — a double Enter fires `install` twice before
+  // the guard reads true, and two concurrent installs of the same style then
+  // race over the same paths. A ref flips immediately; the state is only for
+  // the rendered "Installing…" label.
+  const inFlight = useRef(false);
   const install = async (styles: string[]) => {
-    if (installing) return;
+    if (inFlight.current) return;
+    inFlight.current = true;
     setInstalling(true);
     const toast = await showToast({ style: Toast.Style.Animated, title: "Installing icons…" });
+    let completed = 0;
     try {
       for (const style of styles) {
         const version = await installStyle(style, (message) => {
           toast.message = message;
         });
+        completed += 1;
         toast.title = `Installed v${version}`;
         toast.message = undefined;
       }
       toast.style = Toast.Style.Success;
       toast.title = styles.length > 1 ? `Installed ${styles.length} styles` : "Style installed";
-      // Drop memoized misses so the freshly written files are seen.
-      invalidateManifests();
-      refresh();
     } catch (error) {
       markFailed(toast, "Couldn't install this style", error);
     } finally {
+      // Refresh on ANY outcome that wrote something. A multi-style install that
+      // fails on the third style has still landed the first two, and skipping
+      // this left them invisible until relaunch — the grid kept serving the
+      // memoized miss from before they existed.
+      if (completed > 0) {
+        invalidateManifests();
+        refresh();
+      }
+      inFlight.current = false;
       setInstalling(false);
     }
   };

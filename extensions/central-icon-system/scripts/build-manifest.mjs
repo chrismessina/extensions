@@ -98,6 +98,68 @@ async function fetchPackage(style, version, tarball, workDir) {
   return pkg;
 }
 
+/**
+ * Take the exclusive build lock for a style, or fail with an explanation.
+ *
+ * `wx` is the whole mechanism: it creates the file only if it does not already
+ * exist, atomically, so exactly one builder can win. The pid is recorded only
+ * so the error can name the holder and say whether it is still running.
+ */
+function acquireBuildLock(lock, style) {
+  try {
+    fs.writeFileSync(lock, String(process.pid), { flag: "wx" });
+    return;
+  } catch (error) {
+    if (error.code !== "EEXIST") throw error;
+  }
+
+  // Held. Report who, and stop.
+  //
+  // **There is deliberately no automatic reclamation of a stale lock.** Earlier
+  // versions probed the recorded pid and cleared the lock when that process was
+  // gone. Every variant of that was racy, because "check it is stale" and
+  // "remove it" cannot be one atomic operation in portable Node: two builders
+  // that both observe the same dead pid both reclaim, and the second one's
+  // removal deletes the *fresh* lock the first just acquired — leaving two
+  // builders in the pair-swap section, which is the corruption this lock exists
+  // to prevent. Removing by path, renaming, and re-reading under an
+  // inode/ctime identity check were each tried; each still left a real window
+  // reachable by ordinary scheduling.
+  //
+  // Shrinking a race is not closing it. So the race is deleted instead: nothing
+  // ever removes this file except the process that created it. A lock left by a
+  // killed build is cleared by the developer, in one command, with the path
+  // printed below. That is a rare manual step in a dev-only script, traded for
+  // an invariant that holds unconditionally — if the file exists, nobody else
+  // builds this style.
+  let holder = null;
+  try {
+    holder = Number(fs.readFileSync(lock, "utf8").trim());
+  } catch {
+    // Unreadable; report it as held anyway.
+  }
+
+  const alive = holder ? isProcessAlive(holder) : null;
+  const status = alive === false ? " — that process is no longer running, so this lock is stale" : "";
+
+  throw new Error(
+    `${style}: another build holds the lock${holder ? ` (pid ${holder})` : ""}${status}.\n` +
+      `  If no build is running, remove it and retry:\n` +
+      `    rm ${path.relative(ROOT, lock)}`,
+  );
+}
+
+/** Whether a pid is still running. Used only to word the lock error. */
+function isProcessAlive(pid) {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    // EPERM means it exists but belongs to another user.
+    return error.code === "EPERM";
+  }
+}
+
 /** Build one style's manifest object. Throws loudly on any inconsistency. */
 export function buildManifest(pkgRoot, { style, version }) {
   const indexPath = path.join(pkgRoot, "icons-index.json");
@@ -200,29 +262,115 @@ async function buildStyle(style, workDir) {
   const indexJson = JSON.stringify({ ...index, offsets });
   const blobOut = path.join(ASSETS, `central-icons.${style}.svg`);
 
-  // Write to temporaries, then rename into place — geometry first, index last.
+  // Publish both files as one indivisible unit — see the matching comment in
+  // src/lib/install-style.ts, which this mirrors.
   //
-  // The index is what makes a style *appear* installed and carries the byte
-  // offsets every read depends on. Writing it before the blob means an
-  // interrupted build (^C, disk full, dropped connection) leaves a style that
-  // advertises itself as available while its offsets point into stale or
-  // missing geometry, so icons render blank. Renaming last, and in this order,
-  // means an interrupted build leaves the *previous* working data untouched:
-  // rename is atomic within a filesystem, and the temporaries sit in the same
-  // directory to guarantee that.
-  const blobTmp = `${blobOut}.tmp`;
-  const indexTmp = `${indexOut}.tmp`;
+  // An index's byte offsets are only meaningful for the exact blob they were
+  // computed from, so the pair has to become visible together. Two renames
+  // cannot do that: a build killed between them (^C, disk full, dropped
+  // connection) leaves the old index paired with the new geometry, and every
+  // read lands at the wrong byte range — blank or corrupt icons rather than a
+  // clean failure.
+  //
+  // Instead both are written into a staging directory, and the two files are
+  // published by renaming BOTH aside first and BOTH into place after.
+  //
+  // Renaming them one at a time cannot be made safe even with a rollback: the
+  // blob rename can succeed and the index rename fail, and restoring only the
+  // index then pairs the OLD index with the NEW geometry — old byte offsets
+  // against new data, which is precisely the silent corruption this design
+  // exists to prevent. So the old pair is retired together, and any failure
+  // restores the pair together.
+  // One builder per style, enforced by an exclusive lock file.
+  //
+  // Everything below operates on fixed paths — `indexOut`, `blobOut`, and their
+  // `.retired` siblings are derived from the style id, not from this run. Two
+  // concurrent builds of the same style therefore share every path and can
+  // interleave into states no single-process ordering can produce: one build's
+  // rollback deleting the pair another just published, or a mixed index/blob
+  // pair left visible to the extension, which reads these same files.
+  //
+  // Rather than make every step concurrency-safe, make concurrency impossible:
+  // `wx` fails if the lock exists, so the second builder exits with a clear
+  // message instead of racing. A stale lock from a killed build is reclaimed by
+  // pid, the same liveness test the runtime installer uses.
+  const lock = path.join(ASSETS, `.lock-${style}`);
+  acquireBuildLock(lock, style);
+
+  const staging = fs.mkdtempSync(path.join(ASSETS, ".staging-"));
+  const retiredIndex = `${indexOut}.retired`;
+  const retiredBlob = `${blobOut}.retired`;
+  // Set between retiring the old pair and publishing the new one. While true,
+  // the retired files are the only copies of a working build and must survive
+  // cleanup — deleting them there would turn a failed *rebuild* into a lost one.
+  let retiredHoldsTheOnlyCopy = false;
   try {
-    fs.writeFileSync(blobTmp, blob);
-    fs.writeFileSync(indexTmp, indexJson);
-    fs.renameSync(blobTmp, blobOut);
-    fs.renameSync(indexTmp, indexOut);
-  } finally {
-    // A failure before the renames must not leave partial files behind — they
-    // would survive as junk and confuse the next run's disk-space estimate.
-    for (const tmp of [blobTmp, indexTmp]) {
-      if (fs.existsSync(tmp)) fs.rmSync(tmp, { force: true });
+    const stagedBlob = path.join(staging, "geometry.svg");
+    const stagedIndex = path.join(staging, "index.json");
+    fs.writeFileSync(stagedBlob, blob);
+    fs.writeFileSync(stagedIndex, indexJson);
+
+    // Retire the existing pair as a unit. The index goes first: while it is
+    // absent the style reads as "not built", which is recoverable, whereas an
+    // index without its blob is not.
+    //
+    // The flag is armed BEFORE the first rename, not after the last. Setting it
+    // afterwards left a hole: if retiring the index succeeded and retiring the
+    // blob then failed, the flag was still false and `finally` deleted the
+    // retired index — destroying the only old index despite all of this
+    // machinery existing to prevent exactly that.
+    const hadIndex = fs.existsSync(indexOut);
+    const hadBlob = fs.existsSync(blobOut);
+    if (hadIndex || hadBlob) retiredHoldsTheOnlyCopy = true;
+
+    try {
+      if (hadIndex) fs.renameSync(indexOut, retiredIndex);
+      if (hadBlob) fs.renameSync(blobOut, retiredBlob);
+      fs.renameSync(stagedBlob, blobOut);
+      fs.renameSync(stagedIndex, indexOut);
+    } catch (error) {
+      // Retire or publish failed partway. Restore the previous pair as a unit,
+      // removing whatever landed first so no mixed pair is left behind.
+      //
+      // Only clear a destination we can actually refill. The failure may have
+      // occurred before a file was retired — in which case the original is
+      // still sitting at its normal path, and deleting it unconditionally
+      // destroys the very data being protected. (Verified: an unconditional
+      // delete here lost the blob when the failure landed between the two
+      // retire renames.)
+      if (fs.existsSync(retiredBlob)) {
+        fs.rmSync(blobOut, { force: true });
+        fs.renameSync(retiredBlob, blobOut);
+      } else if (!hadBlob) {
+        // Nothing to restore because there was nothing here before: this is a
+        // first build. Remove whatever it managed to publish, so a failure
+        // can't leave a blob with no index behind.
+        fs.rmSync(blobOut, { force: true });
+      }
+      if (fs.existsSync(retiredIndex)) {
+        fs.rmSync(indexOut, { force: true });
+        fs.renameSync(retiredIndex, indexOut);
+      } else if (!hadIndex) {
+        fs.rmSync(indexOut, { force: true });
+      }
+      // Only now, with the old pair back in place, is it safe to let `finally`
+      // clean up the retired names.
+      retiredHoldsTheOnlyCopy = false;
+      throw error;
     }
+
+    retiredHoldsTheOnlyCopy = false;
+  } finally {
+    // A failure before the swap must not leave partial files behind — they
+    // would survive as junk and confuse the next run.
+    fs.rmSync(staging, { recursive: true, force: true });
+    if (!retiredHoldsTheOnlyCopy) {
+      fs.rmSync(retiredIndex, { force: true });
+      fs.rmSync(retiredBlob, { force: true });
+    }
+    // Release the lock on every path, success or failure, so a failed build
+    // never blocks the retry it is about to prompt.
+    fs.rmSync(lock, { force: true });
   }
 
   log(`  ${index.totalIcons} icons, ${index.categories.length} categories`);

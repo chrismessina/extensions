@@ -38,24 +38,48 @@ const blobHandles = new Map<string, number | null>();
  * A Store install has nothing in `assets/` — the data is gitignored — which is
  * exactly why runtime installation exists.
  */
-function dataRoots(): string[] {
-  return [join(environment.supportPath, "icons"), environment.assetsPath];
-}
-
-function locate(style: string, suffix: string): string | null {
-  for (const root of dataRoots()) {
-    const candidate = join(root, `central-icons.${style}${suffix}`);
-    if (existsSync(candidate)) return candidate;
+/**
+ * The root holding a *complete* copy of a style — both index and geometry.
+ *
+ * Resolved as a pair, never file-by-file. Locating each file independently
+ * would let the index come from `supportPath` while the blob came from
+ * `assets/`, and the index's byte offsets are only valid for the blob it was
+ * written with: a mismatch reads garbage rather than failing.
+ */
+/**
+ * Both on-disk layouts, resolved as a *pair* so index and geometry always come
+ * from the same install.
+ *
+ * - `supportPath/icons/<style>/{index.json,geometry.svg}` — runtime installs,
+ *   published by a single atomic directory rename (see `install-style.ts`).
+ * - `assetsPath/central-icons.<style>.{index.json,svg}` — the flat layout the
+ *   development build script writes.
+ *
+ * Resolving file-by-file would let the index come from one root and the blob
+ * from another; the index's byte offsets are only valid for the blob written
+ * alongside it, so a mismatch reads garbage instead of failing.
+ */
+function stylePaths(style: string): { index: string; blob: string } | null {
+  const installed = {
+    index: join(environment.supportPath, "icons", style, "index.json"),
+    blob: join(environment.supportPath, "icons", style, "geometry.svg"),
+  };
+  const bundled = {
+    index: join(environment.assetsPath, `central-icons.${style}.index.json`),
+    blob: join(environment.assetsPath, `central-icons.${style}.svg`),
+  };
+  for (const candidate of [installed, bundled]) {
+    if (existsSync(candidate.index) && existsSync(candidate.blob)) return candidate;
   }
   return null;
 }
 
 function indexPath(style: string): string | null {
-  return locate(style, ".index.json");
+  return stylePaths(style)?.index ?? null;
 }
 
 function blobPath(style: string): string | null {
-  return locate(style, ".svg");
+  return stylePaths(style)?.blob ?? null;
 }
 
 /**
@@ -70,20 +94,101 @@ export function loadIndex(style: string): StyleIndex | null {
   // build command the download screen told them to run.
   if (hit) return hit;
 
+  // Load the index and its geometry as one generation, retrying if the pair is
+  // swapped underneath us mid-read.
+  //
+  // Reading the index and then opening the blob is two syscalls with a gap. An
+  // install landing in that gap would hand back offsets from the old index
+  // paired with a descriptor on the new blob — the same corruption this pairing
+  // exists to prevent, just through a narrower window. So the index is read
+  // again after the descriptor is open: identical content means nothing moved
+  // and the pair is coherent. Two attempts is plenty for a swap that is a
+  // single rename.
   let index: StyleIndex | null = null;
-  try {
-    const path = indexPath(style);
-    index = path ? (JSON.parse(readFileSync(path, "utf8")) as StyleIndex) : null;
-  } catch {
-    // ENOENT for an unbuilt style is expected; a malformed file is not, but the
-    // recovery is identical (rebuild) so they share a path.
-    index = null;
+  for (let attempt = 0; attempt < 2 && !index; attempt++) {
+    let raw: string | null = null;
+    try {
+      const path = indexPath(style);
+      raw = path ? readFileSync(path, "utf8") : null;
+    } catch {
+      // ENOENT for an unbuilt style is expected; a malformed file is not, but
+      // the recovery is identical (rebuild) so they share a path.
+      raw = null;
+    }
+    if (raw === null) break;
+
+    let parsed: StyleIndex | null = null;
+    try {
+      parsed = JSON.parse(raw) as StyleIndex;
+    } catch {
+      break;
+    }
+
+    // Pin the geometry, then confirm the index still reads the same. A style
+    // swapped between the two reads is retried against the new generation.
+    openBlob(style);
+    let after: string | null = null;
+    try {
+      const path = indexPath(style);
+      after = path ? readFileSync(path, "utf8") : null;
+    } catch {
+      after = null;
+    }
+
+    if (after === raw) {
+      index = parsed;
+    } else {
+      // The pair moved. Drop the descriptor we just pinned to the old
+      // generation and read again.
+      closeBlob(style);
+    }
   }
-  if (index) indexCache.set(style, index);
+
+  if (index) {
+    indexCache.set(style, index);
+    // Open the geometry NOW, in the same breath as caching the offsets.
+    //
+    // These two caches used to fill independently and lazily, which let them
+    // describe different generations of the data. Concretely: the search grid
+    // reads the index at launch but touches no geometry until the user copies
+    // something; if Update Icon Data publishes a new pair in between, the blob
+    // is opened *after* the swap and the cached offsets — computed for the old
+    // blob — are applied to the new one. Reads then land mid-icon and return
+    // spliced fragments of two SVGs, with no error raised. (Reproduced: a read
+    // that should have returned one icon returned the tail of one plus the head
+    // of the next.)
+    //
+    // Opening here pins the file the offsets belong to: the descriptor keeps
+    // the old inode alive after a rename, so an index/blob pair loaded together
+    // stays coherent for the life of the command even as the on-disk files are
+    // replaced underneath it. (The descriptor was already opened by the loop
+    // above; this is the memoized hit.)
+    openBlob(style);
+  }
   return index;
 }
 
-function blobHandle(style: string): number | null {
+/** Close and forget one style's geometry descriptor. */
+function closeBlob(style: string): void {
+  const fd = blobHandles.get(style);
+  if (fd !== null && fd !== undefined) {
+    try {
+      closeSync(fd);
+    } catch {
+      // Already closed — nothing to recover.
+    }
+  }
+  blobHandles.delete(style);
+}
+
+/**
+ * Open and memoize a style's geometry blob.
+ *
+ * Always reached through `loadIndex` so the descriptor and the offset table are
+ * acquired as a unit — see the note there. Kept separate only so `readSvg` can
+ * retrieve the memoized descriptor without re-reading the index.
+ */
+function openBlob(style: string): number | null {
   const hit = blobHandles.get(style);
   if (hit !== undefined) return hit;
 
@@ -185,7 +290,7 @@ export function readSvg(style: string, name: string): string | null {
   const entry = index?.offsets?.[name];
   if (!entry) return null;
 
-  const fd = blobHandle(style);
+  const fd = openBlob(style);
   if (fd === null) return null;
 
   const [offset, length] = entry;
@@ -289,17 +394,31 @@ export function categoriesFor(tiles: IconTile[]): string[] {
  */
 export function availableStyles(): Set<string> {
   const styles = new Set<string>();
-  for (const root of dataRoots()) {
-    try {
-      for (const file of readdirSync(root)) {
-        const match = /^central-icons\.(.+)\.index\.json$/.exec(file);
-        if (match) styles.add(match[1]);
-      }
-    } catch {
-      // Directory absent or unreadable — try the next root. A Store install has
-      // no support-path data until the first install, which is expected.
+
+  // Runtime installs: one directory per style. `stylePaths` confirms both files
+  // are present, so a half-written or mid-swap directory is never reported as
+  // installed.
+  try {
+    for (const entry of readdirSync(join(environment.supportPath, "icons"))) {
+      // `.abandoned-` is a quarantined staging directory (see `quarantine` in
+      // install-style.ts) — data on disk, but never a valid installed style.
+      if (entry.includes(".staging-") || entry.includes(".retired-") || entry.includes(".abandoned-")) continue;
+      if (stylePaths(entry)) styles.add(entry);
     }
+  } catch {
+    // No support-path data yet — expected until the first install.
   }
+
+  // Development builds: the flat layout in `assets/`.
+  try {
+    for (const file of readdirSync(environment.assetsPath)) {
+      const match = /^central-icons\.(.+)\.index\.json$/.exec(file);
+      if (match && stylePaths(match[1])) styles.add(match[1]);
+    }
+  } catch {
+    // Assets unreadable — the caller surfaces the empty state.
+  }
+
   return styles;
 }
 

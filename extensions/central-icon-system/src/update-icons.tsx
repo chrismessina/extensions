@@ -15,8 +15,12 @@ import { styleLabel } from "./types";
  * Checking is now something you ask for.
  */
 export default function UpdateIcons() {
-  const installed = useMemo(() => [...availableStyles()], []);
-  const version = useMemo(() => installedVersion(), []);
+  // Keyed on `revision` rather than mounted once: a successful update rewrites
+  // both on disk, and reading them only at mount left the body reporting the
+  // pre-update version under a toast that said it had just changed.
+  const [revision, setRevision] = useState(0);
+  const installed = useMemo(() => [...availableStyles()], [revision]);
+  const version = useMemo(() => installedVersion(), [revision]);
 
   const [updating, setUpdating] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -54,6 +58,7 @@ export default function UpdateIcons() {
       // Read from disk rather than trusting the command's output, so what's
       // reported is what actually landed.
       const after = installedVersion();
+      setRevision((n) => n + 1);
 
       const upgraded = before !== null && after !== null && before !== after;
       toast.style = Toast.Style.Success;
