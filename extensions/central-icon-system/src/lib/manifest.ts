@@ -28,12 +28,34 @@ const indexCache = new Map<string, StyleIndex | null>();
 /** Open file descriptors for geometry blobs, keyed by style id. */
 const blobHandles = new Map<string, number | null>();
 
-function indexPath(style: string): string {
-  return join(environment.assetsPath, `central-icons.${style}.index.json`);
+/**
+ * Where a style's data lives, checked in priority order.
+ *
+ * `supportPath` first: that's where the extension installs styles at runtime,
+ * and it survives extension updates. `assetsPath` second, so a developer who
+ * ran `npm run build:icons` still gets their local build without reinstalling.
+ *
+ * A Store install has nothing in `assets/` — the data is gitignored — which is
+ * exactly why runtime installation exists.
+ */
+function dataRoots(): string[] {
+  return [join(environment.supportPath, "icons"), environment.assetsPath];
 }
 
-function blobPath(style: string): string {
-  return join(environment.assetsPath, `central-icons.${style}.svg`);
+function locate(style: string, suffix: string): string | null {
+  for (const root of dataRoots()) {
+    const candidate = join(root, `central-icons.${style}${suffix}`);
+    if (existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+function indexPath(style: string): string | null {
+  return locate(style, ".index.json");
+}
+
+function blobPath(style: string): string | null {
+  return locate(style, ".svg");
 }
 
 /**
@@ -50,7 +72,8 @@ export function loadIndex(style: string): StyleIndex | null {
 
   let index: StyleIndex | null = null;
   try {
-    index = JSON.parse(readFileSync(indexPath(style), "utf8")) as StyleIndex;
+    const path = indexPath(style);
+    index = path ? (JSON.parse(readFileSync(path, "utf8")) as StyleIndex) : null;
   } catch {
     // ENOENT for an unbuilt style is expected; a malformed file is not, but the
     // recovery is identical (rebuild) so they share a path.
@@ -66,7 +89,8 @@ function blobHandle(style: string): number | null {
 
   let fd: number | null = null;
   try {
-    fd = existsSync(blobPath(style)) ? openSync(blobPath(style), "r") : null;
+    const path = blobPath(style);
+    fd = path ? openSync(path, "r") : null;
   } catch {
     fd = null;
   }
@@ -238,23 +262,6 @@ export function loadTiles(axes: Omit<StyleAxes, "fill">, fills: Fill[]): { tiles
 }
 
 /**
- * The project root — the only place `npm run build:icons` exists.
- *
- * `environment.assetsPath` is `<root>/assets` inside the installed extension,
- * so the parent is the directory the user cloned.
- */
-export function projectRoot(): string | null {
-  const candidate = join(environment.assetsPath, "..");
-  // Raycast copies `package.json` into its install directory but ships only
-  // build output — no `scripts/`, no `src/`. The `build:icons` script is
-  // therefore *listed* there and fails with a bare
-  // `Cannot find module .../scripts/build-manifest.mjs`. Probing for the script
-  // itself is what distinguishes a working copy from an install dir; probing
-  // for `package.json` would not.
-  return existsSync(join(candidate, "scripts", "build-manifest.mjs")) ? candidate : null;
-}
-
-/**
  * The upstream version any installed style was built from.
  *
  * Every style in the scope publishes in lockstep, so the first installed one
@@ -282,13 +289,16 @@ export function categoriesFor(tiles: IconTile[]): string[] {
  */
 export function availableStyles(): Set<string> {
   const styles = new Set<string>();
-  try {
-    for (const file of readdirSync(environment.assetsPath)) {
-      const match = /^central-icons\.(.+)\.index\.json$/.exec(file);
-      if (match) styles.add(match[1]);
+  for (const root of dataRoots()) {
+    try {
+      for (const file of readdirSync(root)) {
+        const match = /^central-icons\.(.+)\.index\.json$/.exec(file);
+        if (match) styles.add(match[1]);
+      }
+    } catch {
+      // Directory absent or unreadable — try the next root. A Store install has
+      // no support-path data until the first install, which is expected.
     }
-  } catch {
-    // Assets unreadable — the caller surfaces the empty state.
   }
   return styles;
 }

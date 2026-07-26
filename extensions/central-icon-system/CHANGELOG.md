@@ -10,3 +10,4 @@
 - Pins and recently used, kept as separate lists
 - Style controls matching centralicons.com: five corner options, three stroke weights
 - **Update Icon Data** command to check for and install the latest upstream release
+- Styles install from within the extension — no clone or build step required

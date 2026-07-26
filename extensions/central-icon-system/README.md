@@ -24,25 +24,29 @@ across 38 categories — without leaving Raycast.
 - Quick Look previews, preview backdrops, pins and recents
 - **Update Icon Data** command to pull the latest upstream release
 
-## Setup
+## Installing icon data
 
-Requires Node 22+.
+The icons themselves aren't bundled — they're downloaded from the
+[`@central-icons-react`](https://www.npmjs.com/package/@central-icons-react/all) packages your
+licence covers, straight from the extension. Pick any style from the action panel and choose
+**Install This Style**; it takes a couple of seconds and roughly 5 MB per style.
+
+Installed data lives in the extension's support directory, so it survives extension updates.
+**Update Icon Data** re-downloads installed styles against the latest release.
+
+### Development
 
 ```bash
 npm install
-npm run build:icons   # downloads and builds the two default styles (~5s)
 npm run dev
 ```
 
-`build:icons` writes `assets/central-icons.<style>.index.json` (metadata) and
-`assets/central-icons.<style>.svg` (geometry). Without it the grid shows a "This style must be
-installed" screen carrying the exact command, rather than failing.
-
-To build other styles:
+Optionally pre-build styles into `assets/` instead of installing them at runtime — useful when
+working offline:
 
 ```bash
-npm run build:icons:list                                    # all 30 style ids
-npm run build:icons square-filled-radius-0-stroke-2         # one or more ids
+npm run build:icons:list                              # all 30 style ids
+npm run build:icons square-filled-radius-0-stroke-2   # one or more ids
 ```
 
 ## Styles

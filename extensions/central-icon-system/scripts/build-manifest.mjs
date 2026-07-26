@@ -198,10 +198,32 @@ async function buildStyle(style, workDir) {
   // geometry read needs it, so there's no point deferring it.
   const indexOut = path.join(ASSETS, `central-icons.${style}.index.json`);
   const indexJson = JSON.stringify({ ...index, offsets });
-  fs.writeFileSync(indexOut, indexJson);
-
   const blobOut = path.join(ASSETS, `central-icons.${style}.svg`);
-  fs.writeFileSync(blobOut, blob);
+
+  // Write to temporaries, then rename into place — geometry first, index last.
+  //
+  // The index is what makes a style *appear* installed and carries the byte
+  // offsets every read depends on. Writing it before the blob means an
+  // interrupted build (^C, disk full, dropped connection) leaves a style that
+  // advertises itself as available while its offsets point into stale or
+  // missing geometry, so icons render blank. Renaming last, and in this order,
+  // means an interrupted build leaves the *previous* working data untouched:
+  // rename is atomic within a filesystem, and the temporaries sit in the same
+  // directory to guarantee that.
+  const blobTmp = `${blobOut}.tmp`;
+  const indexTmp = `${indexOut}.tmp`;
+  try {
+    fs.writeFileSync(blobTmp, blob);
+    fs.writeFileSync(indexTmp, indexJson);
+    fs.renameSync(blobTmp, blobOut);
+    fs.renameSync(indexTmp, indexOut);
+  } finally {
+    // A failure before the renames must not leave partial files behind — they
+    // would survive as junk and confuse the next run's disk-space estimate.
+    for (const tmp of [blobTmp, indexTmp]) {
+      if (fs.existsSync(tmp)) fs.rmSync(tmp, { force: true });
+    }
+  }
 
   log(`  ${index.totalIcons} icons, ${index.categories.length} categories`);
   log(`  → ${path.relative(ROOT, indexOut)} (${(indexJson.length / 1e6).toFixed(2)} MB, loaded at startup)`);

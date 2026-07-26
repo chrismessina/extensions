@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Color, Grid, Icon, Keyboard, getPreferenceValues } from "@raycast/api";
+import { Action, ActionPanel, Color, Grid, Icon, Toast, getPreferenceValues, showToast } from "@raycast/api";
 import { useCachedState, useLocalStorage } from "@raycast/utils";
 import { useEffect, useMemo, useState } from "react";
 import { IconActions } from "./actions";
@@ -7,14 +7,15 @@ import {
   categoriesFor,
   clearUriCache,
   defaultBuiltAxes,
-  projectRoot,
+  invalidateManifests,
   loadTiles,
   axisOptions,
   readSvg,
 } from "./lib/manifest";
 import { categoryIcon } from "./lib/category-icon";
-import { installCommand, installCommandUnknownRoot } from "./lib/install";
 import { searchTiles } from "./lib/search";
+import { installStyle } from "./lib/install-style";
+import { markFailed } from "./lib/toast";
 import { ensureQuickLook, quickLookPath } from "./lib/png";
 import { getPinnedIds, getRecentIds } from "./lib/storage";
 import { DEFAULT_BACKDROP, fillLabel, svgToDataUri, withBackdrop, type Backdrop } from "./lib/svg";
@@ -90,6 +91,34 @@ export default function Command() {
   // Bumping this re-reads pins and recents after a mutating action.
   const [revision, setRevision] = useState(0);
   const refresh = () => setRevision((n) => n + 1);
+
+  // Installing a style from inside the extension. A Store install ships no icon
+  // data (it's proprietary and gitignored) and no build script, so this is the
+  // only route to a working grid for anyone who didn't clone the repo.
+  const [installing, setInstalling] = useState(false);
+  const install = async (styles: string[]) => {
+    if (installing) return;
+    setInstalling(true);
+    const toast = await showToast({ style: Toast.Style.Animated, title: "Installing icons…" });
+    try {
+      for (const style of styles) {
+        const version = await installStyle(style, (message) => {
+          toast.message = message;
+        });
+        toast.title = `Installed v${version}`;
+        toast.message = undefined;
+      }
+      toast.style = Toast.Style.Success;
+      toast.title = styles.length > 1 ? `Installed ${styles.length} styles` : "Style installed";
+      // Drop memoized misses so the freshly written files are seen.
+      invalidateManifests();
+      refresh();
+    } catch (error) {
+      markFailed(toast, "Couldn't install this style", error);
+    } finally {
+      setInstalling(false);
+    }
+  };
 
   // `revision` is a dependency so the Reload action re-reads from disk: a user
   // who just ran the build command needs the new style to appear without
@@ -252,39 +281,27 @@ export default function Command() {
 
   if (missing.length > 0 && tiles.length === 0) {
     const fallback = defaultBuiltAxes();
-    // `projectRoot()` is null when running from Raycast's install directory,
-    // which has no `scripts/` — a `cd` there yields a command that fails.
-    const root = projectRoot();
-    const command = root ? installCommand(missing, root) : installCommandUnknownRoot(missing);
     return (
       <Grid columns={columns}>
         <Grid.EmptyView
           icon={Icon.Download}
-          title="This style must be installed"
-          // The path lives inside the copied command, not on screen: it's long
-          // enough to eat the description and push the command itself into an
-          // ellipsis, and the user never needs to read it — only paste it.
+          title="This style isn't installed yet"
           description={
-            root
-              ? "Copy the install command, run it in a terminal, then reload."
-              : "Copy the install command and run it from your clone of this extension's repo, then reload."
+            installing
+              ? "Downloading and parsing 2,078 icons…"
+              : "Install it to browse this style. Around 5 MB, downloaded from npm."
           }
           actions={
             <ActionPanel>
-              {/* Copying is primary: the user came here to get this style, not
-                  to give up on it. */}
-              <Action.CopyToClipboard title="Copy Install Command" content={command} icon={Icon.Clipboard} />
-              {/* A miss is never memoized (see `loadIndex`) and `revision` is a
-                  dependency of `loadTiles`, so this picks up a style installed
-                  moments ago without relaunching Raycast. */}
+              {/* The whole point: a Store user has no clone and no build
+                  script, so the install has to happen here. */}
               <Action
-                title="Reload After Install"
-                icon={Icon.ArrowClockwise}
-                shortcut={Keyboard.Shortcut.Common.Refresh}
-                onAction={refresh}
+                title={installing ? "Installing…" : "Install This Style"}
+                icon={Icon.Download}
+                onAction={() => install(missing)}
               />
-              {/* Always offer a way out too. A style with no data used to be a
-                  dead end that survived relaunch, since the choice persists. */}
+              {/* Always offer a way out. A style with no data used to be a dead
+                  end that survived relaunch, since the choice persists. */}
               {fallback && (
                 <Action
                   // "Go Back" rather than naming a style: the user is returning

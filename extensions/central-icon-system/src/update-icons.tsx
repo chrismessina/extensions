@@ -1,24 +1,10 @@
 import { Action, ActionPanel, Clipboard, Detail, Icon, Keyboard, Toast, showToast } from "@raycast/api";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { usePromise } from "@raycast/utils";
-import { availableStyles, installedVersion, invalidateManifests, projectRoot } from "./lib/manifest";
+import { availableStyles, installedVersion, invalidateManifests } from "./lib/manifest";
 import { fetchLatestVersion } from "./lib/updates";
-import { resolveNpmPath } from "./lib/npm";
-import { installCommand, installCommandUnknownRoot } from "./lib/install";
+import { installStyle } from "./lib/install-style";
 import { styleLabel } from "./types";
-
-/** Run `npm run build:icons <styles>` in the project root. */
-async function runBuild(npm: string, styles: string[], root: string): Promise<void> {
-  const { execFile } = await import("node:child_process");
-  const { promisify } = await import("node:util");
-  await promisify(execFile)(npm, ["run", "build:icons", ...styles], {
-    cwd: root,
-    // Rebuilding several styles means several ~5 MB downloads plus parsing
-    // 2,078 components each; the default 10s would abort a legitimate run.
-    timeout: 10 * 60_000,
-    maxBuffer: 8 * 1024 * 1024,
-  });
-}
 
 /**
  * Update installed icon data to the latest upstream release.
@@ -29,14 +15,8 @@ async function runBuild(npm: string, styles: string[], root: string): Promise<vo
  * Checking is now something you ask for.
  */
 export default function UpdateIcons() {
-  // Null when running from Raycast's install directory (build output only, no
-  // `scripts/`). Without a working copy the update can't be run in place.
-  const root = projectRoot();
   const installed = useMemo(() => [...availableStyles()], []);
   const version = useMemo(() => installedVersion(), []);
-  // Raycast's PATH doesn't include npm on most machines, so resolve it up front
-  // — its absence changes what this screen can offer, not just what it does.
-  const npm = useMemo(() => resolveNpmPath(), []);
 
   const [updating, setUpdating] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -54,13 +34,19 @@ export default function UpdateIcons() {
   const outdated = version !== null && latest !== null && latest !== undefined && latest !== version;
 
   const runUpdate = useCallback(async () => {
-    if (inFlight.current || installed.length === 0 || !npm || !root) return;
+    if (inFlight.current || installed.length === 0) return;
     inFlight.current = true;
     setUpdating(true);
     const toast = await showToast({ style: Toast.Style.Animated, title: "Updating icon data…" });
     try {
       const before = installedVersion();
-      await runBuild(npm, installed, root);
+      // Reinstall each style through the same runtime path the search command
+      // uses — no npm, no clone, so this works on a Store install.
+      for (const style of installed) {
+        await installStyle(style, (message) => {
+          toast.message = `${style} — ${message}`;
+        });
+      }
       // The rebuild rewrote the manifests on disk, but `loadIndex` memoizes
       // successful reads — without this the "after" read returns the pre-update
       // version and every run reports "already up to date".
@@ -97,7 +83,7 @@ export default function UpdateIcons() {
       inFlight.current = false;
       setUpdating(false);
     }
-  }, [npm, root, installed, recheck]);
+  }, [installed, recheck]);
 
   let markdown: string;
   if (installed.length === 0) {
@@ -121,21 +107,6 @@ export default function UpdateIcons() {
       lines.push("", outdated ? `**Latest:** \`v${latest}\` — update available` : `**Latest:** \`v${latest}\``);
     else lines.push("", "_Could not reach the npm registry._");
 
-    if (!root) {
-      // The common case for anyone who installed rather than cloned.
-      lines.push(
-        "",
-        "_This extension is running from Raycast's install directory, which contains build output only._",
-        "_Copy the command below and run it from your clone of the repo._",
-      );
-    } else if (!npm) {
-      lines.push(
-        "",
-        "_`npm` wasn't found on Raycast's PATH, so it can't run the update here._",
-        "_Copy the command below and run it in a terminal instead._",
-      );
-    }
-
     lines.push("", "**Installed styles**", "");
     for (const style of installed) lines.push(`- ${styleLabel(style)}`);
 
@@ -149,7 +120,7 @@ export default function UpdateIcons() {
       markdown={markdown}
       actions={
         <ActionPanel>
-          {installed.length > 0 && npm && root && (
+          {installed.length > 0 && (
             <Action title={updating ? "Updating…" : "Update Now"} icon={Icon.Download} onAction={runUpdate} />
           )}
           <Action
@@ -158,15 +129,6 @@ export default function UpdateIcons() {
             shortcut={Keyboard.Shortcut.Common.Refresh}
             onAction={recheck}
           />
-          {installed.length > 0 && (
-            // Kept even when npm resolved: some people would rather watch the
-            // build. When npm is missing this is the only way through.
-            <Action.CopyToClipboard
-              title="Copy Update Command"
-              icon={Icon.Clipboard}
-              content={root ? installCommand(installed, root) : installCommandUnknownRoot(installed)}
-            />
-          )}
           <Action.OpenInBrowser title="View Changelog" icon={Icon.Clock} url="https://centralicons.com/changelog" />
         </ActionPanel>
       }
