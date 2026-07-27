@@ -1,6 +1,6 @@
 # Central Icon System Changelog
 
-## [Initial Version] - {PR_MERGE_DATE}
+## [Initial Version] - 2026-07-27
 
 - Search 2,078 Central Icon System icons by name, alias, and category
 - Line and Solid variants side by side, or filtered to one
