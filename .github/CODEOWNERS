@@ -110,6 +110,7 @@
 /extensions/append-to-file                                          @lenpr
 /extensions/appgrid                                                 @Jungwoon
 /extensions/apple-books                                             @vimtor
+/extensions/apple-container                                         @DaviReisVieira
 /extensions/apple-developer-docs                                    @CaliCastle @dustPyrotechnic
 /extensions/apple-devices                                           @madza91
 /extensions/apple-maps-search                                       @djpowers @ratoru @sebdanielsson
@@ -369,6 +370,7 @@
 /extensions/clarify                                                 @akramarev
 /extensions/clash                                                   @ciiiii
 /extensions/claude                                                  @florisdobber @alejandrot96 @FelixLisczyk @gcordalis @rortan134 @ridemountainpig @pernielsentikaer @ridjis @mhrmsn
+/extensions/claude-artifacts                                        @chrismessina
 /extensions/claude-code-cheatsheet                                  @harumeri
 /extensions/claude-code-config-switcher                             @WangCheng0116
 /extensions/claude-code-launcher                                    @stephendolan @ridemountainpig @artisticmedic
@@ -985,8 +987,10 @@
 /extensions/gitmoji                                                 @ricoberger @joshmedeski @ridemountainpig
 /extensions/gitpod                                                  @henit-chobisa @Palanikannan1437 @henit-chobisa @pernielsentikaer @henit-chobisa
 /extensions/gleam-packages                                          @ryanmiville
+/extensions/glean-search                                            @faizhasim
 /extensions/gles-to-malioc                                          @RomanVPX
 /extensions/glide                                                   @titouv
+/extensions/glimpse                                                 @LegendarySpy
 /extensions/global-media-key                                        @douo
 /extensions/globalping                                              @valent1d
 /extensions/glossary                                                @javierarce
@@ -1845,6 +1849,7 @@
 /extensions/otp-inbox                                               @chroxify
 /extensions/otter                                                   @mrmartineau
 /extensions/ottomatic                                               @eluce2
+/extensions/otty                                                    @nightsu
 /extensions/oura                                                    @RobErskine @Menchynskyi
 /extensions/outline-document-search                                 @dnlfrst
 /extensions/outline-page                                            @praveenjuge
@@ -1854,6 +1859,7 @@
 /extensions/owncloud                                                @xmok
 /extensions/oxford-collocation-dictionary                           @guivictorr
 /extensions/ozbargain-deals                                         @8liam
+/extensions/p00f                                                    @mcdays94
 /extensions/package-tracker                                         @cojmeister
 /extensions/pagerduty                                               @horimislime @xmok @erecarte-twilio
 /extensions/pagespeed                                               @vorillaz @pernielsentikaer
@@ -2099,6 +2105,7 @@
 /extensions/quip                                                    @justin0u0 @liznear
 /extensions/quit-applications                                       @mackopes @jrnxf @3llomi @sxn @codesjedi @ridemountainpig @erayack
 /extensions/quoterism                                               @fisenkodv
+/extensions/quran-quick-insert                                      @yshalsager
 /extensions/qutebrowser-tabs                                        @barlevalon
 /extensions/r-pkg-search                                            @gadenbuie
 /extensions/r2-uploader                                             @mazaoshe
@@ -2220,6 +2227,7 @@
 /extensions/redmine                                                 @jwickers
 /extensions/rednote-viewer                                          @orangelckc @LitoMore
 /extensions/reflect                                                 @RyonHuedepohl @joshknowles @tylerwince @ocavue @theomjones @ErBlack
+/extensions/reflect-open                                            @jaseemts
 /extensions/refresh-browsers                                        @koinzhang
 /extensions/refresh-wifi                                            @natterstefan
 /extensions/regex-batch-renamer                                     @tarikkavaz
