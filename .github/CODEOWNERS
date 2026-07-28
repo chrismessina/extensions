@@ -92,6 +92,7 @@
 /extensions/antigravity                                             @mshll @almoce
 /extensions/antinote                                                @sc0
 /extensions/antisocials                                             @DannyVogel
+/extensions/anvil                                                   @Alexminator99
 /extensions/any-website-search                                      @pernielsentikaer @TakenMC
 /extensions/anybox                                                  @francisfeng @iDarkHusky
 /extensions/anycoffee                                               @aymericio
@@ -318,7 +319,7 @@
 /extensions/cc0-lib                                                 @0xN1
 /extensions/ccf-what                                                @CrackedPoly
 /extensions/ccfddl                                                  @ViGeng
-/extensions/ccusage                                                 @nyatinte @zhuravel @nyatinte @GarrickZ2 @pernielsentikaer @raulgg @ridemountainpig @bendrucker
+/extensions/ccusage                                                 @nyatinte @zhuravel @nyatinte @GarrickZ2 @pernielsentikaer @raulgg @ridemountainpig @bendrucker @dzg
 /extensions/cdnjs                                                   @xmok
 /extensions/center                                                  @enesozturk
 /extensions/cerebras                                                @EvanZhouDev
@@ -604,6 +605,7 @@
 /extensions/descript                                                @luarmr
 /extensions/descript-to-youtube-chapters                            @peduarte
 /extensions/desec                                                   @xmok
+/extensions/design-file-finder                                      @yusoufu
 /extensions/design-skills                                           @shivraj-roy
 /extensions/designer-excuses                                        @shree5k
 /extensions/designer-news                                           @itsnwa
@@ -1272,7 +1274,7 @@
 /extensions/just-focus                                              @koinzhang @jiengup
 /extensions/justcolorpicker-raycast                                 @ZooHero500
 /extensions/justwatch-search                                        @RishabSwift @j3lte @xmok
-/extensions/jwt-decoder                                             @gdsmith @zhhanging @JoaoGFdev @YourMCGeek @pernielsentikaer @ridemountainpig @0xdhrv
+/extensions/jwt-decoder                                             @gdsmith @zhhanging @JoaoGFdev @YourMCGeek @pernielsentikaer @ridemountainpig @0xdhrv @Im-Tae
 /extensions/kaalam                                                  @heertheeswaran @ridemountainpig
 /extensions/kafka                                                   @fonimus
 /extensions/kafka-ui                                                @NirRosh
@@ -1407,6 +1409,7 @@
 /extensions/linkace-search                                          @zisoft
 /extensions/linkding                                                @InteractiveNinja @xmok @jose-elias-alvarez
 /extensions/linkinize                                               @NaderIkladious @NaderIkladious
+/extensions/links-folder                                            @francescopioparadiso
 /extensions/linkwarden                                              @leodbrs @xmok @trucke
 /extensions/linux-command                                           @jaywcjlove
 /extensions/lipsum                                                  @seita1996
@@ -1671,6 +1674,7 @@
 /extensions/neon                                                    @xmok
 /extensions/nepali-calendar                                         @adarshdoesntcode
 /extensions/nepali-date-converter                                   @Beedhan
+/extensions/nepali-typing                                           @kshitijsubedi
 /extensions/nerd-font-picker                                        @kud
 /extensions/netbird                                                 @mi7chal
 /extensions/netease-mail                                            @Maxaccurate
@@ -2632,6 +2636,7 @@
 /extensions/tapo-smart-devices                                      @timrogers @yusifaliyevpro
 /extensions/tarot                                                   @RiverCui
 /extensions/tasklink                                                @jrodalo
+/extensions/tasknotes                                               @robinradx
 /extensions/taskplane                                               @albingroen
 /extensions/tasktick                                                @lifedever @pernielsentikaer
 /extensions/tategaki                                                @HaRuKa-1231
@@ -2658,6 +2663,7 @@
 /extensions/terminalfinder                                          @yedongze @Bibabidu @AnirudhG07 @xmok @VatsalSy
 /extensions/terraform-doc                                           @shoppingjaws @b-per
 /extensions/tesla                                                   @WilliamWelsh
+/extensions/tesla-clips                                             @TurboCoder13
 /extensions/tesla-energy                                            @chrismessina
 /extensions/teslamate                                               @mSarheed
 /extensions/tex2typst                                               @nac-39
@@ -2800,7 +2806,7 @@
 /extensions/type-snob                                               @sawyerh @chrismessina @0xdhrv
 /extensions/type-the-alphabet                                       @Visual-Studio-Coder
 /extensions/typeform-navigator                                      @jdvr @xmok
-/extensions/typefully                                               @DanielFerguson @DanielFerguson @pernielsentikaer @thomaspaulmann
+/extensions/typefully                                               @DanielFerguson @DanielFerguson @pernielsentikaer @thomaspaulmann @0xdhrv
 /extensions/typeless-companion                                      @arjanflac
 /extensions/typer                                                   @yaronschwimmer @ridemountainpig
 /extensions/typescript-documentation-search                         @chezhe
@@ -2842,6 +2848,7 @@
 /extensions/update-clash-subscription                               @JakeLaoyu
 /extensions/uplabs                                                  @gebeto
 /extensions/uploaderx                                               @SciSaif
+/extensions/uploadkit                                               @drumst0ck
 /extensions/uploadthing                                             @juliusmarminge @xmok @TakenMC
 /extensions/upnote                                                  @Ujjwal1998
 /extensions/upset-dev                                               @sereinne
