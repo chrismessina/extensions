@@ -149,6 +149,7 @@
 /extensions/atlassian-data-center                                   @tofrankie
 /extensions/atomberg-raycast-extension                              @gupta-ji6
 /extensions/atomic                                                  @joepio
+/extensions/atomtick                                                @4IngoJ
 /extensions/atproto-utilities                                       @futurGH
 /extensions/attio                                                   @xmok
 /extensions/audio-device                                            @benvp @mathieudutour @mike182uk @FezVrasta @rcruzper @thomaspaulmann @arthur-fontaine @pernielsentikaer @taschaub @cballenar @joshmedeski @jdh747 @Inovvia @mateusbadalotti @pavzagor @alexibuild
@@ -1087,6 +1088,7 @@
 /extensions/headlines                                               @Aayush9029 @pernielsentikaer
 /extensions/heatcheck                                               @kumamaki
 /extensions/hebrew-date-zmanim                                      @mendelg
+/extensions/heidisql-sessions                                       @THEN00P
 /extensions/height                                                  @teziovsky
 /extensions/helium                                                  @IslamTayeb @mallsjr @mallsjr @ohivan
 /extensions/helldivers2                                             @AlexStrNik @LitoMore
@@ -1592,6 +1594,7 @@
 /extensions/mlb-scores                                              @jso8910 @RobErskine
 /extensions/mldocs                                                  @sadanand-singh
 /extensions/mnemosyne                                               @adityasarkar
+/extensions/mobbin                                                  @cn0ss
 /extensions/mobile-provisions                                       @Ernest0-Production
 /extensions/mobius-materials                                        @tjwds
 /extensions/mochi                                                   @kawamataryo
@@ -1681,7 +1684,7 @@
 /extensions/nerd-font-picker                                        @kud
 /extensions/netbird                                                 @mi7chal
 /extensions/netease-mail                                            @Maxaccurate
-/extensions/netease-music                                           @chyroc @IceGiraffe
+/extensions/netease-music                                           @chyroc @IceGiraffe @Anoninz
 /extensions/netlify                                                 @Destiner @jonohewitt @jasonbarry @peduarte @xmok
 /extensions/netnewswire                                             @xmok
 /extensions/network-diagnostics                                     @hmarr @3e9b
@@ -2068,6 +2071,7 @@
 /extensions/purpleair                                               @omarshahine
 /extensions/pushover                                                @nandastone
 /extensions/putio                                                   @altaywtf @kud
+/extensions/putty-sessions                                          @THEN00P
 /extensions/px-to-rem-converter                                     @raulanatol
 /extensions/px-to-tailwind                                          @kemiljk
 /extensions/python                                                  @ahmedivy @MuhammadrizoDeveloper
@@ -2189,6 +2193,7 @@
 /extensions/raycast-wca                                             @EvanZhouDev @Visual-Studio-Coder
 /extensions/raycast-weekly-newsletter                               @alexibuild
 /extensions/raycast-wemo                                            @IAmNatch
+/extensions/raycast-zabbix                                          @MassimilianoPasquini97
 /extensions/raycast-zoxide                                          @mrpunkin
 /extensions/raycaster                                               @stevedylandev
 /extensions/raydocs                                                 @teziovsky
@@ -2290,6 +2295,7 @@
 /extensions/rollup-wtf                                              @0xOsprey
 /extensions/rom-launcher                                            @Glct26
 /extensions/rounding-number                                         @HackettLai
+/extensions/royal-tsx                                               @carceneaux
 /extensions/rpass                                                   @rxtsel
 /extensions/rss-reader                                              @fuksman @pernielsentikaer @pomdtr @xmok @alexibuild @degouville
 /extensions/rsync-commands                                          @maxfahl
