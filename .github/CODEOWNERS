@@ -158,6 +158,7 @@
 /extensions/auto-quit-app                                           @koinzhang @alejandrot96
 /extensions/autumn                                                  @xmok
 /extensions/avatar                                                  @koinzhang @madza91
+/extensions/average-saham-indonesia                                 @uluumbch
 /extensions/awesome-mac                                             @ViGeng
 /extensions/awork                                                   @Malte-Hypercode @Malte-Hypercode @Malte-Hypercode @Malte-Hypercode
 /extensions/axios-docs                                              @denizyoldas @xmok
@@ -369,6 +370,7 @@
 /extensions/circleback                                              @arguiot
 /extensions/citation-generator                                      @AbhinavPalacharla
 /extensions/cl-indicators                                           @rodrigoherera
+/extensions/cl1p                                                    @meslva
 /extensions/clarify                                                 @akramarev
 /extensions/clash                                                   @ciiiii
 /extensions/claude                                                  @florisdobber @alejandrot96 @FelixLisczyk @gcordalis @rortan134 @ridemountainpig @pernielsentikaer @ridjis @mhrmsn
@@ -948,7 +950,7 @@
 /extensions/getsound                                                @asgu @asgu @asgu
 /extensions/gg-deals                                                @whitespacecode
 /extensions/gh-pic                                                  @xiangsanliu
-/extensions/gh-pr-tracker                                           @MiguelOlsen
+/extensions/gh-pr-tracker                                           @MiguelOlsen @chrismessina
 /extensions/ghost-docs                                              @royalfig
 /extensions/ghostty                                                 @JarryChung @FriendlyUsername @AlexIsMaking @degouville @mathisfoxius @JoaoGFdev @pernielsentikaer
 /extensions/ghq                                                     @konojunya @alinnow
@@ -1536,6 +1538,7 @@
 /extensions/media-converter                                         @llfmaia @wattmalsh @samuelkraft @Glypse @chihkang
 /extensions/medialister-marketplace-helper                          @td-sedov
 /extensions/meduza                                                  @castletaste
+/extensions/meeting-room-check                                      @ticsiii
 /extensions/mem                                                     @brianfakhoury
 /extensions/mem0                                                    @Dev-Khant @xmok
 /extensions/memberstack                                             @xmok
@@ -1716,7 +1719,7 @@
 /extensions/nippon-colors                                           @nagauta
 /extensions/niuma-logs                                              @mapleeit
 /extensions/nix-flake-templates                                     @lex-unix
-/extensions/nixpkgs-search                                          @aiotter @xmok @0xdhrv @SConaway
+/extensions/nixpkgs-search                                          @aiotter @xmok @0xdhrv @SConaway @ridemountainpig
 /extensions/nl-news-headlines                                       @namzo
 /extensions/nmbs-planner                                            @SamuelVanhaecke @0xdhrv
 /extensions/no-as-a-service                                         @matholamew
@@ -2658,7 +2661,7 @@
 /extensions/techcrunch                                              @khlebobul
 /extensions/techmeme                                                @Tien-Lam
 /extensions/telegram                                                @ikupenov
-/extensions/teleport                                                @lamberttraccard
+/extensions/teleport                                                @lamberttraccard @BBonnet22
 /extensions/tella                                                   @jackmsvaughan
 /extensions/tembo                                                   @vrmiguel
 /extensions/tempmail                                                @Joshlucpoll
@@ -2795,6 +2798,7 @@
 /extensions/tunnelblick                                             @SamuelNitsche @vkhitrin
 /extensions/tuple                                                   @stephendolan
 /extensions/turso                                                   @Spioune
+/extensions/tutti                                                   @BarryBarrywu
 /extensions/tuya-smart                                              @AndresMorelos @anwarulislam
 /extensions/tv-remote                                               @alexibuild
 /extensions/tv2---denmark                                           @mSarheed
