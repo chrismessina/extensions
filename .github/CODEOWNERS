@@ -349,7 +349,7 @@
 /extensions/checklist                                               @zeekrey
 /extensions/checksum                                                @Ek2100 @pernielsentikaer
 /extensions/cheetah                                                 @RongleCat
-/extensions/chess-com                                               @joshfarrant @tomassliz
+/extensions/chess-com                                               @joshfarrant @tomassliz @MuhammadrizoDeveloper
 /extensions/chhoto                                                  @paranoidPhantom
 /extensions/chiikawa-character                                      @0xdhrv
 /extensions/china-ip-address                                        @ErlichLiu
@@ -386,6 +386,7 @@
 /extensions/clean-text                                              @MoisesCervera
 /extensions/cleanshotx                                              @Aayush9029 @lukaszmtw @erics118 @mlnchk @pernielsentikaer @0xdhrv
 /extensions/clear-clipboard                                         @d3caf
+/extensions/clerk                                                   @filiphsps
 /extensions/clickup                                                 @Ali-Parandeh @aesadde @JoltCode @xmok @macbookandrew
 /extensions/climbing-grade-converter                                @MrTartuf0
 /extensions/cling                                                   @alin23 @Caffeine19
@@ -837,6 +838,7 @@
 /extensions/file-manager                                            @erics118 @BalliAsghar @urwrstkn8mare @fengtianze @pernielsentikaer @ridemountainpig
 /extensions/file-organizer                                          @aaronlinv
 /extensions/file-provider-progress                                  @finia2NA
+/extensions/file-tidy                                               @fanhefeng
 /extensions/file-tree-generator                                     @noidwasavailable
 /extensions/filemaker-snippets                                      @eluce2
 /extensions/files-shelf                                             @haythemgataa
@@ -1995,6 +1997,7 @@
 /extensions/pm2                                                     @LitoMore @pernielsentikaer
 /extensions/pocket                                                  @vimtor @hrishabhn @xmok @pernielsentikaer
 /extensions/pocketbase                                              @xmok
+/extensions/podcast-downloader                                      @LagaV
 /extensions/podcasts                                                @ron-myers
 /extensions/podcasts-now                                            @cloudy9101
 /extensions/pokedex                                                 @anhthang @miguel-felix1 @anhthang @ridemountainpig
@@ -2079,7 +2082,7 @@
 /extensions/px-to-tailwind                                          @kemiljk
 /extensions/python                                                  @ahmedivy @MuhammadrizoDeveloper
 /extensions/qalc                                                    @vlad2305m
-/extensions/qbittorrent                                             @pernielsentikaer @timmevandermeer @TakenMC @Aayush9029
+/extensions/qbittorrent                                             @pernielsentikaer @timmevandermeer @TakenMC @Aayush9029 @AviralSaxena
 /extensions/qmd                                                     @karelvuong
 /extensions/qobuz                                                   @kud
 /extensions/qoder                                                   @Ezreal09
@@ -2345,6 +2348,7 @@
 /extensions/screen-saver                                            @koinzhang
 /extensions/screen-sharing-recents                                  @m-hall
 /extensions/screen-studio                                           @pie6k
+/extensions/screenlex                                               @chunkithwang
 /extensions/screenocr                                               @neo773 @anwarulislam @xilopaint @pernielsentikaer @chrismessina @neo773
 /extensions/screenpipe                                              @neo773
 /extensions/screenshot                                              @Aayush9029 @nirtamir2
@@ -2712,6 +2716,7 @@
 /extensions/threads-video-downloader                                @ridemountainpig
 /extensions/tibia-helper                                            @kjbakke
 /extensions/ticktick                                                @viduycheung @viduycheung @Alireza29675 @Yakitrak @ridemountainpig @Iron0utlaw
+/extensions/ticktick-plus                                           @ysrazsingh
 /extensions/tidal                                                   @Ek2100
 /extensions/tidal-controller                                        @0xDreamWeaver @srcurran
 /extensions/tidyread---streamline-your-daily-reading                @DophinL
@@ -2993,6 +2998,7 @@
 /extensions/whois                                                   @zavbala @snilan @solid-pixel @j3lte @sebdanielsson @engeldlgado
 /extensions/whoop                                                   @Josha1len
 /extensions/whosampled                                              @ajtruex @pernielsentikaer @anisub710
+/extensions/whost                                                   @AB-programming
 /extensions/wi-fi                                                   @koinzhang @louishuyng
 /extensions/wifi-password-reveal                                    @louishuyng @xmok @0xdhrv
 /extensions/wifi-share                                              @robinsrk
