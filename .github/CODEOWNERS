@@ -50,6 +50,7 @@
 /extensions/aimeflux                                                @erdiegoant
 /extensions/aimlab                                                  @whitespacecode
 /extensions/air-quality                                             @earthpyy
+/extensions/airbuddy                                                @chrismessina
 /extensions/airplane                                                @pradeepb28
 /extensions/airpods-noise-control                                   @chrahe @hllvc @juanra @jvlxz
 /extensions/airport                                                 @siddharthsharma94
@@ -473,6 +474,7 @@
 /extensions/commit-issue-parser                                     @JulesJuul
 /extensions/commit-message-formatter                                @zrr1999
 /extensions/commit-message-generator                                @rokartur @dphelan
+/extensions/commit-sound-controls                                   @wicolian
 /extensions/commit-streak                                           @aundurraga
 /extensions/commitlint                                              @lardissone
 /extensions/common-directory                                        @koinzhang
@@ -484,7 +486,7 @@
 /extensions/connect-to-vpn                                          @rasmusbe @sato11 @stonerl @vpukhanov @Yshmeel @borzov @paranoidPhantom
 /extensions/consoledev                                              @Rawnly @aliaksandrZh @xmok
 /extensions/contentful                                              @ewgenius @xmok
-/extensions/context7                                                @loris
+/extensions/context7                                                @loris @chrismessina
 /extensions/contexts                                                @marcmagn1
 /extensions/contra                                                  @agusdellaquila
 /extensions/control-d                                               @httpjamesm
@@ -642,7 +644,7 @@
 /extensions/devutils                                                @vietanhlehuu
 /extensions/dex-screener                                            @wp-lai
 /extensions/dexcom-reader                                           @jmedina21
-/extensions/dia                                                     @tleo19 @daat21 @thomaspaulmann @pernielsentikaer @loris @xmok @hetommy
+/extensions/dia                                                     @tleo19 @daat21 @thomaspaulmann @pernielsentikaer @loris @xmok @hetommy @christianmagill
 /extensions/dia-skills                                              @Visual-Studio-Coder @pernielsentikaer
 /extensions/dice-and-coin                                           @yonbergman @xmok
 /extensions/dice-tiles                                              @Jumitti @pernielsentikaer
@@ -1781,6 +1783,7 @@
 /extensions/npm-claimer                                             @HugoRCD
 /extensions/ns-nl-search                                            @flaticols
 /extensions/nsis-reference                                          @idleberg @xmok
+/extensions/nterm-calculator                                        @mawibo
 /extensions/ntfy                                                    @wesleycoder @xmok
 /extensions/nts                                                     @tiktuk
 /extensions/nts-radio                                               @arjanski
@@ -2701,6 +2704,7 @@
 /extensions/team-time                                               @DavidNaak @0xdhrv @DylanPenney
 /extensions/teamgantt                                               @knownasilya
 /extensions/teamup-rooms                                            @drewwatkins11
+/extensions/teamwork                                                @workeffortwaste
 /extensions/techcrunch                                              @khlebobul
 /extensions/techmeme                                                @Tien-Lam
 /extensions/telegram                                                @ikupenov
@@ -2756,6 +2760,7 @@
 /extensions/threads                                                 @chrismessina @ridemountainpig
 /extensions/threads-video-downloader                                @ridemountainpig
 /extensions/tibia-helper                                            @kjbakke
+/extensions/ticker-bar                                              @kays0x
 /extensions/ticktick                                                @viduycheung @viduycheung @Alireza29675 @Yakitrak @ridemountainpig @Iron0utlaw
 /extensions/ticktick-plus                                           @ysrazsingh @0xdhrv
 /extensions/tidal                                                   @Ek2100
