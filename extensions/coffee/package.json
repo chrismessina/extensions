@@ -17,7 +17,8 @@
     "alexi.build",
     "mbuvarp",
     "frederik_obe",
-    "bsradcliffe"
+    "bsradcliffe",
+    "aditi_bhagat"
   ],
   "pastContributors": [
     "Visual-Studio-Coder"
@@ -127,7 +128,7 @@
       "title": "Caffeinate Status",
       "description": "Show the current caffeination status",
       "mode": "no-view",
-      "interval": "15s"
+      "interval": "1m"
     }
   ],
   "tools": [
