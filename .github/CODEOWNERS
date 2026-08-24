@@ -956,6 +956,7 @@
 /extensions/fumadocs                                                @ridemountainpig
 /extensions/fuzzy-file-search                                       @erykksc @gilitos92
 /extensions/fvm                                                     @leoafarias
+/extensions/fx-coding-agent                                         @0xdhrv
 /extensions/fxcodex                                                 @maximkrouk
 /extensions/g-cloud                                                 @ojowwalker77 @bselleslagh
 /extensions/game-scout                                              @Glct26
@@ -1460,6 +1461,7 @@
 /extensions/liquipedia-matches                                      @EemilSuo @pernielsentikaer
 /extensions/list-by-fullforms                                       @mrmithunmathew
 /extensions/list-randomizer                                         @quuu
+/extensions/litellm                                                 @Lp-Francois
 /extensions/literal                                                 @OkanBilal
 /extensions/litterbox                                               @0xdhrv
 /extensions/liveblocks                                              @andreaselia
@@ -2757,6 +2759,7 @@
 /extensions/text-rewrap                                             @arembridge
 /extensions/text-scramble                                           @bomkino
 /extensions/text-shortcuts                                          @koinzhang @snptrs @gfazioli
+/extensions/textarray                                               @jantursky
 /extensions/textlint-rule-aws-service-name                          @bun913
 /extensions/textream                                                @alexibuild
 /extensions/texts                                                   @zavbala
