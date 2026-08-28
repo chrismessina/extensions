@@ -1894,6 +1894,7 @@
 /extensions/opencodex-usage                                         @list-jonas
 /extensions/openfortivpn                                            @rafalpetryka
 /extensions/openhue                                                 @thibauult
+/extensions/openqr                                                  @sam-moreton
 /extensions/openrouter-manager                                      @ClaPalo
 /extensions/openrouter-model-search                                 @mutewinter @0xdhrv @ridemountainpig
 /extensions/openrouter-models-finder                                @jeejeeguan @degouville
@@ -2169,7 +2170,7 @@
 /extensions/quick-git                                               @joshdales
 /extensions/quick-jump                                              @akadir
 /extensions/quick-latex                                             @Noamko @Faria22
-/extensions/quick-notes                                             @biknandy @nmder @adityavardhansharma
+/extensions/quick-notes                                             @biknandy @nmder @adityavardhansharma @MuhammadrizoDeveloper
 /extensions/quick-open-project                                      @zerowidth @bjw-s @pernielsentikaer @mattstein @canac @iml885203
 /extensions/quick-quit                                              @SriramHQ
 /extensions/quick-quote                                             @kumamaki
