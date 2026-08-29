@@ -35,7 +35,7 @@
 /extensions/ag-audioflow                                            @asgu @pernielsentikaer
 /extensions/agent-client-protocol                                   @Yukaii
 /extensions/agent-ecosystem-map                                     @spyrae
-/extensions/agent-usage                                             @natsustan @alexibuild @AdrianBonpin @GarrickZ2 @EDM115 @chingweih @natsustan
+/extensions/agent-usage                                             @natsustan @alexibuild @AdrianBonpin @GarrickZ2 @EDM115 @chingweih @natsustan @jakoss
 /extensions/agentcfg                                                @jorgenosberg
 /extensions/ai-agency                                               @Marcin-91
 /extensions/ai-by-vercel                                            @ridemountainpig
@@ -507,7 +507,7 @@
 /extensions/convex                                                  @robertalv @cn0ss
 /extensions/cook                                                    @TechedWind707
 /extensions/cookie-string-parser                                    @NicolasMontone
-/extensions/coolify                                                 @xmok
+/extensions/coolify                                                 @xmok @alejandrot96
 /extensions/copee                                                   @gianpispi
 /extensions/copilot-workspace                                       @colebemis @pernielsentikaer
 /extensions/copy-gcp-icons                                          @pomdtr
@@ -766,6 +766,7 @@
 /extensions/edgestore-raycast                                       @perfectbase
 /extensions/effect-docs                                             @rvaccone
 /extensions/ego-lite                                                @virtualcca
+/extensions/ejection-seat                                           @chrismessina
 /extensions/ekstraklasa                                             @szarbartosz
 /extensions/element                                                 @Aayush9029 @Visual-Studio-Coder
 /extensions/elevenlabs-tts                                          @lachiejames @thierrygrimm @keito4
@@ -2670,7 +2671,7 @@
 /extensions/supabase-cron-monitor                                   @duhman
 /extensions/supabase-docs                                           @Isaiah-Hamilton @xmok
 /extensions/supahabits                                              @gon250
-/extensions/super-productivity                                      @pvnkmnk @xmok
+/extensions/super-productivity                                      @pvnkmnk @xmok @raulriverarojas
 /extensions/superhuman                                              @jlokos
 /extensions/supermemory                                             @MaheshtheDev @xmok
 /extensions/supernotes                                              @connebs @tobeagram @peduarte @mattdelliott
@@ -2830,7 +2831,7 @@
 /extensions/tinyfaces-nft                                           @peduarte
 /extensions/tinyfish-search                                         @pranavjana
 /extensions/tinyimg                                                 @wuyax
-/extensions/tinypng                                                 @kawamataryo @j3lte @natsustan
+/extensions/tinypng                                                 @kawamataryo @j3lte @natsustan @MuhammadrizoDeveloper
 /extensions/tip-calculator                                          @Visual-Studio-Coder @pernielsentikaer
 /extensions/tl-dr-ai-summary-tool                                   @crazygo
 /extensions/tldr                                                    @pomdtr @ridemountainpig @0xdhrv
