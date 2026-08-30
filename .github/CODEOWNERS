@@ -899,6 +899,7 @@
 /extensions/fix-language                                            @hiiamtin
 /extensions/fix-link-embeds                                         @eggsy @o-az
 /extensions/fizzy                                                   @xmok
+/extensions/flameshot                                               @MuhammadrizoDeveloper
 /extensions/flashcards                                              @Paulito12209
 /extensions/flashspace                                              @krmbzds
 /extensions/flaticon                                                @kudrykv
@@ -2093,7 +2094,7 @@
 /extensions/potter-db                                               @xmok
 /extensions/power-management                                        @sasivarnan @erics118 @bbatsche @iamyeizi
 /extensions/powertoys-tool-runner                                   @LostViking09 @iml885203
-/extensions/premier-league                                          @anhthang @jfkisafk
+/extensions/premier-league                                          @anhthang @jfkisafk @pernielsentikaer
 /extensions/prettier                                                @aeither @jasonwaters @xmok
 /extensions/pretty-pr-link                                          @joaopcm
 /extensions/primer                                                  @colebemis
@@ -2851,6 +2852,7 @@
 /extensions/toggle-menu-bar                                         @iamyeizi
 /extensions/toggle-proxy                                            @Kaidstor
 /extensions/toggle-scroll-bars-visibility                           @danulqua
+/extensions/toggle-trackpad                                         @tjdakf
 /extensions/tokenizer                                               @ashleymavericks
 /extensions/tokentrack                                              @liel20946
 /extensions/tomito-controls                                         @elyyyse
