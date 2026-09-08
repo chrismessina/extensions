@@ -37,7 +37,7 @@
 /extensions/agent-browser                                           @0xdhrv
 /extensions/agent-client-protocol                                   @Yukaii
 /extensions/agent-ecosystem-map                                     @spyrae
-/extensions/agent-usage                                             @natsustan @alexibuild @AdrianBonpin @GarrickZ2 @EDM115 @chingweih @natsustan @jakoss
+/extensions/agent-usage                                             @natsustan @alexibuild @AdrianBonpin @GarrickZ2 @EDM115 @chingweih @natsustan @jakoss @Laughing0900
 /extensions/agentcfg                                                @jorgenosberg
 /extensions/ai-agency                                               @Marcin-91
 /extensions/ai-by-vercel                                            @ridemountainpig
@@ -426,7 +426,7 @@
 /extensions/clippyx                                                 @0ssamaak0
 /extensions/clipsign                                                @gdcho
 /extensions/clipyai                                                 @strikeraryu
-/extensions/clockify                                                @ismamz @sxn @kuddl @azlekov @sebboer @shkm @constantins2001 @xmok @pcamminadi @riccardogiorato
+/extensions/clockify                                                @ismamz @sxn @kuddl @azlekov @sebboer @shkm @constantins2001 @xmok @pcamminadi @riccardogiorato @tonygauderman
 /extensions/clockodo                                                @leomelzer
 /extensions/clojuredocs-search                                      @edblancas
 /extensions/close-apps                                              @guidefari @pernielsentikaer
@@ -1241,7 +1241,7 @@
 /extensions/imgur                                                   @BalliAsghar @pernielsentikaer @caumeira @j3lte
 /extensions/immich                                                  @xmok @julien-wff
 /extensions/improvmx                                                @ImprovMX @xmok
-/extensions/in-the-time-zone                                        @imranidz
+/extensions/in-the-time-zone                                        @imranidz @ridemountainpig
 /extensions/inbound                                                 @xmok
 /extensions/inbox-ai                                                @foeken
 /extensions/incident-io                                             @nklmilojevic
@@ -1490,6 +1490,7 @@
 /extensions/llm-stats                                               @Ernest0-Production
 /extensions/llms-txt                                                @thedaviddias @pernielsentikaer @xmok
 /extensions/lm-studio                                               @vineethsai
+/extensions/load-bearing-reply                                      @chrisdeeming
 /extensions/loan-calculator                                         @kylinwowo
 /extensions/lobehub-icons                                           @ridemountainpig
 /extensions/lobsters                                                @dev99problems
@@ -1932,6 +1933,7 @@
 /extensions/orbit                                                   @michaelheckmann
 /extensions/orbita                                                  @tcelestino
 /extensions/orbstack                                                @nicholasq
+/extensions/orc-pictures                                            @TheOrcDev
 /extensions/origami                                                 @xilopaint
 /extensions/orion                                                   @Plonq @erics118 @giannisanni
 /extensions/orshot                                                  @rishimohan
@@ -2953,6 +2955,7 @@
 /extensions/u301-url-shortener                                      @shiny
 /extensions/udemy-coupons                                           @dharmendrakg
 /extensions/ugly-face                                               @bxb100 @pernielsentikaer
+/extensions/ui-component-search                                     @tomer953
 /extensions/uk-bank-holidays                                        @kud
 /extensions/ulid                                                    @zephyrpathsofglory
 /extensions/ultrahuman                                              @joshmillgate
