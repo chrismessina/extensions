@@ -1,5 +1,29 @@
 # Agent Usage Changelog
 
+## [Cached usage and background refresh] - 2026-09-09
+
+### Improvements
+
+- Add configurable background refresh every 1, 5, 15, 30, or 60 minutes, including when the menu bar is disabled
+- Show cached provider and account rows immediately while checking credentials, then update the list when accounts or availability change
+- Add the standard Refresh keyboard shortcut and avoid duplicate refresh requests for multi-account providers
+- Keep cached usage for unchanged Amp and Grok credentials, and invalidate it on confirmed login changes
+- Retain cached usage with an Account unverified label when credential checks fail or Antigravity's active account cannot be determined
+- Keep manual and scheduled refresh independent of foreground credential checks
+
+## [Fix Antigravity Closed-App Quota] - 2026-09-09
+
+### Bug Fixes
+
+- Fetch Antigravity quota via stored Google OAuth credentials when the Antigravity app/`agy` language server is not running, so Agent Usage still shows Gemini/Claude weekly and 5-hour limits
+- Fill Antigravity email and plan on that OAuth path from Google userinfo and Cloud Code `loadCodeAssist`
+
+## [Apply Saved Provider Order] - 2026-09-09
+
+### Bug Fixes
+
+- Apply the provider order from Move Up/Down in the list to the menu bar (use Refresh All after reordering)
+
 ## [Add OpenRouter credit balance] - 2026-09-08
 
 ### New Features

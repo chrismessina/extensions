@@ -17,8 +17,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ManageAccountsForm } from "./accounts/ManageAccountsForm.tsx";
 import type { AccountUsageState } from "./accounts/types.ts";
 import { formatErrorMarkdown } from "./agents/detail-format.ts";
-import { formatClock, latestTimestamp } from "./agents/format.ts";
-import { DEFAULT_AGENT_ORDER, getInitialSelectedRowId, getRequestedSelectedRowId } from "./agents/order.ts";
+import { formatClock, latestTimestamp, withCredentialStatus } from "./agents/format.ts";
+import {
+  AGENT_ORDER_KEY,
+  DEFAULT_AGENT_ORDER,
+  getInitialSelectedRowId,
+  getRequestedSelectedRowId,
+  parseStoredAgentOrder,
+} from "./agents/order.ts";
 import {
   useAihubmixUsage,
   useAmpUsage,
@@ -85,8 +91,6 @@ import { formatSyntheticUsageText, getSyntheticAccessory, renderSyntheticDetail 
 import type { SyntheticError, SyntheticUsage } from "./synthetic/types.ts";
 import { formatZaiUsageText, getZaiAccessory, renderZaiDetail } from "./zai/renderer.tsx";
 import type { ZaiError, ZaiUsage } from "./zai/types.ts";
-
-const AGENT_ORDER_KEY = "agent-order";
 
 type ErrorLike = { type: string; message: string };
 type CommandLaunchContext = { selectedAgentId?: string };
@@ -439,7 +443,8 @@ function createAgentView<TUsage, TError extends ErrorLike>(
     isLoading: state.isLoading,
     lastFetchedAt: state.lastFetchedAt,
     revalidate: state.revalidate,
-    getAccessory: () => config.getAccessory(state.usage, state.error, state.isLoading),
+    getAccessory: () =>
+      withCredentialStatus(config.getAccessory(state.usage, state.error, state.isLoading), state.credentialStatus),
     renderDetail: () => config.renderDetail(state.usage, state.error),
     formatUsageText: () => config.formatUsageText(state.usage, state.error),
   };
@@ -623,20 +628,10 @@ export default function Command(props: LaunchProps<{ launchContext: CommandLaunc
 
   useEffect(() => {
     LocalStorage.getItem<string>(AGENT_ORDER_KEY).then((stored) => {
-      if (stored) {
-        try {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
-            const validOrder = parsed.filter((id): id is AgentId => typeof id === "string" && isAgentId(id));
-            if (validOrder.length > 0) {
-              const missingIds = AGENT_IDS.filter((id) => !validOrder.includes(id));
-              setAgentOrder([...validOrder, ...missingIds]);
-              setHasStoredAgentOrder(true);
-            }
-          }
-        } catch {
-          // keep default order
-        }
+      const parsed = parseStoredAgentOrder(stored, isAgentId, AGENT_IDS);
+      if (parsed) {
+        setAgentOrder(parsed);
+        setHasStoredAgentOrder(true);
       }
       setOrderLoaded(true);
     });
@@ -779,7 +774,7 @@ export default function Command(props: LaunchProps<{ launchContext: CommandLaunc
   }, [prefs.showGemini, geminiState.error?.type, handleGeminiReauth]);
 
   const handleRefresh = async () => {
-    await Promise.all(allRows.map((row) => row.view.revalidate()));
+    await Promise.all([...new Set(allRows.map((row) => row.view.revalidate))].map((refresh) => refresh()));
     await showToast({
       title: "Refreshed",
       style: Toast.Style.Success,
@@ -838,7 +833,12 @@ export default function Command(props: LaunchProps<{ launchContext: CommandLaunc
                   <ActionPanel>
                     {agent.isSupported && (
                       <>
-                        <Action title={refreshTitle} icon={Icon.ArrowClockwise} onAction={handleRefresh} />
+                        <Action
+                          title={refreshTitle}
+                          icon={Icon.ArrowClockwise}
+                          shortcut={Keyboard.Shortcut.Common.Refresh}
+                          onAction={handleRefresh}
+                        />
                         <Action.CopyToClipboard
                           title="Copy Usage Details"
                           content={agent.formatUsageText()}
@@ -909,7 +909,12 @@ export default function Command(props: LaunchProps<{ launchContext: CommandLaunc
                 detail={<List.Item.Detail markdown={errorMarkdown} metadata={detail} />}
                 actions={
                   <ActionPanel>
-                    <Action title={refreshTitle} icon={Icon.ArrowClockwise} onAction={handleRefresh} />
+                    <Action
+                      title={refreshTitle}
+                      icon={Icon.ArrowClockwise}
+                      shortcut={Keyboard.Shortcut.Common.Refresh}
+                      onAction={handleRefresh}
+                    />
                     <Action.CopyToClipboard
                       title="Copy Usage Details"
                       content={view.formatUsageText()}
