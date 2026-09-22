@@ -7,6 +7,18 @@ const METABRAIN_DB_PATH = join(homedir(), ".metabrain.db");
 
 export const OFFICIAL_ENTRIES: RegistryEntry[] = [
   {
+    name: "blindpay",
+    title: "BlindPay",
+    description:
+      "Stablecoin API for global payments. Create receivers and virtual accounts, get FX quotes, run payouts and payins across bank rails and blockchains, and read balances and transaction history. Remote Streamable HTTP server with BlindPay OAuth 2.1 sign-in through `mcp-remote`; no API key needed.",
+    icon: "https://github.com/blindpaylabs.png",
+    homepage: "https://github.com/blindpaylabs/blindpay-mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.blindpay.com/mcp"],
+    },
+  },
+  {
     name: "atono",
     title: "Atono",
     description:
@@ -148,6 +160,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     configuration: {
       command: "npx",
       args: ["-y", "mcp-remote", "https://glif.app/api/mcp"],
+    },
+  },
+  {
+    name: "gtd-brain",
+    title: "GTD Brain",
+    description:
+      "Getting Things Done board: capture to Inbox, next actions by context, projects, waiting-for and a weekly review, on the same board as the GTD Brain web, iOS and Android apps. Hosted remote server with OAuth 2.1 sign-in (email code), no API key to paste.",
+    icon: "https://gtdbrain.com/gtdbrain/icon-512.png",
+    homepage: "https://gtdbrain.com/connect?source=raycast-mcp-registry",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.gtdbrain.com/api/gtdbrain/v1/mcp"],
     },
   },
   {

@@ -89,7 +89,11 @@ export const executeJxa = async (script: string) => {
   }
 };
 
-const normalizeText = (text: string) =>
+// Folds a string to a diacritic-insensitive, case-insensitive form (NFD
+// decomposes an accented letter into its base letter plus a combining accent
+// mark, which the second step then strips), so a query typed without accents
+// still substring-matches text that has them.
+export const normalizeText = (text: string) =>
   text
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -103,6 +107,13 @@ export function search<T extends object>(collection: T[], keys: string[], search
   return collection.filter((item) =>
     keys.some((key) => normalizeText((item as Record<string, string>)[key]).includes(normalizeText(searchText))),
   );
+}
+
+// A URL is a destination, not a tab identity: several windows can have the
+// same URL open simultaneously. Keep the window-local index in every List ID
+// so actions always address the instance the user selected.
+export function getTabKey(tab: Tab) {
+  return `tab-${tab.window_id}-${tab.tab_index}`;
 }
 
 export function getTitle(tab: Tab) {

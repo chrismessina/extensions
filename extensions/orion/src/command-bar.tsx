@@ -13,12 +13,14 @@ import TabListItem from "./components/TabListItem";
 import UrlListItem, { UrlItem } from "./components/UrlListItem";
 import SuggestionListItem from "./components/SuggestionListItem";
 import OpenInOrionAction from "./components/OpenInOrionAction";
+import { searchTabsWithFallback } from "./tabSearch";
 
 import { Bookmark, HistoryItem, Tab } from "./types";
 import {
   buildSearchUrl,
   extractDomainName,
   getSearchEngineName,
+  getTabKey,
   isLauncherTab,
   isWebAddress,
   normalizeWebAddress,
@@ -83,7 +85,7 @@ type Hit =
   | { kind: "tab"; tab: Tab; key: string }
   | { kind: "url"; item: UrlItem; source: string; key: string; visitCount?: number; lastVisitTime?: string };
 
-const tabKey = (t: Tab) => `tab-${t.window_id}-${t.url}`;
+const tabKey = getTabKey;
 
 function sourcePriority(hit: Hit): number {
   if (hit.kind === "tab") return 4;
@@ -280,13 +282,25 @@ export default function Command() {
   const topUrlKey = topHit?.kind === "url" ? topHit.key : undefined;
 
   const topUrl = topHit?.kind === "tab" ? topHit.tab.url : topHit?.item.url;
-  const seenUrls = new Set(topUrl ? [canonicalUrl(topUrl)] : []);
-  const exactTabSection = uniqueUrls(
-    tabHits.filter((t) => tabKey(t) !== topTabKey),
-    seenUrls,
-    hasQuery ? LIMITS.tabs : tabHits.length,
-  );
-  const tabSection = exactTabSection;
+  // Tabs are instances, not merely destinations. Keep duplicate URLs in Open
+  // Tabs, while retaining canonical-URL de-duplication only across sources.
+  // A Tab Top Hit removes only its own instance; the other instances remain.
+  const seenUrls = new Set(topHit?.kind === "url" && topUrl ? [canonicalUrl(topUrl)] : []);
+  const exactTabSection = tabHits
+    .filter((t) => tabKey(t) !== topTabKey && !seenUrls.has(canonicalUrl(t.url)))
+    .slice(0, hasQuery ? LIMITS.tabs : tabHits.length);
+  if (topHit?.kind === "tab") seenUrls.add(canonicalUrl(topHit.tab.url));
+  exactTabSection.forEach((tab) => seenUrls.add(canonicalUrl(tab.url)));
+  // Fuzzy/pinyin results are a fallback only when there is no exact local tab
+  // match at all; `seenUrls` already reflects Top Hit at this point (exact
+  // matches are empty whenever this runs), so this only needs to exclude Top
+  // Hit's own destination, not re-check against exactTabSection.
+  const fuzzyTabSection =
+    hasQuery && tabHits.length === 0
+      ? searchTabsWithFallback(openTabs, query, LIMITS.tabs).filter((tab) => !seenUrls.has(canonicalUrl(tab.url)))
+      : [];
+  fuzzyTabSection.forEach((tab) => seenUrls.add(canonicalUrl(tab.url)));
+  const tabSection = exactTabSection.length > 0 ? exactTabSection : fuzzyTabSection;
   const bookmarkSection = uniqueUrls(
     bookmarkHits.filter((b) => `bm-${b.uuid}` !== topUrlKey),
     seenUrls,
@@ -438,7 +452,7 @@ export default function Command() {
       )}
 
       {tabSection.length > 0 && (
-        <List.Section title="Open Tabs">
+        <List.Section title={fuzzyTabSection.length > 0 ? "Open Tabs (Fuzzy Matches)" : "Open Tabs"}>
           {tabSection.map((t) => (
             <TabListItem id={tabKey(t)} key={tabKey(t)} tab={t} refresh={refresh} closeLaunchers />
           ))}

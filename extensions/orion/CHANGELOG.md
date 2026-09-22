@@ -1,5 +1,16 @@
 # Orion Changelog
 
+## [Tabs] - 2026-09-22
+
+- Track each open tab's window-local index and whether it is Orion's current tab. Open Tabs (Search Tabs and Command Bar) now shows a "Current Tab" label, keeps duplicate URLs as separate entries instead of silently collapsing them, and switching to a tab addresses it by that stable index rather than a title/URL scan.
+- Add a "Refresh Open Tabs" action (⌘R) to Open Tabs results.
+- Escape tab title/URL correctly when building the AppleScript that switches to a tab, instead of an unescaped template literal.
+
+## [Command Bar] - 2026-09-22
+
+- Add a configurable limit for live search suggestions; setting it to zero hides suggestions and prevents suggestion requests.
+- Add fuzzy and pinyin matching as a labeled fallback for open tabs when there is no exact local tab match. Fallback matches are not eligible for Top Hit.
+
 ## [Command Bar] - 2026-09-21
 
 - Improve Top Hit ranking with deterministic match tiers and source precedence: open tabs, bookmarks, reading list, then history. Deduplicate matching destinations and use history frecency only to resolve ties within history.
