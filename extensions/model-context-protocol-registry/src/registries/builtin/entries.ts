@@ -392,6 +392,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "quillhub",
+    title: "QuillHub",
+    description:
+      "Search your meeting transcripts, read who said what, pull decisions and action items, get quotes from one person across meetings, and transcribe new files or YouTube links. Hosted remote server with OAuth 2.1 sign-in, no API key to paste.",
+    icon: "https://raw.githubusercontent.com/Tim-nocode/quillhub-mcp/main/logo.png",
+    homepage: "https://quillhub.ai/en/help/mcp-claude-cursor?utm_source=raycast&utm_medium=directory&utm_campaign=mcp-listing",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.quillhub.ai/mcp"],
+    },
+  },
+  {
     name: "razuna",
     title: "Razuna",
     description:
@@ -496,6 +508,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
         SLACK_TEAM_ID: "T01234567",
         SLACK_CHANNEL_IDS: "C01234567, C76543210",
       },
+    },
+  },
+  {
+    name: "socialfaktory",
+    title: "SocialFaktory",
+    description:
+      "Write, generate, schedule and publish a brand's social content, in its own voice, on every channel: TikTok, Instagram, YouTube, X, LinkedIn, Facebook and Pinterest. Remote Streamable HTTP server with SocialFaktory OAuth 2.1 sign-in through `mcp-remote`; no API key needed.",
+    icon: "https://www.socialfaktory.com/connector-icon-512.png",
+    homepage: "https://www.socialfaktory.com",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://www.socialfaktory.com/mcp"],
     },
   },
   {
