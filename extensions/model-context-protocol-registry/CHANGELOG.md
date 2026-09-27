@@ -1,5 +1,28 @@
 # Model Context Protocol Registry Changelog
 
+## [Add Mnemoverse MCP Server] - 2026-09-26
+
+- Add Mnemoverse to the official registry: hosted persistent memory for AI agents over MCP. Tell it a recalled memory helped or misled, and it re-ranks what comes back next; shared rooms for multi-agent work. Local stdio server `@mnemoverse/mcp-memory-server` (MIT) through `npx`; it lists its ten tools without a key, and every tool call needs a free API key from console.mnemoverse.com.
+
+## [Add Award Travel Finder, Airport Lounge List, FlightQueue and FlightSeatMap MCP Servers] - 2026-09-26
+
+- Add Award Travel Finder to the official registry: search award flight availability across 28 airlines and award-chart pricing for 23 loyalty programs. Hosted remote Streamable HTTP server at https://mcp.awardtravelfinder.com/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key.
+- Add Airport Lounge List to the official registry: search 8,500+ airport lounges and check access by card, membership or status. Hosted remote Streamable HTTP server at https://mcp.airportloungelist.com/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key.
+- Add FlightQueue to the official registry: airport security wait times, FAA delays, EES border queues and baggage stats. Hosted remote Streamable HTTP server at https://mcp.flightqueue.com/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key.
+- Add FlightSeatMap to the official registry: seat maps, seat ratings, traveller reviews and seat alerts for 117 airlines. Hosted remote Streamable HTTP server at https://mcp.flightseatmap.com/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key.
+
+## [Add Quibbly MCP Server] - 2026-09-26
+
+- Add Quibbly to the official registry: search synced LinkedIn conversations and connections, see who watched your videos, manage follow-ups, notes and tags, and draft replies that you send yourself. Hosted remote Streamable HTTP server at https://server.quibbly.co/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration and PKCE, no API key.
+
+## [Add QuoteBill MCP Server] - 2026-09-26
+
+- Add QuoteBill to the official registry: draft quotations and invoices from 133 templates, look up the published tax rate for 195 countries with the official source, total line items and get a link that opens the finished document on quotebill.com (Excel, Word or PDF). Read-only tools. Hosted remote Streamable HTTP server at https://quotebill.com/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration and PKCE, free QuoteBill account, no API key.
+
+## [Add SpringBrand MCP Server] - 2026-09-25
+
+- Add SpringBrand to the official registry: social listening across X, TikTok, Instagram, YouTube, Reddit and Xiaohongshu; website traffic, traffic-source and SEO research; company, contact and creator discovery; and copy, image, video and voiceover generation, all behind one connector and billed per call. Hosted remote Streamable HTTP server at https://connector.springbrand.ai/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration and PKCE, no API key.
+
 ## [Add Scout7 MCP Server] - 2026-09-25
 
 - Add Scout7 to the official registry: plans a week of organic marketing from your brand, writes SEO blogs, videos, LinkedIn carousels and social posts, schedules them across your channels and reports what moved, with your approval before anything goes live. Hosted remote Streamable HTTP server at https://mcp.scout7.ai/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key.

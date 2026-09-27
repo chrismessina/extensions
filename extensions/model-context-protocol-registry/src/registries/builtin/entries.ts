@@ -31,6 +31,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "airport-lounge-list",
+    title: "Airport Lounge List",
+    description:
+      "Search 8,500+ airport lounges and check access by card, membership or status. Hosted remote Streamable HTTP server through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key to paste.",
+    icon: "https://raw.githubusercontent.com/Airport-Lounge-List/mcp-server/HEAD/plugins/airport-lounge-list/assets/logo.png",
+    homepage: "https://airportloungelist.com/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.airportloungelist.com/mcp"],
+    },
+  },
+  {
     name: "atono",
     title: "Atono",
     description:
@@ -48,6 +60,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       env: {
         X_API_KEY: "<YOUR_API_KEY_HERE>",
       },
+    },
+  },
+  {
+    name: "award-travel-finder",
+    title: "Award Travel Finder",
+    description:
+      "Search award flight availability across 28 airlines and award-chart pricing for 23 loyalty programs. Hosted remote Streamable HTTP server through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key to paste.",
+    icon: "https://raw.githubusercontent.com/AwardTravelFinder/mcp/HEAD/logo.png",
+    homepage: "https://awardtravelfinder.com/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.awardtravelfinder.com/mcp"],
     },
   },
   {
@@ -362,6 +386,45 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "flightqueue",
+    title: "FlightQueue",
+    description:
+      "Airport security wait times, FAA delays, EES border queues and baggage stats. Hosted remote Streamable HTTP server through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key to paste.",
+    icon: "https://raw.githubusercontent.com/Flight-Queue/mcp/HEAD/assets/logo.png",
+    homepage: "https://flightqueue.com",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.flightqueue.com/mcp"],
+    },
+  },
+  {
+    name: "flightseatmap",
+    title: "FlightSeatMap",
+    description:
+      "Seat maps, seat ratings, traveller reviews and seat alerts for 117 airlines. Hosted remote Streamable HTTP server through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration, no API key to paste.",
+    icon: "https://avatars.githubusercontent.com/u/277431901?s=512",
+    homepage: "https://flightseatmap.com/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.flightseatmap.com/mcp"],
+    },
+  },
+  {
+    name: "mnemoverse",
+    title: "Mnemoverse",
+    description:
+      "Hosted persistent memory for AI agents over MCP. Tell it a recalled memory helped or misled, and it re-ranks what comes back next. Shared rooms for multi-agent work. One key or OAuth across Claude Code, Cursor, VS Code and ChatGPT. Local stdio server `@mnemoverse/mcp-memory-server` (MIT) through `npx`; it lists its ten tools without a key, and every tool call needs a free API key from console.mnemoverse.com, set as `MNEMOVERSE_API_KEY`.",
+    icon: "https://mnemoverse.com/apple-touch-icon.png",
+    homepage: "https://mnemoverse.com/docs/api/mcp-server",
+    configuration: {
+      command: "npx",
+      args: ["-y", "@mnemoverse/mcp-memory-server@latest"],
+      env: {
+        MNEMOVERSE_API_KEY: "mk_live_YOUR_KEY",
+      },
+    },
+  },
+  {
     name: "paddle",
     title: "Paddle",
     description:
@@ -428,6 +491,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "quibbly",
+    title: "Quibbly",
+    description:
+      "Your LinkedIn inbox in your AI assistant: search synced LinkedIn conversations and connections, see who watched your videos, manage follow-ups, notes and tags, and draft replies that you send yourself. Works alongside any CRM connector. Requires a Quibbly account and the Quibbly Chrome extension with Inbox on. Hosted remote Streamable HTTP server through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration and PKCE, no API key to paste.",
+    icon: "https://server.quibbly.co/icon-512.png",
+    homepage: "https://quibbly.co/docs/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://server.quibbly.co/mcp"],
+    },
+  },
+  {
     name: "quillhub",
     title: "QuillHub",
     description:
@@ -438,6 +513,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     configuration: {
       command: "npx",
       args: ["-y", "mcp-remote", "https://mcp.quillhub.ai/mcp"],
+    },
+  },
+  {
+    name: "quotebill",
+    title: "QuoteBill",
+    description:
+      "Draft quotations and invoices: search 133 templates, look up the published tax rate for 195 countries with the official source, total line items with the same arithmetic as the QuoteBill editor, and get a link that opens the finished document on quotebill.com to export as Excel, Word or PDF. All tools are read-only. Hosted remote Streamable HTTP server through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration and PKCE, free QuoteBill account, no API key to paste.",
+    icon: "https://raw.githubusercontent.com/auto1225/quotebill-mcp/main/logo.png",
+    homepage: "https://quotebill.com/en/guides/connect-ai-assistants/",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://quotebill.com/mcp"],
     },
   },
   {
@@ -582,6 +669,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     configuration: {
       command: "npx",
       args: ["-y", "mcp-remote", "https://www.socialfaktory.com/mcp"],
+    },
+  },
+  {
+    name: "springbrand",
+    title: "SpringBrand",
+    description:
+      "Go-to-market capabilities for your AI agent behind one connector: social listening across X, TikTok, Instagram, YouTube, Reddit and Xiaohongshu; website traffic, traffic-source and SEO research; company, contact and creator discovery; and copy, image, video and voiceover generation. The agent searches for the capability it needs, runs it and gets the result back, billed per call. Hosted remote Streamable HTTP server at https://connector.springbrand.ai/mcp through `mcp-remote`; OAuth 2.1 sign-in with dynamic client registration and PKCE, no API key to paste.",
+    icon: "https://springbrand.ai/apple-touch-icon.png",
+    homepage: "https://springbrand.ai",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://connector.springbrand.ai/mcp"],
     },
   },
   {
