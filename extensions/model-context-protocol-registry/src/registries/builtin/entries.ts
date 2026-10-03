@@ -300,6 +300,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "edgepedia",
+    title: "Edgepedia",
+    description:
+      "Search and read Edgepedia, a free and growing encyclopedia with citations. Remote Streamable HTTP server at https://www.edgechat.ai/mcp; no sign-in, no API key.",
+    icon: "https://raw.githubusercontent.com/EdgePlat/edgepedia-mcp/main/logo-400.png",
+    homepage: "https://github.com/EdgePlat/edgepedia-mcp",
+    remoteUrl: "https://www.edgechat.ai/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://www.edgechat.ai/mcp"],
+    },
+  },
+  {
     name: "exa",
     title: "Exa",
     description:
@@ -853,6 +866,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     configuration: {
       command: "npx",
       args: ["-y", "mcp-remote", "https://trvlrr.app/mcp"],
+    },
+  },
+  {
+    name: "weio-site-check",
+    title: "Weio site check",
+    description:
+      "Website facts for AI agents. Check whether a domain and its www version load securely in a browser or show a privacy warning, and why (expired certificate, name mismatch, self-signed, no HTTPS, redirect problems, unreachable), with the certificate expiry date; read what a homepage publishes (title and description, language, CMS or site builder, mobile viewport tag, role contact emails such as info@ and sales@ with personal-name addresses left out, phone numbers, social links, contact page); and list businesses from a small dated scan index (currently dental businesses in Fresno County, California). Read-only; public websites only, one homepage fetch, no crawling. Remote Streamable HTTP server at https://weio.ai/mcp; no sign-in, 10 free calls a day without a key, more with a paid Weio API key sent as an `Authorization: Bearer` header.",
+    icon: "https://raw.githubusercontent.com/weioai/site-check-mcp/main/logo.png",
+    homepage: "https://github.com/weioai/site-check-mcp",
+    remoteUrl: "https://weio.ai/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://weio.ai/mcp"],
     },
   },
   {
