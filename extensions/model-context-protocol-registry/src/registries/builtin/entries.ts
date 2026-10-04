@@ -172,6 +172,21 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "clipwright",
+    title: "Clipwright",
+    description:
+      "Make UGC-style video ads without filming: tell your assistant what to say and get a vertical clip of a realistic actor saying it, ready for TikTok, Reels or Shorts. It also makes faceless videos from a script or a short brief, and shows the price before anything renders. Local stdio server through `npx`; needs a Clipwright API key.",
+    icon: "https://clipwright.io/brand/clipwright-400.png",
+    homepage: "https://github.com/seocombat/clipwright-mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "-p", "@clipwright/mcp-server", "clipwright-mcp"],
+      env: {
+        CLIPWRIGHT_API_KEY: "YOUR_API_KEY_HERE",
+      },
+    },
+  },
+  {
     name: "codex-reset",
     title: "Codex Reset",
     description:
@@ -197,6 +212,34 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "@upstash/context7-mcp@latest"],
     },
+  },
+  {
+    name: "desearch",
+    title: "Desearch",
+    description:
+      "AI search, X search and web search for AI agents, plus page extraction and X data tools. Bring your own Desearch API key. Local stdio server `desearch-mcp-server` (MIT) through `npx`, with 15 tools; it needs Node.js 20.18.1 or later and a Desearch API key from console.desearch.ai/api-keys, set as `DESEARCH_API_KEY`.",
+    icon: "desearch.png",
+    homepage: "https://github.com/Desearch-ai/mcp-desearch",
+    configuration: {
+      command: "npx",
+      args: ["-y", "desearch-mcp-server@latest"],
+      env: {
+        DESEARCH_API_KEY: "YOUR_API_KEY_HERE",
+      },
+    },
+  },
+  {
+    name: "dc-hub",
+    title: "DC Hub",
+    description:
+      "Live data on the physical infrastructure behind AI: facility coverage in 170+ countries, 300+ markets scored daily (DCPI), 1,700+ tracked M&A deals, live grid, fiber, gas and interconnection-queue data, and Capacity Source: search available data-center capacity by size and location, get exact fits or multi-provider bundles, and request brokered intros. 92 tools; every answer carries its source. Hosted remote Streamable HTTP server through `mcp-remote`; free tier works with no API key and no sign-in.",
+    icon: "https://raw.githubusercontent.com/azmartone67/dchub-mcp-server/main/dchub-logo.png",
+    homepage: "https://dchub.cloud/connect",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://dchub.cloud/mcp"],
+    },
+    remoteUrl: "https://dchub.cloud/mcp",
   },
   {
     name: "git",
