@@ -254,6 +254,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     remoteUrl: "https://dchub.cloud/mcp",
   },
   {
+    name: "dropthehassle",
+    title: "DropTheHassle",
+    description:
+      "Put the website your AI built online on a live HTTPS link, check with the domain registry whether a domain name is available, and look after your sites: publish a new version or roll back, rename the link, point a domain, set the share image and favicon, and check certificate and visitor numbers. Hosted remote Streamable HTTP server through `mcp-remote`; publishing and domain checks work with no sign-in and no API key, managing sites uses OAuth 2.1 sign-in with dynamic client registration.",
+    icon: "https://dropthehassle.com/apple-touch-icon.png",
+    homepage: "https://dropthehassle.com/guides/deploy-with-your-ai-mcp?source=raycast-mcp-registry",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://dropthehassle.com/mcp"],
+    },
+    remoteUrl: "https://dropthehassle.com/mcp",
+  },
+  {
     name: "git",
     title: "Git",
     description:
@@ -2012,6 +2025,19 @@ export const COMMUNITY_ENTRIES: RegistryEntry[] = [
     configuration: {
       command: "npx",
       args: ["-y", "mcp-remote", "https://mcp.empiriolabs.ai/mcp"],
+    },
+  },
+  {
+    name: "linkmcp",
+    title: "LinkMCP",
+    description:
+      "Use your own LinkedIn account from your AI assistant: look up profiles and companies, search people, jobs and Sales Navigator (with your own seat), read and send LinkedIn messages, read and write posts, comments and reactions, manage connection requests, read your own post analytics, and find work emails and mobile numbers. Not affiliated with LinkedIn. Hosted remote Streamable HTTP server; OAuth 2.1 sign-in with dynamic client registration and PKCE, no API key to paste. 7-day free trial without a card; connecting a LinkedIn account needs a paid plan (from $19/month).",
+    icon: "https://app.linkmcp.io/logo-512.png",
+    homepage: "https://app.linkmcp.io",
+    remoteUrl: "https://app.linkmcp.io/api/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://app.linkmcp.io/api/mcp"],
     },
   },
 ];
