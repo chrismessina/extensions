@@ -23,6 +23,21 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.DISPATCH_PAT }}
         run: |
+          # Preflight the credential before judging any repo "not found". The guard
+          # below cannot tell an absent repo from a dead token, and a dead token made
+          # this workflow report success while dispatching NOTHING from 2026-02 until
+          # 2026-10-12 — including to mirrors that exist and are public. Fail loudly
+          # here instead.
+          if ! gh api user --jq '.login' > /tmp/whoami 2> /tmp/autherr; then
+            echo "::error::DISPATCH_PAT is not usable. No mirrors were dispatched."
+            cat /tmp/autherr
+            echo "Rotate it: gh secret set DISPATCH_PAT --repo ${{ github.repository }}"
+            echo "A classic PAT with 'repo' scope covers every chrismessina/raycast-* mirror."
+            echo "A fine-grained PAT must list EACH mirror with Contents: Read and write."
+            exit 1
+          fi
+          echo "authenticated as: $(cat /tmp/whoami)"
+
           # Get list of changed package.json files in extensions/
           changed=$(git diff --name-only HEAD~1 HEAD | grep '^extensions/.*/package.json$')
 
@@ -37,6 +52,10 @@ jobs:
           if [ -n "$PR_NUMBER" ]; then
             PR_URL="https://github.com/raycast/extensions/pull/${PR_NUMBER}"
           fi
+
+          dispatched=0
+          skipped=0
+          failed=0
 
           for pkg in $changed; do
             # Extract extension name from package.json
@@ -55,20 +74,60 @@ jobs:
 
             echo "Extension: $ext_name → dispatching to $target_repo"
 
-            # Check if the target repo exists before dispatching
-            if ! gh repo view "$target_repo" &>/dev/null; then
-              echo "  Repo $target_repo not found, skipping."
-              continue
+            # Does the mirror exist? Read the HTTP STATUS, do not just test the exit
+            # code: `gh repo view` exits nonzero for a missing repo AND for an auth or
+            # permission failure, and treating the latter as "not found" is what hid
+            # the dead token. 404 is a real skip; anything else is our problem.
+            status=$(gh api "repos/${target_repo}" \
+                       --include --silent 2>/dev/null \
+                     | awk 'NR==1{print $2}')
+            : "${status:=000}"
+
+            case "$status" in
+              200)
+                ;;
+              404)
+                echo "  No mirror at $target_repo (404) — not one of ours, skipping."
+                skipped=$((skipped + 1))
+                continue
+                ;;
+              401|403)
+                echo "::error::$target_repo returned HTTP $status — DISPATCH_PAT lacks access to this mirror."
+                echo "  A fine-grained PAT must list this repo with Contents: Read and write."
+                failed=$((failed + 1))
+                continue
+                ;;
+              *)
+                echo "::error::$target_repo returned unexpected HTTP $status — not treating as absent."
+                failed=$((failed + 1))
+                continue
+                ;;
+            esac
+
+            if gh api \
+                 --method POST \
+                 -H "Accept: application/vnd.github+json" \
+                 "/repos/${target_repo}/dispatches" \
+                 -f event_type="upstream-sync" \
+                 -F client_payload[pr_number]="${PR_NUMBER}" \
+                 -F client_payload[pr_url]="${PR_URL}" \
+                 -F client_payload[ext_name]="${ext_name}"; then
+              echo "  Dispatched upstream-sync to $target_repo"
+              dispatched=$((dispatched + 1))
+            else
+              echo "::error::Dispatch to $target_repo failed after a 200 on the repo read."
+              failed=$((failed + 1))
             fi
-
-            gh api \
-              --method POST \
-              -H "Accept: application/vnd.github+json" \
-              "/repos/${target_repo}/dispatches" \
-              -f event_type="upstream-sync" \
-              -F client_payload[pr_number]="${PR_NUMBER}" \
-              -F client_payload[pr_url]="${PR_URL}" \
-              -F client_payload[ext_name]="${ext_name}"
-
-            echo "  Dispatched upstream-sync to $target_repo"
           done
+
+          echo "dispatched=$dispatched  skipped=$skipped  failed=$failed"
+
+          # A green run that dispatched nothing is the exact shape of the February
+          # outage. Say so rather than exiting 0 in silence.
+          if [ "$failed" -gt 0 ]; then
+            echo "::error::$failed mirror(s) could not be reached. See errors above."
+            exit 1
+          fi
+          if [ "$dispatched" -eq 0 ]; then
+            echo "::warning::Matched $skipped extension(s), dispatched to none. Expected when upstream changes other people's extensions; suspicious if it keeps happening for yours."
+          fi
