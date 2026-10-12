@@ -124,6 +124,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "blawgy",
+    title: "Blawgy",
+    description:
+      "Run your SEO blog from Raycast. Read Search Console traffic, rankings and indexing, run keyword research, manage the content plan, write, update and publish articles to WordPress, Shopify, Webflow, Wix, Framer, Ghost or Duda. Hosted remote Streamable HTTP server; OAuth 2.1 sign-in with dynamic client registration and PKCE, or an API key. Paid Blawgy plan required.",
+    icon: "https://blawgy.com/favicon-512.png",
+    homepage: "https://blawgy.com/mcp",
+    remoteUrl: "https://app.blawgy.com/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://app.blawgy.com/mcp"],
+    },
+  },
+  {
     name: "boim",
     title: "BOIM (보임)",
     description:
@@ -601,6 +614,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     configuration: {
       command: "npx",
       args: ["-y", "mcp-remote", "https://mcp.flightseatmap.com/mcp"],
+    },
+  },
+  {
+    name: "looot",
+    title: "looot",
+    description:
+      "One key and one prepaid balance for about 2,500 data API operations from 90+ providers: work emails and phone numbers, company and people search, Google results, web pages, news, LinkedIn profiles and local businesses. The agent searches the catalog, sees the price before it runs, and pays per call; a failed call costs nothing. 19 tools. Hosted remote Streamable HTTP server; OAuth 2.1 sign-in with dynamic client registration, or a Bearer API key. No subscription, top up from $5.",
+    icon: "https://raw.githubusercontent.com/loootai/looot-plugin/main/plugins/claude-code/looot/.claude-plugin/icon.png",
+    homepage: "https://docs.looot.ai",
+    remoteUrl: "https://api.looot.ai/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://api.looot.ai/mcp"],
     },
   },
   {
@@ -2242,6 +2268,19 @@ export const COMMUNITY_ENTRIES: RegistryEntry[] = [
     configuration: {
       command: "npx",
       args: ["-y", "mcp-remote", "https://present.aitho.app/mcp"],
+    },
+  },
+  {
+    name: "flowra",
+    title: "Flowra",
+    description:
+      "One MCP server for your apps' tools and your own custom tools, plus hosted AI agents and workflows with approval gates and a run ledger.",
+    icon: "https://flowra.dev/icons/logo.svg",
+    homepage: "https://flowra.dev",
+    remoteUrl: "https://mcp.flowra.dev/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.flowra.dev/mcp"],
     },
   },
 ];

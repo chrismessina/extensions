@@ -117,6 +117,7 @@
 /extensions/app-store-connect                                       @bangerang @danilorequena @chrismessina
 /extensions/app-tag-manager                                         @ZainCheung
 /extensions/app-updates                                             @gfazioli
+/extensions/app-usage                                               @GouravAkaJojo
 /extensions/appcleaner                                              @tborychowski
 /extensions/append-clipboard                                        @koinzhang @cyrusn
 /extensions/append-to-file                                          @lenpr
@@ -1005,6 +1006,7 @@
 /extensions/from                                                    @albertolezaun-afk
 /extensions/fronius-inverter                                        @Olli0103
 /extensions/frp-client-manager                                      @bluenight91
+/extensions/fsearch                                                 @pausedstudio @0xdhrv
 /extensions/ftrack                                                  @lucaas
 /extensions/fuelix                                                  @jfernandogt
 /extensions/fuelx                                                   @naz3eh
@@ -1127,7 +1129,7 @@
 /extensions/google-maven-repository                                 @koinzhang
 /extensions/google-meet                                             @vitoorgomes @hughlaw @iwex @nexxai @artisticmedic @0xdhrv @pernielsentikaer
 /extensions/google-scholar                                          @llfmaia
-/extensions/google-search                                           @mblode @VBenny42 @ridemountainpig @jlokos @YourMCGeek @alexibuild @tofrankie
+/extensions/google-search                                           @mblode @VBenny42 @ridemountainpig @jlokos @YourMCGeek @alexibuild @tofrankie @chrismessina
 /extensions/google-tasks                                            @elliotdes @pernielsentikaer @erikvdp @ridemountainpig @AviralSaxena
 /extensions/google-translate                                        @gebeto @FezVrasta @ickas @metakirby5 @tangerine1202 @nirtamir2 @pernielsentikaer @rasitayaz @Popalay @LitoMore @channingkuo @likid1412 @xmok @brucemakes012 @alexibuild @ridemountainpig
 /extensions/google-trends                                           @kkange
@@ -1717,7 +1719,7 @@
 /extensions/mikrus                                                  @tkowalski29
 /extensions/mindnode                                                @natsustan
 /extensions/minecast                                                @SpaceDoritos
-/extensions/minecraft-color-codes                                   @lafkpages @pernielsentikaer
+/extensions/minecraft-color-codes                                   @lafkpages @pernielsentikaer @muhammadrizo-y
 /extensions/minecraft-crafting-recipes                              @lafkpages
 /extensions/miniflux                                                @sevi418 @revett
 /extensions/minimax-ai                                              @MonforteGG
