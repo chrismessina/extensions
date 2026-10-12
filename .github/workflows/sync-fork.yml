@@ -1,0 +1,103 @@
+name: Sync fork with upstream
+
+# Replaces clicking GitHub's "Sync fork" button on chrismessina/extensions.
+#
+# Uses the merge-upstream API — the exact endpoint that button calls — so our own
+# commits on fork main (the ray publish commits, and dispatch-sync.yml itself) are
+# PRESERVED. Do not switch this to `gh repo sync --force` or a force-push: fork main
+# is 128 commits ahead of upstream, and forcing would delete all of it.
+#
+# Must authenticate with DISPATCH_PAT, not GITHUB_TOKEN. Pushes attributed to
+# GITHUB_TOKEN do not trigger other workflows, which would silently stop
+# dispatch-sync.yml from firing after a sync.
+
+on:
+  schedule:
+    - cron: "17 13 * * *" # daily 13:17 UTC = 05:17 PST / 06:17 PDT
+  workflow_dispatch:
+
+# Deliberately NOT contents: write. Every write here goes through `gh api` with
+# DISPATCH_PAT, so GITHUB_TOKEN needs no write scope — and withholding it means a
+# future edit that drops the DISPATCH_PAT env cannot quietly fall back to
+# GITHUB_TOKEN and sync the fork without firing dispatch-sync.yml. It fails loudly
+# instead. Do not raise this to write.
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    if: github.repository == 'chrismessina/extensions'
+
+    steps:
+      - name: Merge upstream into fork main
+        env:
+          GH_TOKEN: ${{ secrets.DISPATCH_PAT }}
+        run: |
+          set -euo pipefail
+
+          before=$(gh api repos/${{ github.repository }}/commits/main --jq '.sha')
+          echo "fork main before: $before"
+
+          # Capture rather than crash so we can print the real error. Do NOT guess a
+          # cause here: 409 (conflict) is only one of several nonzero outcomes, and
+          # naming the wrong one sends whoever reads this log toward the wrong fix.
+          rc=0
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${{ github.repository }}/merge-upstream" \
+            -f branch=main \
+            > result.json 2> error.txt || rc=$?
+
+          if [ "$rc" -ne 0 ]; then
+            echo "::error::merge-upstream failed (gh exit $rc). Actual error below; do not assume a merge conflict."
+            cat error.txt
+            echo "Candidate causes, in rough order of likelihood:"
+            echo "  409 - upstream genuinely conflicts with fork main; needs a manual merge"
+            echo "  401/403 - DISPATCH_PAT missing, expired, or lacking repo scope on this fork"
+            echo "  422 - branch name wrong, or the repo is no longer a fork of raycast/extensions"
+            echo "  404 - repo or branch not found under the PAT's visibility"
+            exit 1
+          fi
+
+          merge_type=$(jq -r '.merge_type' result.json)
+          message=$(jq -r '.message' result.json)
+          echo "merge_type: $merge_type"
+          echo "message: $message"
+
+          after=$(gh api repos/${{ github.repository }}/commits/main --jq '.sha')
+          echo "fork main after:  $after"
+
+          if [ "$before" = "$after" ]; then
+            echo "Already up to date — main unchanged, nothing dispatched."
+            exit 0
+          fi
+
+          echo "Synced $before -> $after."
+
+          # Do NOT claim the mirrors updated. dispatch-sync.yml listens to pushes on
+          # main filtered to paths `extensions/*/package.json`, so a sync that moves
+          # main without touching one of those files legitimately dispatches nothing.
+          # Report which case this was instead of asserting the chain fired.
+          pkgs=$(gh api "repos/${{ github.repository }}/compare/${before}...${after}" \
+                   --jq '[.files[].filename | select(test("^extensions/[^/]+/package\\.json$"))] | length' \
+                 2>/dev/null || echo "unknown")
+
+          case "$pkgs" in
+            unknown)
+              echo "::warning::Could not list changed files (compare may be truncated on a large diff). Check dispatch-sync.yml runs by hand."
+              ;;
+            0)
+              echo "No extensions/*/package.json changed, so dispatch-sync.yml is correctly NOT triggered."
+              ;;
+            *)
+              echo "$pkgs extension package.json file(s) changed — dispatch-sync.yml should now run on this push."
+              echo "If it did not, the push was attributed to GITHUB_TOKEN rather than DISPATCH_PAT; see the README."
+              ;;
+          esac
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "Compare: https://github.com/raycast/extensions/compare/main...chrismessina:main" >> "$GITHUB_STEP_SUMMARY"
