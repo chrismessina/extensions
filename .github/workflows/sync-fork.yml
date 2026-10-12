@@ -36,6 +36,24 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Preflight the credential FIRST. Witnessed 2026-10-12: an expired
+          # DISPATCH_PAT made the bare `before=` read below die under `set -e` with a
+          # raw "gh: Bad credentials (HTTP 401)" and none of the diagnosis further
+          # down ever printed. Check auth explicitly so the log names the real fix.
+          auth_rc=0
+          gh api user --jq '.login' > whoami.txt 2> auth_err.txt || auth_rc=$?
+          if [ "$auth_rc" -ne 0 ]; then
+            echo "::error::DISPATCH_PAT is not usable (gh exit $auth_rc). Nothing was synced."
+            cat auth_err.txt
+            echo "Rotate the secret: a classic PAT with 'repo' scope, saved as DISPATCH_PAT"
+            echo "  gh secret set DISPATCH_PAT --repo ${{ github.repository }}"
+            echo "NOTE: dispatch-sync.yml uses this same secret and fails SILENTLY when it"
+            echo "      is dead — its 'gh repo view' guard reports every mirror as"
+            echo "      'not found, skipping' and the run still goes green. Check it too."
+            exit 1
+          fi
+          echo "authenticated as: $(cat whoami.txt)"
+
           before=$(gh api repos/${{ github.repository }}/commits/main --jq '.sha')
           echo "fork main before: $before"
 
