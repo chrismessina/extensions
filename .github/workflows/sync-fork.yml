@@ -54,6 +54,27 @@ jobs:
           fi
           echo "authenticated as: $(cat whoami.txt)"
 
+          # Name the credential TYPE, because a valid token that still gets 403 on a
+          # write is the confusing case and guessing at it costs a round trip each
+          # time. GitHub returns an X-OAuth-Scopes header for a CLASSIC token only; a
+          # fine-grained token has no scopes and omits it. Headers carry no secret, so
+          # this is safe to print.
+          scopes=$(gh api -i user 2>/dev/null \
+                   | awk 'tolower($1) == "x-oauth-scopes:" { sub(/^[^:]*: */, ""); print }' \
+                   | tr -d '\r') || true
+          if [ -z "$scopes" ]; then
+            echo "token type: FINE-GRAINED (no X-OAuth-Scopes header)."
+            echo "  merge-upstream needs 'Contents: Read and write' on this repo, and"
+            echo "  dispatch-sync.yml would additionally need EVERY chrismessina/raycast-*"
+            echo "  mirror listed individually. A classic PAT with 'repo' avoids both."
+          else
+            echo "token type: classic; scopes: $scopes"
+            case "$scopes" in
+              *repo*) ;;
+              *) echo "::warning::classic token WITHOUT 'repo' scope — writes will 403." ;;
+            esac
+          fi
+
           before=$(gh api repos/${{ github.repository }}/commits/main --jq '.sha')
           echo "fork main before: $before"
 
