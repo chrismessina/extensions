@@ -501,6 +501,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "janction-render",
+    title: "JANCTION Render",
+    description:
+      "Render Blender scenes and 3D models on cloud GPUs from Raycast AI: send a bpy script, a .blend or a GLB / glTF / FBX / USD / OBJ / STL file, get a tiled preview with a critic verdict in seconds, then product shots, 360-degree turntables, animations or stills as PNG frames or an MP4. No local Blender or GPU. 12 tools. Hosted remote Streamable HTTP server; OAuth 2.1 sign-in with dynamic client registration creates a key with free GPU time, then 0.1 JPY per GPU-second from prepaid credit.",
+    icon: "https://raw.githubusercontent.com/JasmyLab-JANCTION/janction-render/main/assets/logo-400.png",
+    homepage: "https://render.janction.jp/?src=raycast",
+    remoteUrl: "https://render.janction.jp/mcp?src=raycast",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://render.janction.jp/mcp?src=raycast"],
+    },
+  },
+  {
     name: "jetbrains",
     title: "JetBrains",
     description: "The server proxies requests from client to JetBrains IDE.",
@@ -1228,6 +1241,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "mcp-remote", "https://weio.ai/mcp"],
     },
+  },
+  {
+    name: "web3juice",
+    title: "Web3Juice",
+    description:
+      "Evidence-backed DeFi yield data for AI assistants. See what ~17,000 pools across 100+ chains pay, where the yield comes from (base vs reward-token APY), how rates have moved over 90 days, and compare pools side by side; every number dated and linked. Read-only: no wallet access, signing or transactions. Remote Streamable HTTP server at https://web3juice.com/api/mcp; no sign-in and no API key for the research tools, optional API key for higher limits.",
+    icon: "https://raw.githubusercontent.com/jimbob1414/web3juice-mcp/main/icon.png",
+    homepage: "https://web3juice.com/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://web3juice.com/api/mcp"],
+    },
+    remoteUrl: "https://web3juice.com/api/mcp",
   },
   {
     name: "xero",
