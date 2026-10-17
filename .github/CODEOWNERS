@@ -527,6 +527,7 @@
 /extensions/common-directory                                        @koinzhang
 /extensions/comodoro                                                @jesse-c
 /extensions/companies-house                                         @aicayzer
+/extensions/company-logos                                           @mrzmyr
 /extensions/composerize                                             @j3lte
 /extensions/compress-pdf                                            @felixhaeberle @xmok
 /extensions/compressx                                               @dqhieu
@@ -1822,7 +1823,7 @@
 /extensions/multipass                                               @davibe @pernielsentikaer
 /extensions/multiviewer                                             @secustor
 /extensions/muse-ai                                                 @alhassanaraouf
-/extensions/music                                                   @Rawnly @peterdev22 @danpalmer @octoxan @Shpigford @urwrstkn8mare @michalzuch @validatedev @hrishabhn @bogdanrbucur @xmok @byheaven @christianmagill @0xdhrv @shanto462
+/extensions/music                                                   @Rawnly @peterdev22 @danpalmer @octoxan @Shpigford @urwrstkn8mare @michalzuch @validatedev @hrishabhn @bogdanrbucur @xmok @byheaven @christianmagill @0xdhrv @delicodes @shanto462
 /extensions/music-assistant-controls                                @YoeriVD
 /extensions/music-link-converter                                    @quentin23soleil @ridemountainpig @clins1994
 /extensions/music-news                                              @agilek
@@ -2103,7 +2104,7 @@
 /extensions/parse-logs                                              @NormCopeland
 /extensions/party-parrot                                            @thomaspaulmann
 /extensions/pass                                                    @capipo @camiloaromero23 @mthies-unibi
-/extensions/passbolt                                                @Tiku96
+/extensions/passbolt                                                @Tiku96 @eist76
 /extensions/passphrase-generator                                    @omBratteng @pernielsentikaer
 /extensions/password-generator                                      @joshuaiz @teziovsky @pernielsentikaer @mybuddymichael @yusifaliyevpro @xmok @peduarte
 /extensions/password-link                                           @tdrayson
@@ -3185,6 +3186,7 @@
 /extensions/valheim-wiki                                            @Blackbird9223
 /extensions/valkey-commands-search                                  @poiuj
 /extensions/valorant-esports                                        @vimtor
+/extensions/value-vault                                             @seppealaerts
 /extensions/vanguard-backup                                         @xmok
 /extensions/vanishlink                                              @n-seiji
 /extensions/vant-documentation                                      @Aisen60
