@@ -300,6 +300,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "buy-box",
+    title: "Buy-Box",
+    description:
+      "Save your buying criteria for homes, cars or any other category (budget, must-haves, nice-to-haves, dealbreakers) so your AI agent loads them before it searches. Score and rank up to 100 listings at a time against a saved buy box, with rule breakers sorted last and unstated facts marked unknown, and export a box as Markdown. Hosted remote Streamable HTTP server; OAuth 2.1 sign-in with Google and dynamic client registration, no API key to paste; free during early access.",
+    icon: "https://buybox.agentconsult.ai/icon.png",
+    homepage: "https://buybox.agentconsult.ai",
+    remoteUrl: "https://buybox.agentconsult.ai/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://buybox.agentconsult.ai/mcp"],
+    },
+  },
+  {
     name: "candor-finance",
     title: "Candor Finance",
     description:
@@ -679,6 +692,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "mcp-remote", "https://www.edgechat.ai/mcp"],
     },
+  },
+  {
+    name: "eventsend",
+    title: "EventSend",
+    description:
+      "Ask your AI about your product's events, delivery health and usage. Search events, follow one customer's timeline, see why a Slack, Discord, Telegram or webhook notification failed, and check daily stats and quota. Read-only, 9 tools. Hosted remote Streamable HTTP server at https://eventsend.io/mcp with a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients; OAuth 2.1 sign-in with dynamic client registration and PKCE, no API key to paste; free plan available.",
+    icon: "https://eventsend.io/images/pwa/icon-512.png",
+    homepage: "https://eventsend.io/docs/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://eventsend.io/mcp"],
+    },
+    remoteUrl: "https://eventsend.io/mcp",
   },
   {
     name: "evolink",
@@ -1134,6 +1160,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
         RADAR_STATE: "/absolute/path/to/state",
       },
     },
+  },
+  {
+    name: "noonlaunch",
+    title: "Noonlaunch",
+    description:
+      "Launch a product on Noonlaunch, search its product directory and weekly winners, check plans and submission status, and find 333 startup launch directories filtered by category, cost and domain authority. Nothing is published until the maker confirms the listing through a private claim link. Hosted remote Streamable HTTP server at https://noonlaunch.com/mcp; no sign-in, no API key.",
+    icon: "https://raw.githubusercontent.com/mukund1158/noonlaunch-mcp/main/logo.png",
+    homepage: "https://noonlaunch.com/launch-with-ai",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://noonlaunch.com/mcp"],
+    },
+    remoteUrl: "https://noonlaunch.com/mcp",
   },
   {
     name: "overlayqa",
