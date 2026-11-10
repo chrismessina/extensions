@@ -46,6 +46,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     remoteUrl: "https://api.helena.bio/folklore/v1/mcp",
   },
   {
+    name: "el7-ai",
+    title: "EL7.AI",
+    description:
+      "Financial market intelligence for your AI: markets news, economic calendar, 8 central banks, COT positioning, stocks, earnings, gold and oil, with sources and dates. 85 read-only tools; every answer returns a source date and an el7.ai link, and no tool places trades. English first, with full Arabic support. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE), or a personal EL7 MCP API key as a Bearer token. Full access requires an EL7 paid membership; free accounts get the EL7 Wire.",
+    icon: "https://raw.githubusercontent.com/walidelhelw/el7-mcp/main/assets/icon-512.png",
+    homepage: "https://el7.ai/en/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.el7.ai/mcp"],
+    },
+    remoteUrl: "https://mcp.el7.ai/mcp",
+  },
+  {
     name: "postel",
     title: "Postel",
     description:
@@ -615,6 +628,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       args: ["-y", "mcp-remote", "https://carbonforge.dev/api/mcp"],
     },
     remoteUrl: "https://carbonforge.dev/api/mcp",
+  },
+  {
+    name: "chefbear",
+    title: "ChefBear",
+    description:
+      "Save, find, read and share your ChefBear restaurant menus from your AI assistant and pick dishes that suit your tastes. ChefBear is an iPhone menu scanner: save a menu your assistant has read from a photo, link or text to your ChefBear account, import 1 to 5 menu photos for ChefBear to recognize, list and read your saved menus, read a ChefBear share link, create or turn off a public link for a menu, and, in Claude, rank a menu's dishes against the taste profile you let it read. 12 tools. Not related to the Bear notes app. Hosted remote Streamable HTTP server at https://chef-bear.com/api/menu-sharing/mcp through `mcp-remote`; OAuth 2.1 sign-in with PKCE and dynamic client registration, no API key to paste, and you approve each new connection in the ChefBear iPhone app with a 3-digit code. Free ChefBear account; accounts in the mainland-China service region can't connect.",
+    icon: "https://chef-bear.com/images/app-icon-512.png",
+    homepage: "https://www.chef-bear.com/mcp/",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://chef-bear.com/api/menu-sharing/mcp"],
+    },
   },
   {
     name: "chirpie",
@@ -1232,6 +1257,45 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "mcp-remote", "https://app.hermoso.ai/mcp?src=raycast"],
     },
+  },
+  {
+    name: "hermoso-ads-manager",
+    title: "Hermoso: Ads Manager",
+    description:
+      "The paid ads app of Hermoso, an AI marketing agent. Build, launch and report campaigns on Meta, Google, Microsoft, TikTok, LinkedIn, Pinterest, Reddit, Snapchat, X, Apple and ChatGPT ads, manage audiences, conversion tracking and lead forms, and read Google Analytics, Search Console, Bing Webmaster, Tag Manager, PostHog, Mixpanel, Amplitude, Merchant Center, Stripe and HubSpot reports. Hosted remote server with OAuth sign-in, no API key to paste.",
+    icon: "https://raw.githubusercontent.com/hermoso-ai/hermoso/main/assets/logo.png",
+    homepage: "https://hermoso.ai/mcp/",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://app.hermoso.ai/mcp?tools=app-ads&src=raycast"],
+    },
+    remoteUrl: "https://app.hermoso.ai/mcp?tools=app-ads&src=raycast",
+  },
+  {
+    name: "hermoso-ai-ad-generator",
+    title: "Hermoso: AI Ad Generator",
+    description:
+      "The creation app of Hermoso, an AI ad generator. Make on-brand image and video ads, UGC style ads, product photos and thumbnails for your brand, and research the ads competitors run in the Meta, Google and LinkedIn ad libraries. Hosted remote server with OAuth sign-in, no API key to paste.",
+    icon: "https://raw.githubusercontent.com/hermoso-ai/hermoso/main/assets/logo.png",
+    homepage: "https://hermoso.ai/mcp/",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://app.hermoso.ai/mcp?tools=app-create&src=raycast"],
+    },
+    remoteUrl: "https://app.hermoso.ai/mcp?tools=app-create&src=raycast",
+  },
+  {
+    name: "hermoso-social-media-manager",
+    title: "Hermoso: Social Media Manager",
+    description:
+      "The social app of Hermoso, an AI marketing agent. Post and schedule to Instagram, Facebook, Threads, TikTok, YouTube, LinkedIn, X, Pinterest, Bluesky, Telegram, Google Business Profile, WordPress, Discord, Slack and Whop, send Mailchimp and Klaviyo email, answer comments, DMs, reviews, WhatsApp and Intercom from one inbox, and read account and post insights. Hosted remote server with OAuth sign-in, no API key to paste.",
+    icon: "https://raw.githubusercontent.com/hermoso-ai/hermoso/main/assets/logo.png",
+    homepage: "https://hermoso.ai/mcp/",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://app.hermoso.ai/mcp?tools=app-social&src=raycast"],
+    },
+    remoteUrl: "https://app.hermoso.ai/mcp?tools=app-social&src=raycast",
   },
   {
     name: "house-ai",

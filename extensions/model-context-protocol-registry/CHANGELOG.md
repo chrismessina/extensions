@@ -1,5 +1,17 @@
 # Model Context Protocol Registry Changelog
 
+## [Add EL7.AI MCP Server] - 2026-11-10
+
+- Add EL7.AI to the official registry: financial market intelligence (markets news, economic calendar, 8 central banks, COT positioning, stocks, earnings, gold and oil, with sources and dates). 85 read-only tools. Hosted Streamable HTTP server at https://mcp.el7.ai/mcp with OAuth 2.1 sign-in (dynamic client registration and PKCE) or a personal EL7 MCP API key, a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients. Full access requires an EL7 paid membership.
+
+## [Add Hermoso Ads Manager, Social Media Manager and AI Ad Generator MCP Servers] - 2026-11-10
+
+- Add three focused apps of Hermoso as their own hosted Streamable HTTP servers, each a smaller tool set from the same server with OAuth sign-in: Hermoso: Ads Manager (paid campaigns on 11 ad networks plus web and business analytics), Hermoso: Social Media Manager (posting, scheduling and one inbox across 15 channels) and Hermoso: AI Ad Generator (image and video ads plus competitor ad research). The full Hermoso entry is unchanged.
+
+## [Add ChefBear MCP Server] - 2026-11-10
+
+- Add ChefBear to the official registry: save, find, read and share your ChefBear restaurant menus and pick dishes that suit your tastes. 12 tools. Hosted Streamable HTTP server at https://chef-bear.com/api/menu-sharing/mcp through `mcp-remote`, with OAuth 2.1 sign-in (dynamic client registration and PKCE) and each new connection approved in the ChefBear iPhone app.
+
 ## [Add Send4 MCP Server] - 2026-11-09
 
 - Add Send4 to the official registry: AI SMS and email for sales and support teams. Read and change flows, campaigns, conversations, leads and meetings in a Send4 workspace. 64 tools. Hosted Streamable HTTP server at https://mcp.send4.ai/mcp with OAuth 2.1 sign-in (dynamic client registration and PKCE), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients.
