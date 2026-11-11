@@ -7,6 +7,32 @@ const METABRAIN_DB_PATH = join(homedir(), ".metabrain.db");
 
 export const OFFICIAL_ENTRIES: RegistryEntry[] = [
   {
+    name: "honeyvid",
+    title: "HoneyVid",
+    description:
+      "Make AI videos and images with HoneyVid. Find trending video templates and put a person, pet or character from a photo into them, or generate videos and images with Kling, Veo and Seedance. Every job is quoted in credits first and runs under the cap you set; check your balance and get the finished MP4. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE). Needs a HoneyVid account; generation uses paid credits.",
+    icon: "https://honeyvid.ai/brand/honeypot-icon.png",
+    homepage: "https://honeyvid.ai/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://honeyvid.ai/mcp"],
+    },
+    remoteUrl: "https://honeyvid.ai/mcp",
+  },
+  {
+    name: "liquid-inference",
+    title: "Liquid Inference",
+    description:
+      "Compare AI models and prices, preview costs, and read your workspace balance and receipts. Buy text, images, speech, video, transcripts, embeddings, and decisions through the Liquid Inference exchange. Sign in with OAuth and choose a workspace, spend permission, and spend limit. Purchases charge your Liquid balance. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy and need Node.js.",
+    icon: "https://router.inference.ai.exchange/favicon.png",
+    homepage: "https://liquidinference.ai/docs/connect-mcp-server",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://router.inference.ai.exchange/mcp"],
+    },
+    remoteUrl: "https://router.inference.ai.exchange/mcp",
+  },
+  {
     name: "own-page",
     title: "own.page",
     description:
@@ -3542,6 +3568,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       args: ["-y", "mcp-remote", "https://app.arca.inc/api/public/mcp"],
     },
     remoteUrl: "https://app.arca.inc/api/public/mcp",
+  },
+  {
+    name: "httpfy",
+    title: "HTTPfy",
+    description:
+      "Free DNS, email-authentication (SPF, DKIM, DMARC, BIMI, MTA-STS), TLS certificate, WHOIS, IP/ASN, blocklist, ping, traceroute and port checks run from httpfy.io servers. 24 read-only tools, every result links to a full report. Hosted remote Streamable HTTP server; no sign-in and no API key.",
+    icon: "https://httpfy.io/static/android-chrome-512x512.png",
+    homepage: "https://httpfy.io/agents",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://httpfy.io/mcp"],
+    },
+    remoteUrl: "https://httpfy.io/mcp",
   },
 ];
 
