@@ -7,6 +7,32 @@ const METABRAIN_DB_PATH = join(homedir(), ".metabrain.db");
 
 export const OFFICIAL_ENTRIES: RegistryEntry[] = [
   {
+    name: "mobile-joe",
+    title: "Mobile Joe",
+    description:
+      "Manage your mobile app's FAQs, translations, feature plans and in-app alerts from your AI agent. Maintain FAQs and their translations, curate the feature plans app users vote on, prepare and deliver targeted in-app alerts, and update app settings for apps that use the Mobile Joe iOS and Android SDKs. Prepares drafts and publishes or delivers only when asked. 33 tools. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE); during sign-in you choose which apps and permissions to share. A Mobile Joe account is required (14-day free trial, no credit card).",
+    icon: "https://app.mobilejoe.dev/icon.png",
+    homepage: "https://docs.mobilejoe.dev/mcp/",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://app.mobilejoe.dev/mcp"],
+    },
+    remoteUrl: "https://app.mobilejoe.dev/mcp",
+  },
+  {
+    name: "alphagrowth",
+    title: "AlphaGrowth",
+    description:
+      "Free, read-only crypto data for AI agents: project metrics and TVL history, chains, fees and revenue, funding rounds and investors, DeFi yield pools, token unlocks and DAO treasuries. 27 tools. Hosted Streamable HTTP server with no account or API key. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://alphagrowth.io/images/android-chrome-384x384.png",
+    homepage: "https://alphagrowth.io/mcp-server",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://alphagrowth.io/mcp"],
+    },
+    remoteUrl: "https://alphagrowth.io/mcp",
+  },
+  {
     name: "honeyvid",
     title: "HoneyVid",
     description:
@@ -407,6 +433,20 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "mcp-remote", "https://mcp.getmattered.com/mcp"],
     },
+  },
+  {
+    name: "airbridge",
+    title: "Airbridge",
+    description:
+      "Mobile attribution for subscription apps: ask which ads and creators bring installs, trials and paying subscribers. Hosted remote Streamable HTTP server with a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients; OAuth sign-in with dynamic client registration and PKCE, no API key to paste. Needs an Airbridge account.",
+    icon: "https://www.airbridge.io/apple-icon.png",
+    homepage:
+      "https://www.airbridge.io/en/product/airbridge-ai?utm_source=raycast&utm_medium=listing&utm_campaign=get_found_w46&utm_content=airbridge_mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.airbridge.io/mcp"],
+    },
+    remoteUrl: "https://mcp.airbridge.io/mcp",
   },
   {
     name: "airport-lounge-list",
@@ -2599,6 +2639,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "mcp-remote", "https://mcp.timesheet.io"],
     },
+  },
+  {
+    name: "toolbox-pod",
+    title: "Toolbox POD",
+    description:
+      "Design custom tees and hoodies, see mockups, and order prints made and shipped from Utah. Describe a design or share a reference image and Toolbox AI draws it print ready, see it on a shirt in the colors you pick, get today's prices or a quick estimate, then prepare a draft order for one US recipient and get a link to check the total and pay on toolboxpod.com, and follow the order to tracking. Tools that change or spend something are marked, so your AI app asks first. US shipping only. Hosted remote Streamable HTTP server at https://mcp.toolboxpod.com/mcp with a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients; OAuth 2.1 sign-in with dynamic client registration, no API key to paste. Anyone can sign up while connecting; no fee to connect.",
+    icon: "https://toolboxpod.com/site/assets/logo-mark-512.png",
+    homepage: "https://toolboxpod.com/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.toolboxpod.com/mcp"],
+    },
+    remoteUrl: "https://mcp.toolboxpod.com/mcp",
   },
   {
     name: "topxai-models",

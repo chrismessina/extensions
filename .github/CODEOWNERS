@@ -119,6 +119,7 @@
 /extensions/apis-guru-search                                        @zebapy
 /extensions/app-creator                                             @EvanZhouDev
 /extensions/app-icon-generator                                      @hunter-ji @pernielsentikaer @0xdhrv
+/extensions/app-icons                                               @sherotree
 /extensions/app-keeper-manager                                      @onlysunjun
 /extensions/app-store-connect                                       @bangerang @danilorequena @chrismessina
 /extensions/app-tag-manager                                         @ZainCheung
@@ -174,6 +175,7 @@
 /extensions/asyntai                                                 @asyntai
 /extensions/at-profile                                              @chrismessina @pedrecal
 /extensions/atlassian-data-center                                   @tofrankie
+/extensions/atom                                                    @xmok
 /extensions/atomberg-raycast-extension                              @gupta-ji6
 /extensions/atomic                                                  @joepio
 /extensions/atomtick                                                @4IngoJ
@@ -1001,7 +1003,7 @@
 /extensions/fleeting                                                @0xdhrv
 /extensions/flibusta-search                                         @vladislav-yevtushenko
 /extensions/flight-miles-calculator                                 @DannySeidel @pernielsentikaer
-/extensions/flighty                                                 @hrishabhn @damian-duchnowski @effektsvk @samuelkraft
+/extensions/flighty                                                 @hrishabhn @damian-duchnowski @effektsvk @samuelkraft @0xdhrv
 /extensions/floaty                                                  @fayecat
 /extensions/flow                                                    @vimtor @tyuichis @05bmckay
 /extensions/flowspeech-tts                                          @waeckerlinfederowicz66-sketch
@@ -2153,7 +2155,7 @@
 /extensions/page-scanner                                            @sbd530
 /extensions/pagerduty                                               @horimislime @xmok @erecarte-twilio
 /extensions/pagespeed                                               @vorillaz @pernielsentikaer
-/extensions/palette-colors                                          @douglas-pires @elibattistoni
+/extensions/palette-colors                                          @elibattistoni @douglas-pires
 /extensions/palette-picker                                          @juliusmarminge
 /extensions/pandas-documentation-search                             @Faria22
 /extensions/pangram-ai-detector                                     @mygirleatsmayo
@@ -2844,6 +2846,7 @@
 /extensions/snipperapp                                              @teologov
 /extensions/snippetslab                                             @renfeisong
 /extensions/snippetsurfer                                           @mkitane @mkitane @ridemountainpig
+/extensions/snow-report                                             @jonathanjhunt
 /extensions/soaring-symbols                                         @anhthang
 /extensions/social-network-trends                                   @koinzhang
 /extensions/socialfaktory                                           @adifsgaid
