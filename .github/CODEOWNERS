@@ -888,6 +888,7 @@
 /extensions/envoyer                                                 @thijsdewitt
 /extensions/epim                                                    @macownersclub
 /extensions/epoch-to-timestamp                                      @bgreenlee
+/extensions/equation-solver                                         @HackettLai
 /extensions/esa-search                                              @kawamataryo
 /extensions/escape-regexp-characters                                @lryong
 /extensions/espanso                                                 @kud @nbbaier
@@ -1924,6 +1925,7 @@
 /extensions/n8n                                                     @koinzhang @xmok
 /extensions/name-com                                                @xmok
 /extensions/namecheap                                               @xmok
+/extensions/namecrane                                               @xmok
 /extensions/namesilo                                                @xmok
 /extensions/namespaces                                              @GastroGeek @xmok
 /extensions/namuwiki                                                @123period
@@ -2016,6 +2018,7 @@
 /extensions/now-playing                                             @kendaniels
 /extensions/nowledge-mem                                            @wey-gu
 /extensions/nowplaying-cli                                          @yusufakdenizxd
+/extensions/npkill                                                  @0xdhrv
 /extensions/npm-claimer                                             @HugoRCD
 /extensions/ns-nl-search                                            @flaticols
 /extensions/nsis-reference                                          @idleberg @xmok
@@ -2043,7 +2046,7 @@
 /extensions/obs-clippings                                           @trevware
 /extensions/obs-control                                             @Yukaii @j3lte @RealCyGuy
 /extensions/obscurify-ai                                            @tonydavis629
-/extensions/obsidian                                                @marcjulianschwarz @KevinBatdorf @iancanderson @pernielsentikaer @ofalvai @adamadamsmusic @FServais @rakoort @MuuNU @marcjulianschwarz @theherk @yokuraki8 @vicampuzano @ErBlack @byheaven @tofrankie @alexibuild @RLuf @SWHL @raulkolaric @Just-Me-22 @kirill-markin
+/extensions/obsidian                                                @marcjulianschwarz @KevinBatdorf @iancanderson @pernielsentikaer @ofalvai @adamadamsmusic @FServais @rakoort @MuuNU @marcjulianschwarz @theherk @yokuraki8 @vicampuzano @ErBlack @byheaven @tofrankie @alexibuild @RLuf @SWHL @raulkolaric @Just-Me-22 @kirill-markin @0xdhrv
 /extensions/obsidian-bookmarks                                      @Dru89 @moeyua @iwex @qfettes @Victor-Cz
 /extensions/obsidian-link-opener                                    @osteele @karma-git
 /extensions/obsidian-smart-capture                                  @trillhause @Jimmy-b36
