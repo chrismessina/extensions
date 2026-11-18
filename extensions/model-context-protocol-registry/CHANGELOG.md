@@ -1,5 +1,53 @@
 # Model Context Protocol Registry Changelog
 
+## [Add OneSimpleAPI MCP Server] - 2026-11-18
+
+- Add OneSimpleAPI to the official registry with a direct Streamable HTTP endpoint and an `mcp-remote` fallback. Supports OAuth sign-in or a Bearer API key; a OneSimpleAPI account is required.
+
+## [Add Schematik MCP Server] - 2026-11-18
+
+- Add Schematik to the official registry: search electronics parts and hardware build guides (Arduino, ESP32, Raspberry Pi Pico). 4 read-only tools. Hosted Streamable HTTP server at https://www.schematik.io/mcp with no sign-in, a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients.
+
+## [Add mcpserverlist-mcp MCP Server] - 2026-11-18
+
+- Add mcpserverlist-mcp to the official registry: Check if your MCP server is ready for MCP directories, then get it submitted.
+
+## [Add Social Post Flow MCP Server] - 2026-11-18
+
+- Add Social Post Flow to the official registry: schedule and publish social media posts to Facebook, X, LinkedIn, Instagram, Threads, Pinterest, TikTok, Bluesky, Mastodon, Telegram, Google Business Profile and VK. 8 tools. Hosted Streamable HTTP server at https://app.socialpostflow.com/mcp with OAuth 2.1 sign-in (dynamic client registration and PKCE), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients.
+
+## [Add LurkAPI MCP Server] - 2026-11-18
+
+- Add LurkAPI to the official registry: public profiles, posts, comments, video transcripts and ad library results from 16 social platforms, one read-only tool per endpoint. Hosted Streamable HTTP server at https://api.lurkapi.com/mcp with OAuth 2.1 sign-in (dynamic client registration and PKCE), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients. Paid per call, with 100 free credits at signup.
+
+## [Add Lasso MCP Server] - 2026-11-18
+
+- Add Lasso to the official registry: find unpaid Amazon links, dry-run higher-rate hops, and report clicks for one site. Hosted Streamable HTTP server at https://lasso.link/mcp with a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients; supports a Hub license key or OAuth.
+
+## [Add Cockatoo MCP Server] - 2026-11-18
+
+- Add Cockatoo to the official registry with a direct hosted connection in Raycast and an `mcp-remote` fallback for other clients; website management uses owner-approved OAuth access.
+
+## [Add Clara by nOps MCP Server] - 2026-11-18
+
+- Add Clara by nOps to the official registry: FinOps assistant for AWS, GCP and Azure cost and usage, Reserved Instance and Savings Plan performance, budgets, reports, cost allocation and anomalies. Hosted Streamable HTTP server at https://mcp.nops.io with nOps OAuth sign-in, a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients.
+
+## [Add Ignav Flights MCP Server] - 2026-11-18
+
+- Add live flight search, cheapest-date comparisons, airport lookup, and booking links. Hosted Streamable HTTP with OAuth, a direct HTTP connection in Raycast, and an mcp-remote connection for other clients. Verified Ignav account required.
+
+## [Add InsertChat MCP Server] - 2026-11-18
+
+- Add InsertChat to the official registry: AI receptionist and AI chatbot. Triage calls and chats that need you, draft replies, look up leads, review reports, and train your assistant on web pages. Hosted Streamable HTTP server at https://api.insertchat.com/v2/mcp with OAuth 2.1 sign-in (dynamic client registration and PKCE), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients.
+
+## [Add seodata.dev MCP Server] - 2026-11-18
+
+- Add seodata.dev to the official registry: Google search volume, CPC, competition and similar keywords for 50+ countries, 3 read-only tools. Hosted remote Streamable HTTP server at https://mcp.seodata.dev/mcp with direct HTTP connection in Raycast; works without sign-in, or OAuth 2.1 sign-in with dynamic client registration and PKCE for higher limits.
+
+# [Update TopxAI Models Server URL] - 2026-11-18
+
+- Connect directly to https://api.topxai.xyz/mcp/models so clients keep the authorization header. Clarify that listing models is free.
+
 ## [Add Discord MCP] - 2026-11-17
 
 - Add Discord MCP to the community registry: run a Discord server from your AI with your own bot (messages, moderation and AutoMod, roles, channels and permissions, and building a whole server from a one-paragraph brief). 160+ tools; destructive actions show a preview and wait for confirmation. Local stdio server `@orygn/discord-mcp` from npm (Apache-2.0) that needs Node.js 22+ and a Discord bot token. Not affiliated with Discord.
