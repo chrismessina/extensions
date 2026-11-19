@@ -744,7 +744,7 @@
 /extensions/devutils                                                @vietanhlehuu
 /extensions/dex-screener                                            @wp-lai
 /extensions/dexcom-reader                                           @jmedina21
-/extensions/dia                                                     @tleo19 @daat21 @thomaspaulmann @pernielsentikaer @loris @xmok @hetommy @christianmagill @princeberenger @clins1994
+/extensions/dia                                                     @tleo19 @daat21 @thomaspaulmann @pernielsentikaer @loris @xmok @hetommy @christianmagill @princeberenger @clins1994 @0xdhrv
 /extensions/dia-skills                                              @Visual-Studio-Coder @pernielsentikaer
 /extensions/dice-and-coin                                           @yonbergman @xmok
 /extensions/dice-tiles                                              @Jumitti @pernielsentikaer
@@ -1404,7 +1404,7 @@
 /extensions/inoreader                                               @lemikeone
 /extensions/inpost-parcel-lockers                                   @timrogers
 /extensions/input-source-switcher                                   @danulqua
-/extensions/input-switcher                                          @lucaschultz
+/extensions/input-switcher                                          @lucaschultz @muhammadrizo-y
 /extensions/inspiration-image                                       @zyxingdev
 /extensions/inspire-search                                          @errepuntopenco
 /extensions/instabox-manager                                        @ridemountainpig
@@ -2235,7 +2235,7 @@
 /extensions/pbr-assistant                                           @chadgsg
 /extensions/pcloud                                                  @xela92
 /extensions/pdb-explorer                                            @mattgra
-/extensions/pdf-compression                                         @BirkhoffLee
+/extensions/pdf-compression                                         @BirkhoffLee @xmok
 /extensions/pdf-expert                                              @05bmckay
 /extensions/pdf-tools                                               @xilopaint
 /extensions/pdfsearch                                               @kevin-pek @xilopaint
@@ -2567,7 +2567,7 @@
 /extensions/read-my-screen                                          @erbilnas
 /extensions/read-this-later                                         @shearmds
 /extensions/readeck                                                 @shichen437
-/extensions/reader-mode                                             @chrismessina @hetommy
+/extensions/reader-mode                                             @chrismessina @hetommy @LitoMore
 /extensions/reading-time                                            @fromsergio
 /extensions/readwise                                                @natterstefan @alexibuild
 /extensions/readwise-reader                                         @zach-fuller @birdmanmandbir @nicolas-marien @civ2boss @alexibuild
@@ -2850,6 +2850,7 @@
 /extensions/sketch                                                  @aesign
 /extensions/skills                                                  @keito4 @keito4 @keito4 @raulgg @DaleSeo @pernielsentikaer @kayotimoteo @alexibuild @alastairsounds
 /extensions/skills-re                                               @escwxyz
+/extensions/skyfrom                                                 @0xdhrv
 /extensions/skyscanner-flights                                      @ayushtom
 /extensions/slack                                                   @momme-rtf @jfkisafk @RobErskine @y0ngha @erayack @clins1994 @sleicht @artistro08 @0xdhrv @Naoya-Otani
 /extensions/slack-status                                            @PitNikola @johnhampton @thomaspaulmann @pernielsentikaer @ramsaysewell @henrik
@@ -3141,7 +3142,7 @@
 /extensions/threads                                                 @chrismessina @ridemountainpig
 /extensions/threads-video-downloader                                @ridemountainpig
 /extensions/tibia-helper                                            @kjbakke
-/extensions/ticker-bar                                              @kays0x
+/extensions/ticker-bar                                              @kays0x @osikany
 /extensions/ticktick                                                @viduycheung @viduycheung @Alireza29675 @Yakitrak @ridemountainpig @Iron0utlaw
 /extensions/ticktick-plus                                           @ysrazsingh @0xdhrv
 /extensions/tidal                                                   @Ek2100

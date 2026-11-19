@@ -7,6 +7,19 @@ const METABRAIN_DB_PATH = join(homedir(), ".metabrain.db");
 
 export const OFFICIAL_ENTRIES: RegistryEntry[] = [
   {
+    name: "admakeai",
+    title: "AdMakeAI",
+    description:
+      "Ad creative for Facebook, Instagram and TikTok advertisers: design finished ad images and UGC-style video ads for your brand, write ad copy, batch ad sets for creative testing, look up the ads any brand runs in the Meta Ad Library, read Meta ad performance, and upload ads or draft campaigns to a connected Meta ad account. 60 tools, no delete tools; tools that create ads in Meta say so and ask for confirmation. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE) or an API key; an AdMakeAI account is required.",
+    icon: "https://raw.githubusercontent.com/mesmerlord/admakeai-mcp/main/logo.png",
+    homepage: "https://admakeai.com/agents",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://admakeai.com/api/mcp"],
+    },
+    remoteUrl: "https://admakeai.com/api/mcp",
+  },
+  {
     name: "tap-giving",
     title: "NFC Tap Builder by Tap.Giving",
     description:
@@ -2577,6 +2590,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "mcp-remote", "https://mcp.razuna.YOUR_REGION/sse?access-token=YOUR_ACCESS_TOKEN"],
     },
+  },
+  {
+    name: "real-alpha",
+    title: "Real Alpha",
+    description:
+      "Search what the founders, CEOs and researchers building AI said in long podcast and YouTube interviews, from Dwarkesh Podcast and Lenny's Podcast to No Priors, Latent Space and BG2. Each result is a moment of a few minutes with the speaker, what they do, the show, the date, their words and a page to cite that plays the episode from that second. 6 read-only tools: search every moment, everything one person said, how builders answer big questions like \"Is AI a bubble?\", one moment in full, a minute of any episode's transcript, and the latest moments. Open source (MIT). Hosted remote Streamable HTTP server with no sign-in and no API key.",
+    icon: "https://realalpha.app/icons/icon-512.png",
+    homepage: "https://realalpha.app/mcp/?utm_source=raycast&utm_medium=directory",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://realalpha.app/mcp"],
+    },
+    remoteUrl: "https://realalpha.app/mcp",
   },
   {
     name: "recordhtml",
