@@ -826,6 +826,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     remoteUrl: "https://outbox.roxinbox.io/mcp",
   },
   {
+    name: "agentdrive",
+    title: "agentdrive",
+    description:
+      "Persistent file storage for AI agents: save text or binary files, list and read them, organize them in folders, move or rename them, and delete files. Files outlive sessions and work across connected MCP clients. Anyone holding a file link can open it in a browser without an account; deleting a file revokes its link. OAuth sign-in (PKCE S256) is required to manage the drive; an agentdrive account is needed (free drive: 500 MB). Hosted Streamable HTTP server with a direct HTTP connection in Raycast and an mcp-remote fallback requiring Node.js for other clients.",
+    icon: "https://raw.githubusercontent.com/plsoulie/agentdrive/main/assets/icon-512.png",
+    homepage: "https://useagentdrive.com",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://useagentdrive.com/mcp"],
+    },
+    remoteUrl: "https://useagentdrive.com/mcp",
+  },
+  {
     name: "agenticwebscore",
     title: "AgenticWebScore",
     description:
@@ -1326,6 +1339,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "compare-the-cloud",
+    title: "Compare the Cloud",
+    description:
+      "UK B2B technology provider directory (20,000+ cloud, MSP, cybersecurity and AI vendors) plus Compare the Cloud articles, news and expert opinion. Search and compare providers, find similar vendors, browse categories, read articles and opinion, and get directory statistics. 10 read-only tools. Hosted Streamable HTTP server with no sign-in and no API key needed; a free key raises the rate limit. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://mcp.comparethecloud.net/logo-512.png",
+    homepage: "https://mcp.comparethecloud.net",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.comparethecloud.net/mcp"],
+    },
+    remoteUrl: "https://mcp.comparethecloud.net/mcp",
+  },
+  {
     name: "comunicate-eu",
     title: "Comunicate.eu",
     description:
@@ -1463,7 +1489,7 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     name: "dc-hub",
     title: "DC Hub",
     description:
-      "DC Hub is the live data layer for data-center site selection. Its Data Center Power Index (DCPI) is a daily score of where data centers can get grid power, across 300+ markets. Also live grid, fiber, gas and interconnection-queue data, and Capacity Source: search available data-center capacity by size and location and request introductions. 94 tools; every answer carries its source. Hosted remote Streamable HTTP server through `mcp-remote`; free tier works with no API key and no sign-in.",
+      "DC Hub is the orchestration layer for data center and energy intelligence. Find power. Find land. Find fiber. Find capacity. One read-only server for power and grid conditions, interconnection queues, energy prices, fiber and site selection, including the Data Center Power Index (DCPI); its execute_plan tool chains the right tools into one dated, cited answer. Hosted remote Streamable HTTP server through `mcp-remote`; an API key is optional.",
     icon: "https://raw.githubusercontent.com/azmartone67/dchub-mcp-server/main/dchub-logo.png",
     homepage: "https://dchub.cloud/connect",
     configuration: {
@@ -1915,6 +1941,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       args: ["-y", "mcp-remote", "https://mcp.houseaiapp.com/mcp"],
     },
     remoteUrl: "https://mcp.houseaiapp.com/mcp",
+  },
+  {
+    name: "impulse",
+    title: "Impulse",
+    description:
+      "Create event registration pages, edit page and email drafts, send or schedule attendee broadcasts, manage or export guest lists, and record check-in. Creating a page can publish it immediately; sending broadcasts and deleting guests affect live event data. Hosted Streamable HTTP server with OAuth 2.0 sign-in (authorization code with PKCE S256, dynamic client registration / CIMD), no API key. Requires an Impulse account. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://www.impulse-interactive.com/impulse-icon-512.png",
+    homepage: "https://www.impulse-interactive.com/product/mcp-server",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.impul.co/mcp"],
+    },
+    remoteUrl: "https://mcp.impul.co/mcp",
   },
   {
     name: "isms-copilot",
@@ -2855,6 +2894,25 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     },
   },
   {
+    name: "scrapewise",
+    title: "Scrapewise",
+    description:
+      "Clean, matched, AI-ready product data from any website. Read product and price data from any shop or Amazon, see the same product matched across shops, search Google and Amazon, fetch web pages and read the rows saved in your account; a Full key can also build and run scrapers. Hosted Streamable HTTP server: Raycast connects directly over HTTP with Scrapewise account sign-in; no API key or Node.js is required in Raycast. Other clients can use the local `mcp-remote` fallback, which requires Node.js and a Scrapewise API key in the `Authorization: Bearer` header (Settings > API Keys). Replace YOUR_SCRAPEWISE_API_KEY and keep the Bearer prefix.",
+    icon: "https://raw.githubusercontent.com/BEBOTECH-OU/scrapewise-mcp/main/assets/scrapewise-logo-400.png",
+    homepage: "https://scrapewise.ai",
+    configuration: {
+      command: "npx",
+      args: [
+        "-y",
+        "mcp-remote",
+        "https://mcp.scrapewise.ai/mcp",
+        "--header",
+        "Authorization: Bearer YOUR_SCRAPEWISE_API_KEY",
+      ],
+    },
+    remoteUrl: "https://mcp.scrapewise.ai/mcp",
+  },
+  {
     name: "send21",
     title: "send21",
     description:
@@ -2955,6 +3013,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "mcp-remote", "https://www.socialfaktory.com/mcp"],
     },
+  },
+  {
+    name: "soley",
+    title: "Sóley",
+    description:
+      "Book licensed Icelandic tours, activities and stays from your AI agent, with live Iceland roads, weather, aurora and buses. Search operators by place, type and price, read each operator's cancellation policy, check availability, get quotes in ISK and your own currency, and reserve each leg of a trip. You confirm with a one-time code sent to your own email and pay the operator directly through one payment link. Live Iceland data from public sources: road conditions, weather, aurora forecast, earthquakes, safety alerts, public buses and flights. 30 tools. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE); sign-in by email code, no password needed. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://soley.travel/icon-512.png",
+    homepage: "https://soley.travel/en/docs/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://api.soley.travel/mcp"],
+    },
+    remoteUrl: "https://api.soley.travel/mcp",
   },
   {
     name: "solidping",
@@ -3273,6 +3344,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
         UBERLLM_AUTH_HEADER: "Bearer YOUR_UBERLLM_API_KEY",
       },
     },
+  },
+  {
+    name: "ulisten",
+    title: "uListen",
+    description:
+      "Ask what was actually said on the podcasts uListen covers. Search its curated catalog of long-form YouTube podcasts by topic, person, show or a half-remembered quote, read speaker-labeled transcript passages, and get episode summaries and chapter summaries, with links to the minute it happened. Four read-only tools. Hosted Streamable HTTP server; no account, sign-in or API key.",
+    icon: "https://ulisten.ai/favicon.svg",
+    homepage: "https://ulisten.ai/connectors",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.ulisten.ai/"],
+    },
+    remoteUrl: "https://mcp.ulisten.ai/",
   },
   {
     name: "unblockingapi",
