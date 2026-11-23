@@ -1,5 +1,46 @@
 # Model Context Protocol Registry Changelog
 
+## [Add Builtalist MCP Server] - 2026-11-23
+
+- Add Builtalist to the official registry: architecture worth visiting anywhere in the world, with more than 32,000 buildings to search by city, architect, style or type, stories of places, architecture competitions and the exhibitions on in Madrid. Hosted Streamable HTTP server at https://builtalist.com/mcp with no sign-in, a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients.
+
+## [Add Alexein AI MCP Server] - 2026-11-23
+
+- Add Alexein AI to the official registry: your personal memory, shared across your AI tools, so what you tell one carries over to the others, with what you connect to Alexein such as Slack, GitHub and email. Searches what you told it before, saves new facts, opens saved memories and runs routines. Hosted Streamable HTTP server at https://api.alexein.ai/v1/mcp with OAuth 2.1 sign-in (dynamic client registration and PKCE), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients. An Alexein account is required.
+
+## [Add ReadShore MCP Server] - 2026-11-23
+
+- Add ReadShore to the official registry: find, read and save to a ReadShore read-later library from an AI agent, with summaries, analysis and saved text with numbered passages to cite. 3 tools. Hosted Streamable HTTP server at https://readshore.app/mcp with OAuth 2.1 sign-in (dynamic client registration and PKCE), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients. Needs a ReadShore account.
+
+## [Add Poptin MCP Server] - 2026-11-23
+
+- Add Poptin to the official registry for email campaigns, popup and form analytics, audience segmentation, and existing popup management. Connect directly over HTTP with OAuth in Raycast, or use the `mcp-remote` fallback in other clients.
+
+## [Add FundingTracker MCP Server] - 2026-11-23
+
+- Add FundingTracker to the official registry: merchant cash advance calculators (factor rate to APR, early payoff, cash-flow impact), a public funder directory with merchant reviews and MCA guides, plus sign-in access to your own deals, balances, payments and alerts. 16 tools. Hosted Streamable HTTP server at https://fundingtracker.app/api/mcp; public tools need no account, account tools use OAuth 2.1 sign-in (dynamic client registration and PKCE). Direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients.
+
+## [Add ShopSavvy MCP Server] - 2026-11-23
+
+- Add ShopSavvy to the official registry: look up products by name, barcode, ASIN or URL and compare current prices across retailers, with price history and buying guides. 15 tools. Hosted Streamable HTTP server at https://api.shopsavvy.com/mcp with no account or API key, a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients.
+
+## [Add Octopost MCP Server] - 2026-11-23
+
+- Add Octopost to the official registry: post, schedule and thread to X, Bluesky, Mastodon and LinkedIn from your agent, with a human approval queue. Hosted remote Streamable HTTP server at https://octopost.ink/mcp with OAuth 2.1 sign-in, a direct connection in Raycast and a pinned `mcp-remote` fallback for other clients.
+
+## [Add Ask Japan and MARU Japan Hands] - 2026-11-23
+
+- Add Ask Japan for Japanese company, invoice and postcode data and human-service requests.
+- Add MARU Japan Hands for human services in Japan and wallet request tools requiring owner confirmation. Both use hosted Streamable HTTP connections without an API key for discovery. Human services are paid.
+
+## [Add Runheed MCP Server] - 2026-11-23
+
+- Add Runheed to the official registry: error tracking your coding agent can read. Search production errors, read stack traces and breadcrumbs, and resolve errors with the fixing commit. Hosted Streamable HTTP server at https://runheed.com/api/mcp with OAuth 2.1 sign-in (dynamic client registration), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients. Needs a Runheed plan (7-day trial).
+
+## [Add RunLater MCP Server] - 2026-11-23
+
+- Add RunLater to the official registry: schedule HTTP requests from your agent, once at an exact time or on a cron schedule, with retries and a log of every run. 9 tools. Hosted Streamable HTTP server at https://runlater.app/api/mcp with OAuth 2.1 sign-in (dynamic client registration and PKCE), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients. Needs a RunLater plan (14-day trial).
+
 ## [Add CallForMe MCP Server] - 2026-11-22
 
 - Add CallForMe to the official registry: phone calls to businesses from your AI agent, with mid-call questions, transcripts and parallel calls. Hosted Streamable HTTP server at https://callforme.tel/mcp with OAuth 2.1 sign-in. Pay per call.

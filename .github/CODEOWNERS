@@ -24,6 +24,7 @@
 /extensions/accordance                                              @entupo
 /extensions/acqua                                                   @FezVrasta
 /extensions/active-mississaugua                                     @Aayush9029
+/extensions/adaptlypost                                             @TarasShyn
 /extensions/adb                                                     @quentin23soleil
 /extensions/adguard-home                                            @subsy
 /extensions/adhan-time                                              @mzaien @menisy @YourMCGeek
@@ -120,6 +121,7 @@
 /extensions/app-creator                                             @EvanZhouDev
 /extensions/app-folders                                             @infovore28
 /extensions/app-hider                                               @LeonidAlekseev
+/extensions/app-hopper-window-and-tab-switcher                      @chenghsj
 /extensions/app-icon-generator                                      @hunter-ji @pernielsentikaer @0xdhrv
 /extensions/app-icons                                               @sherotree
 /extensions/app-keeper-manager                                      @onlysunjun
@@ -523,6 +525,7 @@
 /extensions/codepen                                                 @0xdhrv
 /extensions/codesnap                                                @Mokkapps @pernielsentikaer
 /extensions/codex                                                   @asifk987
+/extensions/codex-account-switcher                                  @nicing
 /extensions/codex-claude-cli                                        @WerrySs @0xdhrv @vkalipat
 /extensions/codex-dictation                                         @ertembiyik
 /extensions/codex-manager                                           @josedefreitas91 @pernielsentikaer
@@ -673,6 +676,7 @@
 /extensions/danish-tax-calculator                                   @pernielsentikaer
 /extensions/dash                                                    @RSO @sxn @JasonBoy
 /extensions/dash-off                                                @peduarte @xilopaint
+/extensions/dashboard-icons                                         @macx
 /extensions/dashlane                                                @dpnick
 /extensions/dashlane-vault                                          @tmwrnr @MushOP
 /extensions/databuddy                                               @izadoesdev @mezotv
@@ -2603,6 +2607,7 @@
 /extensions/redis                                                   @k8scat
 /extensions/redmine                                                 @jwickers @julesvbertolino
 /extensions/rednote-viewer                                          @orangelckc @LitoMore
+/extensions/redreplier                                              @TarasShyn
 /extensions/reflect                                                 @RyonHuedepohl @joshknowles @tylerwince @ocavue @theomjones @ErBlack
 /extensions/reflect-open                                            @jaseemts
 /extensions/refresh-browsers                                        @koinzhang
@@ -2686,6 +2691,7 @@
 /extensions/sabnzbd                                                 @jesse-c @xmok
 /extensions/sadaqah-box                                             @emircanerkul
 /extensions/safari                                                  @loris @thomaspaulmann @SKaplanOfficial @iwex @xilopaint @ChangeHow @ridemountainpig @1weiho @xmok @niksite @ojowwalker77 @gumadeiras @adrena11n @jsonMartin @princeberenger
+/extensions/safay                                                   @gicek
 /extensions/safe-secret                                             @melonamin
 /extensions/sage-hr                                                 @cyxn
 /extensions/salesforce-search                                       @svenwiegand
@@ -3372,6 +3378,7 @@
 /extensions/venue-rank                                              @ViGeng
 /extensions/vercast                                                 @MaxLeiter @gleich @dgrcode @samuelkraft @xmok @ridemountainpig @sebdanielsson @1weiho @thomas-forbes @0xdhrv @gfazioli
 /extensions/verify-number                                           @xmok
+/extensions/verwatch                                                @chrisrowe
 /extensions/vesslo                                                  @hjm79
 /extensions/viacep                                                  @xilopaint
 /extensions/vibelet-search                                          @quanru

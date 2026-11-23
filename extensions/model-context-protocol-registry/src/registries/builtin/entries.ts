@@ -7,6 +7,84 @@ const METABRAIN_DB_PATH = join(homedir(), ".metabrain.db");
 
 export const OFFICIAL_ENTRIES: RegistryEntry[] = [
   {
+    name: "builtalist",
+    title: "Builtalist",
+    description:
+      "Find architecture worth visiting anywhere in the world. Search more than 32,000 buildings by city, architect, style or type and get the entry of each one, with who designed it and when, where it is, whether it can be visited and why it matters. It also has stories of places, architecture competitions and the exhibitions on in Madrid. 5 read-only tools. Hosted Streamable HTTP server with no account or API key. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://builtalist.com/web-app-manifest-512x512.png",
+    homepage: "https://builtalist.com/en/ia",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://builtalist.com/mcp"],
+    },
+    remoteUrl: "https://builtalist.com/mcp",
+  },
+  {
+    name: "alexein-ai",
+    title: "Alexein AI",
+    description:
+      "Your personal memory, shared across your AI tools: connect the same memory to Raycast, Claude, ChatGPT, Cursor, Copilot and others, and what you tell one carries over to the rest, together with what you connect to Alexein, such as Slack, GitHub and email. Search what you told it before, save new facts, open saved memories and run routines. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE); an Alexein account is required. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://alexein.ai/apple-icon.png",
+    homepage: "https://docs.alexein.ai",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://api.alexein.ai/v1/mcp"],
+    },
+    remoteUrl: "https://api.alexein.ai/v1/mcp",
+  },
+  {
+    name: "readshore",
+    title: "ReadShore",
+    description:
+      "Let your AI work with your ReadShore read-later library: find the articles, videos and posts you saved, read ReadShore's summary and analysis or the saved text with numbered passages to cite, and save new links to read later. It cannot delete items or mark them read. 3 tools. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE); a ReadShore account is required (sign in with Apple or Google; free to start). Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://readshore.app/images/connector-icon.png",
+    homepage: "https://readshore.app/connect-ai-assistants/?utm_source=raycast&utm_medium=mcp-directory",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://readshore.app/mcp"],
+    },
+    remoteUrl: "https://readshore.app/mcp",
+  },
+  {
+    name: "poptin",
+    title: "Poptin",
+    description:
+      "Create and send email marketing campaigns, analyze popup and form performance, build audience segments, and manage existing popups and forms in your Poptin account. Prepare email designs from templates or custom HTML, review audiences, and confirm before sending or scheduling. Hosted Streamable HTTP server with OAuth sign-in; requires a Poptin account with the relevant permissions and features. Raycast connects directly over HTTP; other clients use the mcp-remote proxy and require Node.js.",
+    icon: "https://raw.githubusercontent.com/Poptin-LTD/Poptin-MCP/main/resources/poptin.png",
+    homepage: "https://developers.poptin.com/docs/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.popt.in/mcp"],
+    },
+    remoteUrl: "https://mcp.popt.in/mcp",
+  },
+  {
+    name: "fundingtracker",
+    title: "FundingTracker",
+    description:
+      "Merchant cash advance (MCA) tools for business owners and brokers: turn a factor rate into an APR, estimate an early payoff, see what a daily or weekly debit does to cash flow, search a public funder directory with merchant reviews, and read MCA guides. Sign in to read your own FundingTracker deals, balances, payments, upcoming debits and alerts. 16 tools. Hosted Streamable HTTP server; the public tools need no account, and account tools use OAuth 2.1 sign-in (dynamic client registration and PKCE). Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://fundingtracker.app/icon-512.png",
+    homepage: "https://fundingtracker.app/ai-assistants",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://fundingtracker.app/api/mcp"],
+    },
+    remoteUrl: "https://fundingtracker.app/api/mcp",
+  },
+  {
+    name: "shopsavvy",
+    title: "ShopSavvy",
+    description:
+      "Look up products by name, barcode, ASIN or URL and compare current prices across tens of thousands of retailers, with price history and buying guides, from ShopSavvy's catalog of 30M+ products. 15 tools. Hosted Streamable HTTP server with no account or API key (rate-limited per IP; an optional ShopSavvy Data API key as a Bearer token raises the limit). Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://shopsavvy.com/assets/icon-512.png",
+    homepage: "https://shopsavvy.com/agents",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://api.shopsavvy.com/mcp"],
+    },
+    remoteUrl: "https://api.shopsavvy.com/mcp",
+  },
+  {
     name: "taskhold",
     title: "Taskhold",
     description:
@@ -18,6 +96,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       args: ["-y", "mcp-remote", "https://taskhold.com/api/mcp"],
     },
     remoteUrl: "https://taskhold.com/api/mcp",
+  },
+  {
+    name: "octopost",
+    title: "Octopost",
+    description:
+      "Post, schedule and thread to X, Bluesky, Mastodon and LinkedIn with a human approval queue. Hosted Streamable HTTP server with OAuth 2.1 sign-in or an API key. Paid plans from $29/month with a 7-day trial for $1. Raycast connects directly; other clients use the pinned mcp-remote proxy and require Node.js.",
+    icon: "https://github.com/octopost-ink.png",
+    homepage: "https://octopost.ink/docs/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote@0.14.3", "https://octopost.ink/mcp"],
+    },
+    remoteUrl: "https://octopost.ink/mcp",
   },
   {
     name: "opencart-greece",
@@ -952,6 +1043,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       command: "npx",
       args: ["-y", "mcp-remote", "https://www.apmzoom.com/mcp"],
     },
+  },
+  {
+    name: "ask-japan",
+    title: "Ask Japan",
+    description:
+      "Japanese company, invoice and postcode data, plus human services in Japan. Free-source data is free; paid-source data follows authorized market pricing plus a small service fee. Human services are priced separately. Hosted Streamable HTTP; no sign-in to connect. Raycast uses direct HTTP; other clients use mcp-remote and require Node.js.",
+    icon: "https://raw.githubusercontent.com/ihouse-corp/ask-japan-mcp/main/logo.png",
+    homepage: "https://github.com/ihouse-corp/ask-japan-mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://askjapan.senpinai.com/mcp"],
+    },
+    remoteUrl: "https://askjapan.senpinai.com/mcp",
   },
   {
     name: "atono",
@@ -2354,6 +2458,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     remoteUrl: "https://mcpcheckup.com/mcp",
   },
   {
+    name: "maru-japan-hands",
+    title: "MARU Japan Hands",
+    description:
+      "Japanese phone calls, reservations, shopping and on-site checks by people in Japan. Human services are paid. The endpoint also exposes wallet request tools; payment requires wallet-owner confirmation. Hosted Streamable HTTP; no sign-in to connect. Raycast uses direct HTTP; other clients use mcp-remote and require Node.js.",
+    icon: "https://raw.githubusercontent.com/ihouse-corp/maru-japan-hands/main/logo.png",
+    homepage: "https://github.com/ihouse-corp/maru-japan-hands",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://maru.senpinai.com/mcp"],
+    },
+    remoteUrl: "https://maru.senpinai.com/mcp",
+  },
+  {
     name: "medbillanalyzer",
     title: "MedBillAnalyzer",
     description:
@@ -2884,6 +3001,32 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       args: ["-y", "mcp-remote", "https://mcp.runcrate.ai/mcp"],
     },
     remoteUrl: "https://mcp.runcrate.ai/mcp",
+  },
+  {
+    name: "runheed",
+    title: "Runheed",
+    description:
+      "Error tracking your coding agent can read: search your app's production errors, read stack traces and breadcrumbs, and resolve each error with a note naming the fixing commit. Remote Streamable HTTP server with Runheed OAuth 2.1 sign-in (dynamic client registration) through `mcp-remote`; no key to paste. Paid, from $29/month with a 7-day trial; a no-account demo server with sample errors is at https://runheed.com/api/mcp/demo.",
+    icon: "https://runheed.com/icon.png",
+    homepage: "https://runheed.com/mcp-server?ref=raycast",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://runheed.com/api/mcp"],
+    },
+    remoteUrl: "https://runheed.com/api/mcp",
+  },
+  {
+    name: "runlater",
+    title: "RunLater",
+    description:
+      "Schedule HTTP requests from your AI agent: call a URL once at an exact time or on a cron schedule, pause, resume or run jobs now, and read each run's status code and response. Failed runs retry with backoff. 9 tools. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE), a direct HTTP connection in Raycast and an `mcp-remote` fallback for other clients. Paid plans with a 14-day trial.",
+    icon: "https://runlater.app/apple-icon.png",
+    homepage: "https://runlater.app/docs/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote@0.14.3", "https://runlater.app/api/mcp"],
+    },
+    remoteUrl: "https://runlater.app/api/mcp",
   },
   {
     name: "runx",
