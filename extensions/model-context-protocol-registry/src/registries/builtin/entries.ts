@@ -7,6 +7,46 @@ const METABRAIN_DB_PATH = join(homedir(), ".metabrain.db");
 
 export const OFFICIAL_ENTRIES: RegistryEntry[] = [
   {
+    name: "iconsaga",
+    title: "IconSaga",
+    description:
+      "Find pictogram icons in plain words, in 10 languages, and get them in your colors as SVG, React or HTML: 5,517 icons in line, solid and duo styles. Hosted remote Streamable HTTP server; read-only, no sign-in needed (30 calls a day).",
+    icon: "https://iconsaga.com/brand/icon-192.png",
+    homepage: "https://iconsaga.com/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://iconsaga.com/mcp"],
+    },
+    remoteUrl: "https://iconsaga.com/mcp",
+  },
+  {
+    name: "while",
+    title: "while.sh",
+    description:
+      "Deploy the tools you build with your AI agent and share them with your team, a client or a supplier with a link and a password, or everyone. Hosted in France, with web services and workers, PostgreSQL databases, scheduled jobs, storage and previews. The agent reads a tool's logs, metrics and errors, queries its database in read-only SQL and rolls back to a previous version. A person approves in while.sh before a tool goes public or data is restored, and the agent never sees the credentials for your other software. 40 MCP tools. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE); no account is needed to try it, and MCP tools that need one ask you to sign in. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://while.sh/icon-light.png",
+    homepage: "https://while.sh/en/docs/get-started/connect-your-agent/",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://app.while.sh/mcp"],
+    },
+    remoteUrl: "https://app.while.sh/mcp",
+  },
+  {
+    name: "lemlist",
+    title: "lemlist",
+    description:
+      "Run multichannel outreach in lemlist from your AI assistant: list campaigns and their stats, create campaigns with email and LinkedIn sequences, add and search leads, search the lemlist B2B people database, and check the deliverability of sending domains. Official server run by lemlist. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE); any lemlist account works, including the free trial, and you pick the lemlist team to connect on the consent screen. Enrichment and people database searches use the team's credits.",
+    icon: "https://app.lemlist.com/lemapp-next/lemlist-logo.svg",
+    homepage:
+      "https://help.lemlist.com/en/articles/13728466-set-up-the-lemlist-mcp-server-in-your-llm-client-oauth-or-api-key",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://app.lemlist.com/mcp"],
+    },
+    remoteUrl: "https://app.lemlist.com/mcp",
+  },
+  {
     name: "decktype",
     title: "Decktype",
     description:
@@ -369,6 +409,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       args: ["-y", "mcp-remote", "https://app.cockatoo.com.au/mcp"],
     },
     remoteUrl: "https://app.cockatoo.com.au/mcp",
+  },
+  {
+    name: "stalkchain-data",
+    title: "StalkChain Data",
+    description:
+      "Research Solana wallets, token holders, early buyers, tracked traders, and Hyperliquid markets. Read-only hosted Streamable HTTP with StalkChain OAuth sign-in. Metered queries use account credits.",
+    icon: "https://raw.githubusercontent.com/StalkChain/fomo-mcp-api/4f23e9c27c071de07a5cef5017d2bf884017beb9/integrations/antigravity/assets/logo.png",
+    homepage: "https://stalkchain.com/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://data.stalkchain.com/mcp/directory"],
+    },
+    remoteUrl: "https://data.stalkchain.com/mcp/directory",
   },
   {
     name: "nops-clara",
