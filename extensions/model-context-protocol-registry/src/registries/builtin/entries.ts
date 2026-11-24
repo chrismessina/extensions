@@ -7,6 +7,45 @@ const METABRAIN_DB_PATH = join(homedir(), ".metabrain.db");
 
 export const OFFICIAL_ENTRIES: RegistryEntry[] = [
   {
+    name: "connecty",
+    title: "Connecty",
+    description:
+      "Ask your AI how your websites are doing: daily checks for up to 5 sites, plus a free status page. Add or remove sites, and read recent status changes. 7 tools. Hosted Streamable HTTP server with OAuth 2.1 sign-in (dynamic client registration and PKCE), no API key to paste. Public tools work without signing in. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://connecty.nl/apple-icon.png",
+    homepage: "https://connecty.nl/en/ai-assistant?utm_source=raycast&utm_medium=directory",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://connecty.nl/mcp"],
+    },
+    remoteUrl: "https://connecty.nl/mcp",
+  },
+  {
+    name: "product-metrics",
+    title: "Product Metrics",
+    description:
+      "Profit optimization for ecommerce advertising: server-side tracking, profit bidding, product segmentation and campaign planning across Google Ads, Meta and ChatGPT Ads. Access profit, new and returning customer status, lifetime value and product segments through a hosted Streamable HTTP MCP server with OAuth sign-in. Connect your Product Metrics account, or create one when you sign in. Connecting data is free; paid product features use a subscription. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    homepage: "https://docs.productmetrics.io/",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://www.productmetrics.io/mcp"],
+    },
+    remoteUrl: "https://www.productmetrics.io/mcp",
+  },
+  {
+    name: "safelagoon",
+    title: "SafeLagoon",
+    description:
+      "Parental controls from your AI assistant with SafeLagoon: see children's screen time, top apps, activity summaries and weekly reports, review rules and extra-time requests, approve or deny extra time, block or unblock apps, set daily limits and blocking windows, and lock or unlock a child's device. Write tools are separate from read tools. Hosted Streamable HTTP server with OAuth sign-in (dynamic client registration and PKCE) using a SafeLagoon parent account; Premium or a Premium trial and at least one paired child device are required. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://raw.githubusercontent.com/Safe-Lagoon/safelagoon-mcp/main/logo-512.png",
+    homepage:
+      "https://safelagoon.com/en/connect-ai/?utm_source=raycast&utm_medium=referral&utm_campaign=connect-ai-2026&utm_content=connect-ai",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.safelagoon.com/mcp"],
+    },
+    remoteUrl: "https://mcp.safelagoon.com/mcp",
+  },
+  {
     name: "builtalist",
     title: "Builtalist",
     description:
@@ -3411,6 +3450,18 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
       args: ["-y", "mcp-remote", "https://mcp.tapetide.com/mcp"],
     },
     remoteUrl: "https://mcp.tapetide.com/mcp",
+  },
+  {
+    name: "tapline",
+    title: "Tapline",
+    description: "Structured JSON from YouTube, Airbnb, TikTok, Instagram, Facebook, LinkedIn, Zillow and Google Maps.",
+    icon: "https://api.tapline.sh/favicon.png",
+    homepage: "https://tapline.sh/docs/mcp",
+    remoteUrl: "https://api.tapline.sh/mcp",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://api.tapline.sh/mcp"],
+    },
   },
   {
     name: "taplio",
