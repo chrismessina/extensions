@@ -2600,6 +2600,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
     remoteUrl: "https://www.monito.dev/api/mcp",
   },
   {
+    name: "multi-books",
+    title: "Multi Books",
+    description:
+      "Multi Books connects the books of your own Xero organizations, Zoho Books organizations and FreeAgent companies to Raycast - several companies at once, with one answer across all of them. Find invoices and bills, create invoices, estimates and credit notes, record bills, spending and payments, and read profit and loss, balance sheets and aged debtors, with a read-only switch per company. Hosted remote Streamable HTTP server; OAuth 2.1 sign-in with dynamic client registration, no API key to paste.",
+    icon: "https://lumman.co/icon-books-512.png",
+    homepage: "https://lumman.co/mcp/multi-books",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://books.lumman.co/mcp"],
+    },
+    remoteUrl: "https://books.lumman.co/mcp",
+  },
+  {
     name: "multi-calendar",
     title: "Multi Calendar",
     description:
@@ -4645,6 +4658,19 @@ export const OFFICIAL_ENTRIES: RegistryEntry[] = [
 ];
 
 export const COMMUNITY_ENTRIES: RegistryEntry[] = [
+  {
+    name: "embarko",
+    title: "Embarko",
+    description:
+      "Deploy and host AI-built apps and websites, and get a live URL without any DevOps setup. Embarko runs the app at `https://<app-name>.embarko.app`. Tools: deploy_app (deploy or update an app from its files), read_app (status, logs, deployments, env vars, domains, analytics), update_app (set env vars, add a custom domain, roll back), and app_danger_zone (delete, rename). Hosted Streamable HTTP server with OAuth sign-in; a free Embarko account is required. Raycast connects directly over HTTP; other clients use the local mcp-remote proxy, which requires Node.js.",
+    icon: "https://embarko.ai/assets/embarko-icon.svg",
+    homepage: "https://embarko.ai/docs/quickstart",
+    configuration: {
+      command: "npx",
+      args: ["-y", "mcp-remote", "https://mcp.embarko.ai/mcp"],
+    },
+    remoteUrl: "https://mcp.embarko.ai/mcp",
+  },
   {
     name: "talk-to-figma",
     title: "Talk to Figma",
